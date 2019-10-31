@@ -1,7 +1,8 @@
-class EnglishVerb(object):
+from AbstarctVerb import AbstractVerb
 
-    def __init__(self, infinitive):
-        pass
+
+class EnglishVerb(AbstractVerb):
+
 
     def morph(self, person, number, tense, genus):
         return "am"
