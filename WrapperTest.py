@@ -2,7 +2,7 @@ import unittest
 
 from Wrapper import wrap
 
-class TestEnglishVerb(unittest.TestCase):
+class TestWrapper(unittest.TestCase):
 
     def test_warp(self):
         s = ""
