@@ -1,4 +1,4 @@
-from AbstarctVerb import AbstractVerb
+import AbstarctVerb
 
 import enum
 
@@ -14,18 +14,18 @@ class Number(enum.Enum):
     PLURAL = 2
 
 
-class EnglishVerb(AbstractVerb):
+class EnglishVerb(AbstarctVerb.AbstractVerb):
 
     def morph(self, person, number, tense, genus):
-        if person == Person.FIRST and number == Number.SINGULAR:
+        if person == Person.FIRST.value and number == Number.SINGULAR.value:
             return "am"
-        elif person == Person.SECOND and number == Number.SINGULAR:
+        elif person == Person.SECOND.value and number == Number.SINGULAR.value:
             return "are"
-        elif person == Person.THIRD  and number == Number.SINGULAR:
+        elif person == Person.THIRD.value  and number == Number.SINGULAR.value:
             return "is"
-        elif person == Person.FIRST  and number == Number.PLURAL:
+        elif person == Person.FIRST.value  and number == Number.PLURAL.value:
             return "are"
-        elif person == Person.SECOND and number == Number.PLURAL:
+        elif person == Person.SECOND.value and number == Number.PLURAL.value:
             return "are"
-        elif person == Person.THIRD  and number == Number.PLURAL:
+        elif person == Person.THIRD.value  and number == Number.PLURAL.value:
             return "are"
