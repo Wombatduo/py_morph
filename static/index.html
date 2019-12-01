@@ -1,0 +1,43 @@
+<HTML>
+    <HEAD>
+        <TITLE>Морфер</TITLE>
+        <style>
+            label {font-family: sans-serif; position: relative; left: 1.5em; top:-1.2em; font-size: 14px }
+            #infinitive, #person {position: relative}
+            #infinitive {left: -5.5em}
+            #person {left: -2em}
+            /*#viewport {border-width: 2px; border-color: black}*/
+        </style>
+    </HEAD>
+    <BODY>
+
+        <H1 class="h1">Служба морфинга</H1>
+        <P>Сервис позволяет получить разные формы глагола.</P>
+
+        <H2>Для использования сервиса</H2>
+        <UL>
+        <LI>Укажите инфинитив</LI>
+        <LI>Укажите лицо</LI>
+        <LI>Укажите число</LI>
+        </UL>
+        <br/>
+        <FORM action="/morph/do" method="post" target="result">
+            <label for="infinitive">Инфинитив</label>
+            <input type="text" id="infinitive" name="infinitive" tabindex="1" />
+            <label for="person">Лицо</label>
+            <select name="person" id="person" tabindex="2">
+                <option value="1">первое</option>
+                <option value="2">второе</option>
+                <option value="3">третье</option>
+            </select>
+            <label for="singular">Ед</label>
+            <input tabindex="3" id="singular" type="radio" name="number" value="1"/>
+            <label for="plural">Мн</label>
+            <input tabindex="3" id="plural" type="radio" name="number" value="2"/>
+            <BUTTON type="submit" tabindex="5">Сморфировать</BUTTON>
+        </FORM>
+
+        <iframe width="400" height="200" id="viewport" name="result"></iframe>
+
+    </BODY>
+</HTML>
