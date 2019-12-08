@@ -1,0 +1,5 @@
+label {font-family: sans-serif; position: relative; left: 1.5em; top:-1.2em; font-size: 14px }
+#infinitive, #person {position: relative}
+#infinitive {left: -5.5em}
+#person {left: -2em}
+/*#viewport {border-width: 2px; border-color: black}*/
