@@ -5,6 +5,11 @@ from EnglishVerb import EnglishVerb
 
 app = Flask(__name__, static_url_path="/static")
 
+@app.route('/')
+def hello():
+    return "<HTML>Hello!!!<BR \>" \
+           "If you want to do some morph, just follow <A href=\"/morph\">link...</A></HTML>"
+
 @app.route('/morph')
 def root():
     return app.send_static_file('index.html')
@@ -27,4 +32,4 @@ def morph_verb():
     return jsonify({'form':verb.morph(person,number,"Present",'M')})
 
 if __name__ == '__main__':
-    app.run(host= '192.168.1.83',debug=True)
+    app.run(host= '192.168.1.69',debug=True)
