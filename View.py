@@ -5,6 +5,10 @@ from EnglishVerb import EnglishVerb
 
 app = Flask(__name__, static_url_path="/static")
 
+@app.route('/favicon.ico')
+def favicon():
+    return app.send_static_file('favicon.ico')
+
 @app.route('/morph')
 def root():
     return app.send_static_file('index.html')
@@ -27,4 +31,4 @@ def morph_verb():
     return jsonify({'form':verb.morph(person,number,"Present",'M')})
 
 if __name__ == '__main__':
-    app.run(host= '192.168.1.77',debug=True)
+    app.run(host= '192.168.1.69',debug=True) # 192.168.1.69 - paps # 192.168.1.77 - wombat
