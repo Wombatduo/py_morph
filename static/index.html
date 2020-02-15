@@ -5,14 +5,11 @@
     <link rel="stylesheet" updateviacache="all" href="/static/style1.1.css"/>
     <script type="text/javascript" src="/jquery-3.4.1.js"></script>
     <script>
-        // jQuery code to show the working of this method
         $(document).ready(function () {
             $("form").submit(function () {
-                // alert("Form submitted Successfully");
                 var post_url = $(this).attr("action"); //get form action url
-                var request_method = $(this).attr("method"); //get form GET/POST method
+                var request_method = $(this).attr("method"); //get form HTTP method
                 var form_data = $(this).serialize(); //Encode form elements for submission
-
                 $.ajax({
                     url: post_url,
                     type: request_method,
@@ -24,26 +21,15 @@
             });
             $("form").submit();
         });
-
         $("#submit_form_button").click(function () {
             $("form").submit();
         });
-
     </script>
-
-    <!--        <style>-->
-    <!--            label {font-family: sans-serif; position: relative; left: 1.5em; top:-1.2em; font-size: 14px }-->
-    <!--            #infinitive, #person {position: relative}-->
-    <!--            #infinitive {left: -5.5em}-->
-    <!--            #person {left: -2em}-->
-    <!--            /*#viewport {border-width: 2px; border-color: black}*/-->
-    <!--        </style>-->
 </HEAD>
 <BODY>
 <h5><a href="/">домой</a></h5>
 <H1 class="h1">Служба морфинга</H1>
 <P color="red">Сервис позволяет получить разные формы глагола.</P>
-
 <H2 onmouseover="javascript: $('h2').css('text-decoration','underline')"
     onmouseout="javascript: $('h2').css('text-decoration','none')"
     onmousedown="javascript: $('h2').css('color','red')"
@@ -69,15 +55,10 @@
         <option value="1">Ед</option>
         <option value="2">Мн</option>
     </select>
-    <!--        <label for="singular">Ед</label>
-            <input onchange="$('form').submit()" tabindex="3" id="singular" type="radio" name="number" value="1"/>
-            <label for="plural">Мн</label>
-            <input onchange="$('form').submit()" tabindex="3" id="plural" type="radio" name="number" value="2"/>-->
     <BUTTON id="submit_form_button" style="visibility: hidden" tabindex="5">Сморфировать</BUTTON>
     </fieldset>
 </FORM>
-
-<!--<iframe width="400" height="200" id="viewport" name="result"></iframe>-->
+<iframe style="visibility: hidden" width="400" height="200" id="viewport" name="result"></iframe>
 <p>Новая форма: <span id="verb"></span></p>
 </BODY>
 </HTML>
