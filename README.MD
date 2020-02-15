@@ -19,4 +19,4 @@ $ export FLASK_APP=View
 $ FLASK_ENV=development flask run --host=0.0.0.0
 ```
 
-Then go to [http://localhost:5000/morph](http://192.168.1.69:5000/morph)
+Then go to [http://localhost:5000/morph](http://127.0.0.1:5000/morph)
