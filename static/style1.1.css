@@ -1,7 +1,8 @@
 label {font-family: sans-serif; position: relative; left: 1.5em; top:-1.2em; font-size: 14px }
-#infinitive, #person {position: relative}
-#infinitive {left: -5.5em}
+#infinitive, #person, #number {position: relative}
+#infinitive {left: -6em}
 #person {left: -2em}
+#number {left: -2.5em}
 #form {font-weight: bold; color: red}
 h1 {color: purple;
     text-transform: uppercase;

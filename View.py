@@ -5,9 +5,17 @@ from EnglishVerb import EnglishVerb
 
 app = Flask(__name__, static_url_path="/static")
 
+@app.route('/')
+def main():
+    return app.send_static_file('main.html')
+
 @app.route('/favicon.ico')
 def favicon():
     return app.send_static_file('favicon.ico')
+
+@app.route('/jquery-3.4.1.js')
+def jquery():
+    return app.send_static_file('jquery-3.4.1.js')
 
 @app.route('/morph')
 def root():
