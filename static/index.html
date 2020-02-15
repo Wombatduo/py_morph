@@ -22,11 +22,13 @@
                     $("#verb").html(data.form);
                 });
             });
+            $("form").submit();
         });
 
         $("#submit_form_button").click(function () {
             $("form").submit();
         });
+
     </script>
 
     <!--        <style>-->
@@ -76,6 +78,6 @@
 </FORM>
 
 <!--<iframe width="400" height="200" id="viewport" name="result"></iframe>-->
-<p>Новая форма: <span id="verb">Form</span></p>
+<p>Новая форма: <span id="verb"></span></p>
 </BODY>
 </HTML>
