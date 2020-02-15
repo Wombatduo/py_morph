@@ -2,8 +2,8 @@
 
 ## Capatibilites
 
-- Work with any language dictionary provided
-- Could try to dicrover and use some patterns in languages, not only hardcoded
+- Works with provided language dictionaries
+- Detects some patterns in languages, not only hardcoded
   
 ###  Arguments
   

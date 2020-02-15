@@ -39,4 +39,4 @@ def morph_verb():
     return jsonify({'form':verb.morph(person,number,"Present",'M')})
 
 if __name__ == '__main__':
-    app.run(host= '192.168.1.69',debug=True) # 192.168.1.69 - paps # 192.168.1.77 - wombat
+    app.run(host= '0.0.0.0',debug=True) # 192.168.1.69 - paps # 192.168.1.77 - wombat
