@@ -40,12 +40,14 @@ class EnglishVerb(AbstractVerb):
                         return "are"
                     elif person == Person.THIRD.value and number == Number.PLURAL.value:
                         return "are"
-                else:
-                    return self.infinitive
+                if self.infinitive == "do":
+                    if person == Person.THIRD.value and number == Number.SINGULAR.value:
+                        return "does"
+                return self.infinitive
             elif tense == 3:
                 return "will " + self.infinitive
             elif tense == 4:
-                return self.get_perfect_form(person)
+                return self.get_perfect_form(person, number)
         else:
             if tense == 1:
                 return self.get_ed_form()
@@ -54,10 +56,10 @@ class EnglishVerb(AbstractVerb):
             elif tense == 3:
                 return "will " + self.infinitive
             elif tense == 4:
-                return self.get_perfect_form(person)
+                return self.get_perfect_form(person, number)
 
-    def get_perfect_form(self, person):
-        if person == Person.FIRST.value or person == Person.SECOND.value:
+    def get_perfect_form(self, person, number):
+        if person == Person.FIRST.value or person == Person.SECOND.value or number == Number.PLURAL.value:
             return "have " + self.get_ed_form()
         elif person == Person.THIRD.value:
             return "has " + self.get_ed_form()
