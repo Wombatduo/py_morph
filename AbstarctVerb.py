@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 class AbstractVerb(ABC):
 
     def __init__(self, infinitive):
-        self.infinitive = infinitive
+        self.infinitive = infinitive.lower()
 
     @abstractmethod
     def morph(self, person, number, tense, genus):
