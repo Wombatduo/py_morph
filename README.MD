@@ -10,7 +10,7 @@
  | verb  | person  | number |  
  | :---- | :-----: | :----: | 
  |       |         |        |
- |       |
+ |       |         |        |
 
 ## Start app
  
