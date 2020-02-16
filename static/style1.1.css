@@ -6,7 +6,7 @@ label {
     font-size: 14px
 }
 
-#infinitive, #person, #number {
+#infinitive, #person, #number, #tense {
     position: relative
 }
 
@@ -20,6 +20,10 @@ label {
 }
 
 #number {
+    left: -2.5em
+}
+
+#tense {
     left: -2.5em
 }
 

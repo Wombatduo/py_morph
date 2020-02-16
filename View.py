@@ -43,9 +43,10 @@ def morph_verb():
     infinitive = request.form['infinitive']
     person = int(request.form['person'])
     number = int(request.form['number'])
+    tense = int(request.form['tense'])
     verb = EnglishVerb(infinitive)
 
-    return jsonify({'form': verb.morph(person, number, "Present", 'M')})
+    return jsonify({'form': verb.morph(person, number, tense, 'M')})
 
 
 if __name__ == '__main__':
