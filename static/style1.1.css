@@ -1,9 +1,37 @@
-label {font-family: sans-serif; position: relative; left: 1.5em; top:-1.2em; font-size: 14px }
-#infinitive, #person {position: relative}
-#infinitive {left: -5.5em}
-#person {left: -2em}
-#form {font-weight: bold; color: red}
-h1 {color: purple;
+label {
+    font-family: sans-serif;
+    position: relative;
+    left: 1.5em;
+    top: -1.2em;
+    font-size: 14px
+}
+
+#infinitive, #person, #number {
+    position: relative
+}
+
+#infinitive {
+    left: -6em;
+    margin-right: -4em;
+}
+
+#person {
+    left: -2em
+}
+
+#number {
+    left: -2.5em
+}
+
+#verb {
+    font-weight: bold;
+    color: red;
+    font-size: x-large;
+}
+
+h1 {
+    color: purple;
     text-transform: uppercase;
 }
+
 /*#viewport {border-width: 2px; border-color: black}*/
