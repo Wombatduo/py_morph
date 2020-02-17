@@ -43,6 +43,11 @@ class EnglishVerb(AbstractVerb):
                 if self.infinitive == "do":
                     if person == Person.THIRD.value and number == Number.SINGULAR.value:
                         return "does"
+                if self.infinitive == "have":
+                    if person == Person.THIRD.value and number == Number.SINGULAR.value:
+                        return "has"
+                if person == Person.THIRD.value and number == Number.SINGULAR.value:
+                    return self.infinitive+"s"
                 return self.infinitive
             elif tense == 3:
                 return "will " + self.infinitive
@@ -52,6 +57,8 @@ class EnglishVerb(AbstractVerb):
             if tense == 1:
                 return self.get_ed_form()
             elif tense == 2:
+                if person == Person.THIRD.value and number == Number.SINGULAR.value:
+                    return self.infinitive+"s"
                 return self.infinitive
             elif tense == 3:
                 return "will " + self.infinitive
