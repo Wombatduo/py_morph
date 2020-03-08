@@ -47,18 +47,18 @@ class EnglishVerb(AbstractVerb):
                     if person == Person.THIRD.value and number == Number.SINGULAR.value:
                         return "has"
                 if person == Person.THIRD.value and number == Number.SINGULAR.value:
-                    return self.infinitive+"s"
+                    return self.infinitive + "s"
                 return self.infinitive
             elif tense == 3:
                 return "will " + self.infinitive
             elif tense == 4:
                 return self.get_perfect_form(person, number)
-        else:
+        elif not self.is_irregular:
             if tense == 1:
                 return self.get_ed_form()
             elif tense == 2:
                 if person == Person.THIRD.value and number == Number.SINGULAR.value:
-                    return self.infinitive+"s"
+                    return self.infinitive + "s"
                 return self.infinitive
             elif tense == 3:
                 return "will " + self.infinitive
@@ -66,10 +66,16 @@ class EnglishVerb(AbstractVerb):
                 return self.get_perfect_form(person, number)
 
     def get_perfect_form(self, person, number):
+        perfect_form = self.get_ed_form()
+        if "/" in perfect_form:
+            if number == Number.SINGULAR.value:
+                perfect_form = perfect_form.split("/", 1)[0]
+            elif number == Number.PLURAL.value:
+                perfect_form = perfect_form.split("/", 1)[1]
         if person == Person.FIRST.value or person == Person.SECOND.value or number == Number.PLURAL.value:
-            return "have " + self.get_ed_form()
+            return "have " + perfect_form
         elif person == Person.THIRD.value:
-            return "has " + self.get_ed_form()
+            return "has " + perfect_form
 
     def get_ed_form(self):
         if self.is_irregular:
