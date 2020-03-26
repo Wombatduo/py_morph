@@ -2,7 +2,7 @@
 from flask import Flask, jsonify, abort, request, make_response
 from werkzeug.serving import WSGIRequestHandler
 
-from EnglishVerb import EnglishVerb
+import Verb
 
 WSGIRequestHandler.protocol_version = "HTTP/1.1"
 app = Flask(__name__, static_url_path="/static")
@@ -28,9 +28,9 @@ def root():
     return app.send_static_file('index.html')
 
 
-@app.route('/morph/<infinitive>', methods=['GET'])
-def index(infinitive):
-    verb = EnglishVerb(infinitive)
+@app.route('/morph/<lang>/<infinitive>', methods=['GET'])
+def index(lang, infinitive):
+    verb = Verb.getVerb(lang, infinitive)
     resp = make_response(jsonify({'infinitive': verb.get_infinitive()}))
     return resp
 
@@ -38,13 +38,16 @@ def index(infinitive):
 # curl -i -H "Content-Type: application/json" -X POST -d '{"person":"3","number":"1"}' http://127.0.0.1:5000/morph/be
 @app.route('/morph/do', methods=['POST'])
 def morph_verb():
-    if not 'infinitive' or not 'person' or not 'number' in request.form:
+    if not 'lang' or not 'infinitive' or not 'person' or not 'number' in request.form:
         abort(400)
+    lang = request.form['lang']
     infinitive = request.form['infinitive']
     person = int(request.form['person'])
     number = int(request.form['number'])
     tense = int(request.form['tense'])
-    verb = EnglishVerb(infinitive)
+    verb = Verb.getVerb(lang, infinitive)
+    if verb is None:
+        abort(400, "Language not exist")
 
     return jsonify({'form': verb.morph(person, number, tense, 'M')})
 

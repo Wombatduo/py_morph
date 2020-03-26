@@ -44,6 +44,12 @@
 </UL>
 <br/>
 <FORM onsubmit="return false;" action="/morph/do" method="post" target="result">
+    <label for="lang">Язык</label>
+    <select onchange="$('form').submit()" tabindex="2" id="lang" name="lang">
+        <option value="eng">English</option>
+        <option value="esp">Espanol</option>
+        <option value="rus">Русский</option>
+    </select><br/><br/>
     <label for="infinitive">Инфинитив</label>
     <input onchange="$('form').submit()" type="text" id="infinitive" name="infinitive" tabindex="1" value="be"/>
     <label for="person">Лицо</label>
