@@ -1,4 +1,5 @@
 from EnglishVerb import EnglishVerb
+from RussianVerb import RussianVerb
 
 
 def getVerb(lang, infinitive):
@@ -6,7 +7,7 @@ def getVerb(lang, infinitive):
         return EnglishVerb(infinitive)
     # elif lang == 'esp'
     #     return SpanishVerb(infinitive)
-    # elif lang == 'rus'
-    #     return RussianVerb(infinitive)
+    elif lang == 'rus':
+        return RussianVerb(infinitive)
     else:
         return None
