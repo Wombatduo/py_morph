@@ -36,7 +36,7 @@ class RussianVerb(AbstractVerb):
     def morph(self, person, number, tense, genus):
 
 
-            if tense == 1:
+            if tense == 2:
                 if person == 1:
                     if person == Number.SINGULAR.value:
                         if self.infinitive == "делать":
@@ -58,7 +58,7 @@ class RussianVerb(AbstractVerb):
                     elif person == Number.PLURAL.value:
                         if self.infinitive == "делать":
                             return "делают"
-            if tense == 2:
+            if tense == 1:
                 if person == 1:
                     if person == Number.SINGULAR.value:
                         if self.infinitive == "делать":

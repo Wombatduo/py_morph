@@ -1,5 +1,6 @@
 import unittest
 from EnglishVerb import EnglishVerb, Person, Number
+from RussianVerb import RussianVerb
 
 
 class RussianVerbTest(unittest.TestCase):
