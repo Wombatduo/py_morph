@@ -33,7 +33,7 @@ label {
     left: -2.5em
 }
 
-#verb {
+.verb {
     font-weight: bold;
     color: red;
     font-size: x-large;

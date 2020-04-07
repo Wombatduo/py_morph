@@ -10,7 +10,7 @@ app = Flask(__name__, static_url_path="/static")
 
 @app.route('/')
 def main():
-    return app.send_static_file('main.html')
+    return app.send_static_file('index.html')
 
 
 @app.route('/favicon.ico')
@@ -24,8 +24,12 @@ def jquery():
 
 
 @app.route('/morph')
-def root():
-    return app.send_static_file('index.html')
+def morph():
+    return app.send_static_file('morph.html')\
+
+@app.route('/table')
+def table():
+    return app.send_static_file('table.html')
 
 
 @app.route('/morph/<lang>/<infinitive>', methods=['GET'])
