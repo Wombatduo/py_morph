@@ -1,6 +1,5 @@
 from AbstarctVerb import AbstractVerb
 import enum
-import sys
 
 
 class Person(enum.Enum):
@@ -18,32 +17,91 @@ class EnglishVerb(AbstractVerb):
 
     def morph(self, person, number, tense, genus):
 
-        if self.is_irregular(self.infinitive):
-            return self.infinitive
+        if self.is_irregular:
+            if tense == 1:
+                past_simple = self.get_irregular()["past simple"]
+                if "/" in past_simple:
+                    if number == Number.SINGULAR.value:
+                        past_simple = past_simple.split("/", 1)[0]
+                    elif number == Number.PLURAL.value:
+                        past_simple = past_simple.split("/", 1)[1]
+                return past_simple
+            elif tense == 2:
+                if self.infinitive == "be":
+                    if person == Person.FIRST.value and number == Number.SINGULAR.value:
+                        return "am"
+                    elif person == Person.SECOND.value and number == Number.SINGULAR.value:
+                        return "are"
+                    elif person == Person.THIRD.value and number == Number.SINGULAR.value:
+                        return "is"
+                    elif person == Person.FIRST.value and number == Number.PLURAL.value:
+                        return "are"
+                    elif person == Person.SECOND.value and number == Number.PLURAL.value:
+                        return "are"
+                    elif person == Person.THIRD.value and number == Number.PLURAL.value:
+                        return "are"
+                if self.infinitive == "do":
+                    if person == Person.THIRD.value and number == Number.SINGULAR.value:
+                        return "does"
+                if self.infinitive == "have":
+                    if person == Person.THIRD.value and number == Number.SINGULAR.value:
+                        return "has"
+                if person == Person.THIRD.value and number == Number.SINGULAR.value:
+                    return self.infinitive + "s"
+                return self.infinitive
+            elif tense == 3:
+                return "will " + self.infinitive
+            elif tense == 4:
+                return self.get_perfect_form(person, number)
+        elif not self.is_irregular:
+            if tense == 1:
+                return self.get_ed_form()
+            elif tense == 2:
+                if person == Person.THIRD.value and number == Number.SINGULAR.value:
+                    return self.infinitive + "s"
+                return self.infinitive
+            elif tense == 3:
+                return "will " + self.infinitive
+            elif tense == 4:
+                return self.get_perfect_form(person, number)
 
-        if person == Person.FIRST.value and number == Number.SINGULAR.value:
-            return "am"
-        elif person == Person.SECOND.value and number == Number.SINGULAR.value:
-            return "are"
-        elif person == Person.THIRD.value and number == Number.SINGULAR.value:
-            return "is"
-        elif person == Person.FIRST.value and number == Number.PLURAL.value:
-            return "are"
-        elif person == Person.SECOND.value and number == Number.PLURAL.value:
-            return "are"
-        elif person == Person.THIRD.value and number == Number.PLURAL.value:
-            return "are"
+    def get_perfect_form(self, person, number):
+        perfect_form = self.get_ed_form()
+        if "/" in perfect_form:
+            if number == Number.SINGULAR.value:
+                perfect_form = perfect_form.split("/", 1)[0]
+            elif number == Number.PLURAL.value:
+                perfect_form = perfect_form.split("/", 1)[1]
+        if person == Person.FIRST.value or person == Person.SECOND.value or number == Number.PLURAL.value:
+            return "have " + perfect_form
+        elif person == Person.THIRD.value:
+            return "has " + perfect_form
 
-    def is_irregular(self, verb):
+    def get_ed_form(self):
+        if self.is_irregular:
+            return self.get_irregular()["-ed"]
+        if self.infinitive[-1] == 'e':
+            return self.infinitive + "d"
+        return self.infinitive + "ed"
+
+    def get_irregular(self):
         path = 'irverbs.txt'
         with open(path, newline='\n') as irregular_verbs:
             import csv
             verb_reader = csv.DictReader(irregular_verbs, delimiter='\t')
             verbs_list = list(verb_reader)
-        search = verb
+        search = self.infinitive
         for iverb in verbs_list:
-            if iverb["base form"] == search:
-                print("глагол " + search + " - неправильный:\n" + iverb["past simple"] + " | " + iverb["-ed"],
-                      file=sys.stderr)
-                return True
+            base = iverb["base form"]
+            if "[" in base:
+                base = base.split("[")[0].strip()
+                # print(">" + base + "<")
+            if base.strip() == search.strip():
+                return iverb
+        return None
+
+    @property
+    def is_irregular(self):
+        if self.get_irregular() is not None:
+            return True
         return False
