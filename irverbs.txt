@@ -60,7 +60,7 @@ meet	met	met
 pay	paid	paid
 put	put	put
 quit	quit	quit
-read /ri:d/	read /red/	read /red/
+read [ri:d]	read [red]	read [red]
 ride	rode	ridden
 ring	rang	rung
 rise	rose	risen
