@@ -28,7 +28,7 @@ def jquery():
 
 @app.route('/morph')
 def morph():
-    return app.send_static_file('morph.html')
+    return render_template('morph.html', langs=languages, verbs=default_verbs)
 
 @app.route('/table')
 def table():

@@ -49,11 +49,10 @@
 <br/>
 <FORM onsubmit="return false;" action="/morph/do" method="post" target="result">
     <label for="lang">Язык</label>
-    <select onchange="$('form').submit()" tabindex="2" id="lang" name="lang">
-        <option value="eng">English</option>
-        <option value="esp">Español</option>
-        <option value="ger">Deutsche</option>
-        <option value="rus">Русский</option>
+    <select onchange="$('#infinitive').val($('#lang option:selected').attr('is'));$('form').submit()" tabindex="2" id="lang" name="lang">
+        {% for lang in langs: %}
+        <option value="{{lang}}" is="{{verbs[lang]}}">{{langs[lang]}}</option>
+        {% endfor %}
     </select><br/><br/><br/>
     <label for="infinitive">Инфинитив</label>
     <input onchange="$('form').submit()" type="text" id="infinitive" name="infinitive" tabindex="1" value="be"/>
