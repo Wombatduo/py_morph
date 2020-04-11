@@ -1,6 +1,6 @@
 # Our first Morphing Engine creation attempt
 
-## Capatibilites
+## Capabilities
 
 - Works with provided language dictionaries
 - Detects some patterns in languages, not only hardcoded

@@ -15,6 +15,8 @@ class Number(enum.Enum):
 
 class EnglishVerb(AbstractVerb):
 
+    default_verb = 'be'
+
     def morph(self, person, number, tense, genus):
 
         if self.is_irregular:
