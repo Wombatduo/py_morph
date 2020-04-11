@@ -1,26 +1,14 @@
-from AbstarctVerb import AbstractVerb
-import enum
+from grammar.AbstarctVerb import AbstractVerb
 
-
-class Person(enum.Enum):
-    FIRST = 1
-    SECOND = 2
-    THIRD = 3
-
-
-class Number(enum.Enum):
-    SINGULAR = 1
-    PLURAL = 2
+from grammar.Grammar import Tense, Person, Number
 
 
 class EnglishVerb(AbstractVerb):
 
-    default_verb = 'be'
-
     def morph(self, person, number, tense, genus):
 
         if self.is_irregular:
-            if tense == 1:
+            if tense == Tense.PAST.value:
                 past_simple = self.get_irregular()["past simple"]
                 if "/" in past_simple:
                     if number == Number.SINGULAR.value:
@@ -28,8 +16,9 @@ class EnglishVerb(AbstractVerb):
                     elif number == Number.PLURAL.value:
                         past_simple = past_simple.split("/", 1)[1]
                 return past_simple
-            elif tense == 2:
-                if self.infinitive == "be":
+
+            elif tense == Tense.PRESENT.value:
+                if self.get_infinitive() == "be":
                     if person == Person.FIRST.value and number == Number.SINGULAR.value:
                         return "am"
                     elif person == Person.SECOND.value and number == Number.SINGULAR.value:
@@ -42,28 +31,35 @@ class EnglishVerb(AbstractVerb):
                         return "are"
                     elif person == Person.THIRD.value and number == Number.PLURAL.value:
                         return "are"
-                if self.infinitive == "do":
+                if self.get_infinitive() == "do":
                     if person == Person.THIRD.value and number == Number.SINGULAR.value:
                         return "does"
-                if self.infinitive == "have":
+                if self.get_infinitive() == "have":
                     if person == Person.THIRD.value and number == Number.SINGULAR.value:
                         return "has"
                 if person == Person.THIRD.value and number == Number.SINGULAR.value:
-                    return self.infinitive + "s"
-                return self.infinitive
-            elif tense == 3:
-                return "will " + self.infinitive
+                    return self.get_infinitive() + "s"
+                return self.get_infinitive()
+
+            elif tense == Tense.FUTURE.value:
+                return "will " + self.get_infinitive()
+
             elif tense == 4:
                 return self.get_perfect_form(person, number)
+
         elif not self.is_irregular:
-            if tense == 1:
+
+            if tense == Tense.PAST.value:
                 return self.get_ed_form()
-            elif tense == 2:
+
+            elif tense == Tense.PRESENT.value:
                 if person == Person.THIRD.value and number == Number.SINGULAR.value:
-                    return self.infinitive + "s"
-                return self.infinitive
-            elif tense == 3:
-                return "will " + self.infinitive
+                    return self.get_infinitive() + "s"
+                return self.get_infinitive()
+
+            elif tense == Tense.FUTURE.value:
+                return "will " + self.get_infinitive()
+
             elif tense == 4:
                 return self.get_perfect_form(person, number)
 
@@ -82,9 +78,9 @@ class EnglishVerb(AbstractVerb):
     def get_ed_form(self):
         if self.is_irregular:
             return self.get_irregular()["-ed"]
-        if self.infinitive[-1] == 'e':
-            return self.infinitive + "d"
-        return self.infinitive + "ed"
+        if self.get_infinitive()[-1] == 'e':
+            return self.get_infinitive() + "d"
+        return self.get_infinitive() + "ed"
 
     def get_irregular(self):
         path = 'irverbs.txt'
@@ -92,7 +88,7 @@ class EnglishVerb(AbstractVerb):
             import csv
             verb_reader = csv.DictReader(irregular_verbs, delimiter='\t')
             verbs_list = list(verb_reader)
-        search = self.infinitive
+        search = self.get_infinitive()
         for iverb in verbs_list:
             base = iverb["base form"]
             if "[" in base:

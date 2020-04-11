@@ -1,42 +1,9 @@
-label {
-    font-family: sans-serif;
-    position: relative;
-    left: 1.5em;
-    top: -1.2em;
-    font-size: 14px
-}
-
-#lang, #infinitive, #person, #number, #tense {
-    position: relative
-}
-
-
-#lang {
-    left: -2em;
-    margin-right: -4em;
-}
-
-#infinitive {
-    left: -6em;
-    margin-right: -4em;
-}
-
-#person {
-    left: -2em
-}
-
-#number {
-    left: -2.5em
-}
-
-#tense {
-    left: -2.5em
-}
+label {margin-left: .4em }
 
 .verb {
     font-weight: bold;
     color: red;
-    font-size: x-large;
+    font-size: large;
 }
 
 h1 {
@@ -44,4 +11,14 @@ h1 {
     text-transform: uppercase;
 }
 
-/*#viewport {border-width: 2px; border-color: black}*/
+table.content {
+    border: 1px solid black;
+    border-collapse: collapse;
+    /*width: 48em;*/
+}
+
+table.content td, table.content th {
+    border: 1px solid black;
+    padding: .5em;
+    width: 12em;
+}

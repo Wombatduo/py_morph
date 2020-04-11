@@ -11,4 +11,8 @@ class AbstractVerb(ABC):
         pass
 
     def get_infinitive(self):
+        """
+
+        :rtype: str
+        """
         return self.infinitive

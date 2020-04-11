@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block title %}Verb tabler{% endblock %}
+
+{% block script %}
+    <script>
+        function get_verb_form_by_ajax(form_data, post_url, request_method, id) {
+            console.log(id + " " + form_data);
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (data) {
+                console.log(id + " verb form is " + data.form);
+                {#console.log(id);#}
+                $(id).html(data.form);
+            });
+        }
+
+        $(document).ready(function () {
+            $("form").submit(function () {
+                    var post_url = $(this).attr("action"); //get form action url
+                    var request_method = $(this).attr("method"); //get form HTTP method
+                    for (i = 1; i <= {{ tenses|length }}; i++) {
+                        $(this).find("[name=tense]").val(i);
+                        for (j = 1; j <= {{ persons|length }}; j++) {
+                            $(this).find("[name=person]").val(j);
+                            var form_data = $(this).serialize(); //Encode form elements for submission
+                            get_verb_form_by_ajax(form_data, post_url, request_method, '#' + i + '_' + j);
+                        }
+                    }
+                }
+            );
+            $("form").submit();
+        })
+
+        $("#submit_form_button").click(function () {
+            $("form").submit();
+        })
+    </script>
+{% endblock %}
+
+{% block header %}
+    <h5><a href="/">домой</a></h5>
+    <H1 class="h1">Таблица морфем</H1>
+    <P color="red">Позволяет получить таблицу форм глагола.</P>
+    <!--<H2 onmouseover="javascript: $('h2').css('text-decoration','underline')"
+        onmouseout="javascript: $('h2').css('text-decoration','none')"
+        onmousedown="javascript: $('h2').css('color','red')"
+        onmouseup="javascript: f = function(){$('h2').css('color','black')}; setTimeout(f, 1000)"
+    >Для использования сервиса</H2>
+    <UL>
+        <LI>Укажите инфинитив</LI>
+    </UL>-->
+{% endblock %}
+
+{% block content %}
+    <FORM onsubmit="return false;" action="/morph/do" method="post" target="result">
+        <label for="lang">Язык</label>
+        <select onchange="$('#infinitive').val($('#lang option:selected').attr('is'));$('form').submit()"
+                tabindex="2"
+                id="lang"
+                name="lang">
+            {% for lang in langs %}
+                <option value="{{ lang }}" is="{{ langs[lang]['default_verb'] }}">{{ langs[lang]['name'] }}</option>
+            {% endfor %}
+        </select>
+        <label for="infinitive">Инфинитив</label>
+        <input onchange="$('form').submit()"
+               type="text"
+               id="infinitive"
+               name="infinitive"
+               tabindex="1"
+               value="be"/>
+        <!--    <label for="person">Лицо</label>-->
+        <select onchange="$('form').submit()" style="display: none" tabindex="2" id="person" name="person">
+            <option value="1" selected="selected">первое</option>
+            <option value="2">второе</option>
+            <option value="3">третье</option>
+        </select>
+        <!--    <label for="number">Число</label>-->
+        <select onchange="$('form').submit()" style="display: none" tabindex="3" id="number" name="number">
+            <option value="1" selected="selected">Ед</option>
+            <option value="2">Мн</option>
+        </select>
+        <input type='hidden' name='tense' value='1'/>
+        <BUTTON id="submit_form_button" style="visibility: hidden" tabindex="5">Сморфировать</BUTTON>
+        </fieldset>
+    </FORM>
+
+    <table class="content">
+        <caption>Формы:</caption>
+        <thead>
+        <tr>
+            {% for tense in tenses %}
+                <th>{{ tense.head }}</th>
+            {% endfor %}
+            {#        <th>настоящее</th>#}
+            {#        <th>будущее</th>#}
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            {% for tense in tenses %}
+                <td>
+                    {% for person in persons %}
+                        {{ person.pronoun }} <span class="verb" id="{{ "{}_{}".format(tense.value,person.value) }}"></span><br>
+                    {% endfor %}
+                </td>
+            {% endfor %}
+            {#        <td><span class="verb" id="2"></span></td>#}
+            {#        <td><span class="verb" id="3"></span></td>#}
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}

@@ -1,6 +1,6 @@
 import unittest
 
-from Wrapper import wrap
+from util.Wrapper import wrap
 
 class TestWrapper(unittest.TestCase):
 

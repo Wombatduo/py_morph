@@ -1,14 +1,20 @@
 #!venv/bin/python
 from flask import Flask, jsonify, abort, request, make_response, render_template
 from werkzeug.serving import WSGIRequestHandler
+from grammar.Grammar import Tense, Person, Number, Genus
 
-import Verb
+from langs import Verb
 
 WSGIRequestHandler.protocol_version = "HTTP/1.1"
 app = Flask(__name__, static_url_path="/static")
 
-languages = {'eng':'English', 'esp':'Español', 'ger':'Deutsche', 'rus':'Русский'}
-default_verbs = {'eng':'be', 'esp':'ser', 'ger':'sein', 'rus':'делать'}
+languages = {'eng': 'English', 'esp': 'Español', 'ger': 'Deutsche', 'rus': 'Русский'}
+default_verbs = {'eng': 'be', 'esp': 'ser', 'ger': 'sein', 'rus': 'делать'}
+
+langs = {'eng': {'name': 'English', 'default_verb': 'be'},
+         'esp': {'name': 'Español', 'default_verb': 'ser'},
+         'ger': {'name': 'Deutsche', 'default_verb': 'sein'},
+         'rus': {'name': 'Русский', 'default_verb': 'делать'}}
 
 
 @app.route('/')
@@ -30,9 +36,10 @@ def jquery():
 def morph():
     return render_template('morph.html', langs=languages, verbs=default_verbs)
 
+
 @app.route('/table')
 def table():
-    return render_template('table.html', langs=languages, verbs=default_verbs)
+    return render_template('tablet.html', langs=langs, verbs=default_verbs, tenses=Tense, persons=Person)
 
 
 @app.route('/morph/<lang>/<infinitive>', methods=['GET'])

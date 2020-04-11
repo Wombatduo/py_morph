@@ -1,38 +1,6 @@
-from AbstarctVerb import AbstractVerb
-import enum
+from grammar.AbstarctVerb import AbstractVerb
 
-
-class Person(enum.Enum):
-    FIRST = 1
-    SECOND = 2
-    THIRD = 3
-
-
-class Number(enum.Enum):
-    SINGULAR = 1
-    PLURAL = 2
-
-
-class Tense(enum.Enum):
-    PAST = 1
-    PRESENT = 2
-    FUTURE = 3
-
-
-class Genus(enum.Enum):
-    MALE = 1
-    FEMALE = 2
-    MIDDLE = 3
-
-
-class Type(enum.Enum):
-    PERFECT = 1
-    IMPERFECT = 2
-
-
-class Case(enum.Enum):
-    FIRST = 1
-    SECOND = 2
+from grammar.Grammar import Tense, Person, Number, Genus
 
 
 class SpanishVerb(AbstractVerb):
