@@ -6,8 +6,14 @@ label {
     font-size: 14px
 }
 
-#infinitive, #person, #number {
+#lang, #infinitive, #person, #number, #tense {
     position: relative
+}
+
+
+#lang {
+    left: -2em;
+    margin-right: -4em;
 }
 
 #infinitive {
@@ -23,7 +29,11 @@ label {
     left: -2.5em
 }
 
-#verb {
+#tense {
+    left: -2.5em
+}
+
+.verb {
     font-weight: bold;
     color: red;
     font-size: x-large;
