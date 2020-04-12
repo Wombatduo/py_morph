@@ -1,4 +1,6 @@
-label {margin-left: .4em }
+label {
+    margin-left: .4em
+}
 
 .verb {
     font-weight: bold;
@@ -11,14 +13,28 @@ h1 {
     text-transform: uppercase;
 }
 
+input#infinitive {
+    font-size: large;
+    border-width: 0px;
+    border-bottom: 1px solid gray !important;
+}
+
 table.content {
     border: 1px solid black;
     border-collapse: collapse;
-    /*width: 48em;*/
+}
+
+table.content caption {
+    padding-top: 1em;
+    padding-bottom: 0.5em;
 }
 
 table.content td, table.content th {
     border: 1px solid black;
     padding: .5em;
-    width: 12em;
+    width: 16em;
+}
+
+table.content th.subhead {
+    font-size: small;
 }

@@ -4,6 +4,17 @@ from grammar.Grammar import Tense, Person, Number, Genus
 
 
 class GermanVerb(AbstractVerb):
+    pronouns = {
+        Person.FIRST: {
+            Number.SINGULAR: {Genus.MALE: 'Ich', Genus.FEMALE: 'Ich', Genus.MIDDLE: 'Ich'},
+            Number.PLURAL: {Genus.MALE: 'Wir', Genus.FEMALE: 'Wir', Genus.MIDDLE: 'Wir'}},
+        Person.SECOND: {
+            Number.SINGULAR: {Genus.MALE: 'Du', Genus.FEMALE: 'Du', Genus.MIDDLE: 'Du'},
+            Number.PLURAL: {Genus.MALE: 'Ihr', Genus.FEMALE: 'Ihr', Genus.MIDDLE: 'Ihr'}},
+        Person.THIRD: {
+            Number.SINGULAR: {Genus.MALE: 'Er', Genus.FEMALE: 'Sie', Genus.MIDDLE: 'Es'},
+            Number.PLURAL: {Genus.MALE: 'Sie', Genus.FEMALE: 'Sie', Genus.MIDDLE: 'Sie'}}
+    }
 
     def morph(self, person, number, tense, genus):
 

@@ -4,6 +4,14 @@ from enum import Enum
 class Number(Enum):
     SINGULAR, PLURAL = range(1, 3)
 
+    @property
+    def head(self):
+        return number_head[self]
+
+number_head = {
+    Number.SINGULAR: 'Ед.',
+    Number.PLURAL: 'Мн.',
+}
 
 class Person(Enum):
     FIRST, SECOND, THIRD = range(1, 4)
@@ -25,9 +33,9 @@ class Tense(Enum):
 
     @property
     def head(self):
-        return get_head[self]
+        return tense_head[self]
 
-get_head = {
+tense_head = {
     Tense.PAST: 'Прошедшее',
     Tense.PRESENT: 'Настоящее',
     Tense.FUTURE: 'Будущее'

@@ -39,7 +39,7 @@ def morph():
 
 @app.route('/table')
 def table():
-    return render_template('tablet.html', langs=langs, verbs=default_verbs, tenses=Tense, persons=Person)
+    return render_template('tablet.html', langs=langs, tenses=Tense, persons=Person, numbers=Number, genuses=Genus)
 
 
 @app.route('/morph/<lang>/<infinitive>', methods=['GET'])
@@ -59,11 +59,13 @@ def morph_verb():
     person = int(request.form['person'])
     number = int(request.form['number'])
     tense = int(request.form['tense'])
+    genus = int(request.form['genus'])
     verb = Verb.getVerb(lang, infinitive)
     if verb is None:
         abort(400, "Language not exists")
 
-    return jsonify({'form': verb.morph(person, number, tense, 'M')})
+    return jsonify(
+        {'verb_form': verb.morph(person, number, tense, genus), 'pronoun': verb.pronoun(person, number, genus)})
 
 
 if __name__ == '__main__':

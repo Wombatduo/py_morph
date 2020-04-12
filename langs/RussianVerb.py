@@ -4,6 +4,17 @@ from grammar.Grammar import Tense, Person, Number, Genus
 
 
 class RussianVerb(AbstractVerb):
+    pronouns = {
+        Person.FIRST: {
+            Number.SINGULAR: {Genus.MALE: 'Я', Genus.FEMALE: 'Я', Genus.MIDDLE: 'Я'},
+            Number.PLURAL: {Genus.MALE: 'Мы', Genus.FEMALE: 'Мы', Genus.MIDDLE: 'Мы'}},
+        Person.SECOND: {
+            Number.SINGULAR: {Genus.MALE: 'Ты', Genus.FEMALE: 'Ты', Genus.MIDDLE: 'Ты'},
+            Number.PLURAL: {Genus.MALE: 'Вы', Genus.FEMALE: 'Вы', Genus.MIDDLE: 'Вы'}},
+        Person.THIRD: {
+            Number.SINGULAR: {Genus.MALE: 'Он', Genus.FEMALE: 'Она', Genus.MIDDLE: 'Оно'},
+            Number.PLURAL: {Genus.MALE: 'Они', Genus.FEMALE: 'Они', Genus.MIDDLE: 'Они'}}
+    }
 
     def morph(self, person, number, tense, genus):
 
@@ -45,15 +56,15 @@ class RussianVerb(AbstractVerb):
                     if self.infinitive == "делать":
                         return "делали"
             if person == 3:
-                if number == Number.SINGULAR.value and Genus.MALE.value:
+                if number == Number.SINGULAR.value and genus == Genus.MALE.value:
                     if self.infinitive == "делать":
                         return "делал"
-                elif number == Number.SINGULAR.value and Genus.FEMALE.value:
-                    if self.infinitive == "делала":
-                        return "делал"
-                elif number == Number.SINGULAR.value and Genus.MIDDLE.value:
-                    if self.infinitive == "делало":
-                        return "делал"
+                elif number == Number.SINGULAR.value and genus == Genus.FEMALE.value:
+                    if self.infinitive == "делать":
+                        return "делала"
+                elif number == Number.SINGULAR.value and genus == Genus.MIDDLE.value:
+                    if self.infinitive == "делать":
+                        return "делало"
                 elif number == Number.PLURAL.value:
                     if self.infinitive == "делать":
                         return "делали"
