@@ -4,11 +4,15 @@
 
 {% block script %}
     <script>
-        function ubdate_if_not_contains(newValue, oldValue) {
-            if ($(oldValue).html() == '')
+        function update_if_not_contains(newValue, oldValue) {
+            values = $(oldValue).html();
+            if (values == '')
                 $(oldValue).html(newValue);
-            else if (newValue != $(oldValue).html()) {
-                $(oldValue).html($(oldValue).html() + ' / ' + newValue);
+            else if (newValue != values) {
+                let valuesArr = values.split(" / ");
+                valuesArr.push(newValue);
+                let uniques = Array.from(new Set(valuesArr));
+                $(oldValue).html(uniques.join(" / "));
             }
         }
 
@@ -21,9 +25,9 @@
             }).done(function (data) {
                 prev_verb = '#v' + id;
                 console.log(id + " verb form is " + data.verb_form + ", prev: " + $(prev_verb).html());
-                ubdate_if_not_contains(data.verb_form, prev_verb);
+                update_if_not_contains(data.verb_form, prev_verb);
                 prev_pronoun = '#p' + id;
-                ubdate_if_not_contains(data.pronoun, prev_pronoun);
+                update_if_not_contains(data.pronoun, prev_pronoun);
             });
         }
 
