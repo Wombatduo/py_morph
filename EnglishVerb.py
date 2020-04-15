@@ -82,9 +82,11 @@ class EnglishVerb(AbstractVerb):
     def get_ed_form(self):
         if self.is_irregular:
             return self.get_irregular()["-ed"]
-        if self.infinitive[-1] == 'e':
-            return self.infinitive + "d"
-        return self.infinitive + "ed"
+        if self.get_infinitive()[-1] == 'e':
+            return self.get_infinitive() + "d"
+        if self.get_infinitive()[-1] == 'y':
+            return self.get_infinitive()[0:-1] + "ied"
+        return self.get_infinitive() + "ed"
 
     def get_irregular(self):
         path = 'irverbs.txt'

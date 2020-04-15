@@ -50,7 +50,7 @@
 <FORM onsubmit="return false;" action="/morph/do" method="post" target="result">
     <label for="lang">Язык</label>
     <select onchange="$('#infinitive').val($('#lang option:selected').attr('is'));$('form').submit()" tabindex="2" id="lang" name="lang">
-        {% for lang in langs: %}
+        {% for lang in langs %}
         <option value="{{lang}}" is="{{verbs[lang]}}">{{langs[lang]}}</option>
         {% endfor %}
     </select><br/><br/><br/>
@@ -74,7 +74,7 @@
         <option value="3">будущее</option>
         <option value="4">совершенное</option>
     </select>
-    <BUTTON id="submit_form_button" style="visibility: hidden" tabindex="5">Сморфировать</BUTTON>
+    <BUTTON id="submit_form_button" style="visibility: hidden" color="red" tabindex="5">Сморфировать</BUTTON>
     </fieldset>
 </FORM>
 <iframe style="display: none" width="400" height="200" id="viewport" name="result"></iframe>

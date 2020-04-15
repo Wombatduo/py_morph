@@ -32,7 +32,7 @@ def morph():
 
 @app.route('/table')
 def table():
-    return render_template('table.html', langs=languages, verbs=default_verbs)
+    return render_template('tabled.html', langs=languages, verbs=default_verbs)
 
 
 @app.route('/morph/<lang>/<infinitive>', methods=['GET'])
