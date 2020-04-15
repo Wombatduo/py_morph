@@ -1,10 +1,8 @@
-<HTML>
-<HEAD>
-    <TITLE>Морфер</TITLE>
-    <meta http-equiv="Cache-Control" content="no-cache">
-    <link rel="stylesheet" updateviacache="all" href="/static/style1.1.css"/>
-    <script type="text/javascript" src="/jquery-3.4.1.js"></script>
-    <script>
+{% extends 'base.html' %}
+
+{% block title %}Morph service{% endblock %}
+
+{% block script %}
         function get_form_by_ajax(post_url, request_method, form_data) {
             $.ajax({
                 url: post_url,
@@ -29,11 +27,11 @@
         $("#submit_form_button").click(function () {
             $("form").submit();
         });
-    </script>
-</HEAD>
-<BODY>
-<h5><a href="/">домой</a></h5>
-<H1 class="h1">Служба морфинга</H1>
+{% endblock %}
+
+{% block heading %}Служба морфинга{% endblock %}
+
+{% block header %}
 <P color="red">Сервис позволяет получить разные формы глагола.</P>
 <H2 onmouseover="javascript: $('h2').css('text-decoration','underline')"
     onmouseout="javascript: $('h2').css('text-decoration','none')"
@@ -46,7 +44,9 @@
     <LI>Укажите число</LI>
     <LI>Укажите время</LI>
 </UL>
-<br/>
+{% endblock %}
+
+{% block content %}
 <FORM onsubmit="return false;" action="/morph/do" method="post" target="result">
     <label for="lang">Язык</label>
     <select onchange="$('#infinitive').val($('#lang option:selected').attr('is'));$('form').submit()" tabindex="2" id="lang" name="lang">
@@ -79,5 +79,6 @@
 </FORM>
 <iframe style="display: none" width="400" height="200" id="viewport" name="result"></iframe>
 <p>Новая форма: <span id="verb" class="verb"></span></br>
-</BODY>
-</HTML>
+{% endblock %}
+
+
