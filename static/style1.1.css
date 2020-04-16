@@ -6,9 +6,21 @@ label {
     font-size: 14px
 }
 
+div.navy {
+    margin-bottom: 1em;
+}
+
+ul.navy {
+    margin-left: 0px;
+    padding-left: 0px;
+}
+
 ul.navy li {
-    display: inline !important;
-    padding-left: 1em;
+    list-style: square;
+    float: left;
+    margin-right: .5em;
+    margin-left: 2em;
+
 }
 
 #lang, #infinitive, #person, #number, #tense {
@@ -45,6 +57,7 @@ ul.navy li {
 }
 
 h1 {
+    padding-top: 1.5em;
     color: purple;
     text-transform: uppercase;
 }
