@@ -2,14 +2,16 @@
 <HEAD>
     <TITLE>{% block title %}{% endblock %}</TITLE>
     <meta http-equiv="Cache-Control" content="no-cache">
-    <link rel="stylesheet" updateviacache="all" href="/static/style1.1.css"/>
-    <script type="text/javascript" src="/jquery-3.4.1.js"></script>
-    <script>
-        {% block script %}{% endblock %}
-    </script>
+    <link rel="stylesheet" updateviacache="all" href="{{ url_for('static', filename='style1.1.css') }}"/>
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery-3.4.1.js') }}"></script>
+    {% block script %}{% endblock %}
 </HEAD>
 <BODY>
-<ul class="navy"><li><a href="/">домой</a></li><li><a href="/morph">служба морфинга</a></li><li><a href="/table">таблица морфем</a></li></ul>
+<ul class="navy">
+    <li><a href="/">домой</a></li>
+    <li><a href="/morph">служба морфинга</a></li>
+    <li><a href="/table">таблица морфем</a></li>
+</ul>
 <H1 class="h1">{% block heading %}{% endblock %}</H1>
 {% block header %}{% endblock %}
 <br/>

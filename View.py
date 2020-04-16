@@ -7,8 +7,8 @@ import Verb
 WSGIRequestHandler.protocol_version = "HTTP/1.1"
 app = Flask(__name__, static_url_path="/static")
 
-languages = {'eng':'English', 'esp':'Español', 'ger':'Deutsche', 'rus':'Русский'}
-default_verbs = {'eng':'be', 'esp':'ser', 'ger':'sein', 'rus':'делать'}
+languages = {'eng': 'English', 'esp': 'Español', 'ger': 'Deutsche', 'rus': 'Русский'}
+default_verbs = {'eng': 'be', 'esp': 'ser', 'ger': 'sein', 'rus': 'делать'}
 
 
 @app.route('/')
@@ -21,14 +21,10 @@ def favicon():
     return app.send_static_file('favicon.ico')
 
 
-@app.route('/jquery-3.4.1.js')
-def jquery():
-    return app.send_static_file('jquery-3.4.1.js')
-
-
 @app.route('/morph')
 def morph():
     return render_template('morph.html', langs=languages, verbs=default_verbs)
+
 
 @app.route('/table')
 def table():

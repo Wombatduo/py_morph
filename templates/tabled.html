@@ -4,34 +4,32 @@
 {% block heading %}Таблица глаголов{% endblock %}
 
 {% block script %}
-    function get_verb_form_by_ajax(form_data, post_url, request_method, id) {
-    console.log(form_data);
-    $.ajax({
-    url: post_url,
-    type: request_method,
-    data: form_data
-    }).done(function (data) {
-    console.log("verb form is " + data.form);
-    $("#" + id).html(data.form);
-    });
-    }
+    <script>
+        function get_verb_form_by_ajax(form_data, post_url, request_method, id) {
+            console.log(form_data);
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (data) {
+                console.log("verb form is " + data.form);
+                $("#" + id).html(data.form);
+            });
+        }
 
-    $(document).ready(function () {
-    $("form").submit(function () {
-    var post_url = $(this).attr("action"); //get form action url
-    var request_method = $(this).attr("method"); //get form HTTP method
-    for (i = 1; i < 4; i++) {
-    $(this).find("[name=tense]").val(i);
-    var form_data = $(this).serialize(); //Encode form elements for submission
-    get_verb_form_by_ajax(form_data, post_url, request_method, i);
-    }
-    });
-    $("form").submit();
-    })
-    ;
-    $("#submit_form_button").click(function () {
-    $("form").submit();
-    });
+        $(document).ready(function () {
+            $("form").submit(function () {
+                var post_url = $(this).attr("action"); //get form action url
+                var request_method = $(this).attr("method"); //get form HTTP method
+                for (i = 1; i < 4; i++) {
+                    $(this).find("[name=tense]").val(i);
+                    var form_data = $(this).serialize(); //Encode form elements for submission
+                    get_verb_form_by_ajax(form_data, post_url, request_method, i);
+                }
+            });
+            $("form").submit();
+        });
+    </script>
 {% endblock %}
 
 {% block header %}
@@ -73,6 +71,8 @@
 
         </fieldset>
     </FORM>
-    <p>Формы: прош.: <span class="verb" id="1"></span>, наст.: <span class="verb" id="2"></span>, буд.:<span
-            class="verb" id="3"></span></p>
+    <p>Формы:
+        прош.: <span class="verb" id="1"></span>,
+        наст.: <span class="verb" id="2"></span>,
+        буд.: <span class="verb" id="3"></span></p>
 {% endblock %}
