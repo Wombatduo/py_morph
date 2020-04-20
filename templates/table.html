@@ -49,7 +49,7 @@
         <label for="lang">Язык</label>
         <select onchange="$('#infinitive').val($('#lang option:selected').attr('is'));$('form').submit()" tabindex="2"
                 id="lang" name="lang">
-            {% for lang in langs: %}
+            {% for lang in langs %}
                 <option value="{{ lang }}" is="{{ verbs[lang] }}">{{ langs[lang] }}</option>
             {% endfor %}
         </select><br/><br/><br/>
@@ -71,8 +71,22 @@
 
         </fieldset>
     </FORM>
-    <p>Формы:
-        прош.: <span class="verb" id="1"></span>,
-        наст.: <span class="verb" id="2"></span>,
-        буд.: <span class="verb" id="3"></span></p>
+
+    <p>Формы:</p>
+    <TABLE style="border-collapse: collapse">
+        <TR>
+            {% for tense in tenses %}
+                <TD style="border: 1px solid blue; padding: 0.5em; font-weight: bold">{{ tense }} </TD>
+            {% endfor %}
+        </TR>
+        <TR>
+            {% for tense in tenses %}
+                <TD style="border: 1px solid blue; padding: 0.5em">
+                    <span class="verb" id="{{ tense.value }}"></span>
+                </TD>
+            {% endfor %}
+        </TR>
+    </TABLE>
+
+
 {% endblock %}

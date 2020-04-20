@@ -4,6 +4,8 @@ from werkzeug.serving import WSGIRequestHandler
 
 import Verb
 
+from RussianVerb import Tense
+
 WSGIRequestHandler.protocol_version = "HTTP/1.1"
 app = Flask(__name__, static_url_path="/static")
 
@@ -28,7 +30,7 @@ def morph():
 
 @app.route('/table')
 def table():
-    return render_template('tabled.html', langs=languages, verbs=default_verbs)
+    return render_template('table.html', langs=languages, verbs=default_verbs, tenses = Tense)
 
 
 @app.route('/morph/<lang>/<infinitive>', methods=['GET'])
