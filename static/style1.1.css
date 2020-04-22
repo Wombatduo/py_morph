@@ -23,6 +23,16 @@ td {
     color: navy;
 }
 
+h1 {
+    padding-top: 1.5em;
+    color: purple;
+    text-transform: uppercase;
+}
+
+h2#subhead {
+    margin-bottom: 1.5em;
+}
+
 div.navy {
     margin-bottom: 1em;
 }
@@ -50,9 +60,14 @@ ul.navy li {
     margin-right: -4em;
 }
 
+#inf_lable {
+    margin-left: 2em;
+}
+
 #infinitive {
     left: -6em;
-    margin-right: -4em;
+    /*margin-left: 2em;*/
+    /*font-size: large;*/
 }
 
 #person {
@@ -72,11 +87,3 @@ ul.navy li {
     color: red;
     font-size: x-large;
 }
-
-h1 {
-    padding-top: 1.5em;
-    color: purple;
-    text-transform: uppercase;
-}
-
-/*#viewport {border-width: 2px; border-color: black}*/
