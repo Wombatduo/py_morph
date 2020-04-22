@@ -6,6 +6,23 @@ label {
     font-size: 14px
 }
 
+body {
+    color: white;
+    /*background-image: url("background-pirat.jpg");*/
+    background-image: url("background-what.png");
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+table {
+    background: white
+}
+
+td {
+    color: navy;
+}
+
 div.navy {
     margin-bottom: 1em;
 }
