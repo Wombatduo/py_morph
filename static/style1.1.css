@@ -12,25 +12,31 @@ body {
     background-image: url("background-what.png");
     background-attachment: scroll;
     background-repeat: no-repeat;
-    background-size: 100%;
-}
+    background-size: 80em;
+    transform: scale(1.15);
+    transform-origin: 0 0;}
 
 table {
     background: white
 }
 
 td {
-    color: navy;
+    color: cadetblue;
 }
 
 h1 {
     padding-top: 1.5em;
-    color: purple;
+    color: burlywood;
     text-transform: uppercase;
 }
 
 h2#subhead {
     margin-bottom: 1.5em;
+    color: #ececec;
+}
+
+a:link, a:visited {
+    color: aliceblue;
 }
 
 div.navy {
@@ -47,7 +53,6 @@ ul.navy li {
     float: left;
     margin-right: .5em;
     margin-left: 2em;
-
 }
 
 #lang, #infinitive, #person, #number, #tense {
@@ -66,6 +71,8 @@ ul.navy li {
 
 #infinitive {
     left: -6em;
+    font-weight: bold;
+    color: black;
     /*margin-left: 2em;*/
     /*font-size: large;*/
 }
@@ -84,6 +91,6 @@ ul.navy li {
 
 .verb {
     font-weight: bold;
-    color: red;
+    color: chocolate;
     font-size: x-large;
 }
