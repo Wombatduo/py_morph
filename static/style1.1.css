@@ -14,13 +14,18 @@ body {
     background-repeat: no-repeat;
     background-size: 80em;
     transform: scale(1.15);
-    transform-origin: 0 0;}
+    transform-origin: 0 0;
+}
 
-table {
+table.forms {
+    border-collapse: collapse;
     background: white
 }
 
-td {
+table.forms td {
+    border: 1px solid black;
+    padding: 0.5em;
+    font-weight: bold;
     color: cadetblue;
 }
 

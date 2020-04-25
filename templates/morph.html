@@ -36,6 +36,7 @@
 {% endblock %}
 
 {% block form %}
+    <br/><br/>
     <label for="person">Лицо</label>
     <select onchange="$('form').submit()" tabindex="2" id="person" name="person">
         <option value="1">первое</option>
@@ -54,9 +55,11 @@
         <option value="3">будущее</option>
         <option value="4">совершенное</option>
     </select>
-    </fieldset>
 {% endblock %}
 
 {% block content %}
-    <p>Новая форма: <span id="verb" class="verb"></span></p>
+    <p style="background-color: aliceblue;
+    margin-right: 72%;
+    color: dimgrey;
+padding-left: 1em">Новая форма: <span id="verb" style="font-size: 400% !important;"  class="verb"></span></p>
 {% endblock %}

@@ -45,15 +45,15 @@
 
 {% block content %}
     <p>Формы:</p>
-    <TABLE style="border-collapse: collapse">
+    <TABLE class="forms">
         <TR>
             {% for tense in tenses %}
-                <TD style="border: 1px solid blue; padding: 0.5em; font-weight: bold">{{ tense }} </TD>
+                <TD>{{ tense }} </TD>
             {% endfor %}
         </TR>
         <TR>
             {% for tense in tenses %}
-                <TD style="border: 1px solid blue; padding: 0.5em">
+                <TD>
                     <span class="verb" id="{{ tense.value }}"></span>
                 </TD>
             {% endfor %}

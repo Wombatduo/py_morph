@@ -5,6 +5,7 @@ from RussianVerb import RussianVerb
 
 
 def getVerb(lang, infinitive):
+    lang = lang.lower()
     if lang == 'eng':
         return EnglishVerb(infinitive)
     elif lang == 'esp':
