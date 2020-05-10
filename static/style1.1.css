@@ -28,7 +28,7 @@ table.forms th {
 
 table.forms td, th  {
     border: 1px solid black;
-    padding: 0.5em;
+    padding: 0.2em 0.5em;
     font-weight: bold;
     color: cadetblue;
 }
@@ -37,6 +37,11 @@ h1 {
     padding-top: 1.5em;
     color: burlywood;
     text-transform: uppercase;
+}
+
+div#content {
+    margin-top: 0.5em;
+    margin-left: 1em;
 }
 
 h2#subhead {
