@@ -3,8 +3,7 @@ from flask import Flask, jsonify, abort, request, make_response, render_template
 from werkzeug.serving import WSGIRequestHandler
 
 import Verb
-
-from RussianVerb import Tense
+from AbstarctVerb import Person, Tense
 
 WSGIRequestHandler.protocol_version = "HTTP/1.1"
 app = Flask(__name__, static_url_path="/static")
@@ -30,7 +29,7 @@ def morph():
 
 @app.route('/table')
 def table():
-    return render_template('table.html', langs=languages, verbs=default_verbs, tenses = Tense)
+    return render_template('table.html', langs=languages, verbs=default_verbs, tenses=Tense, persons=Person)
 
 
 @app.route('/morph/<lang>/<infinitive>', methods=['GET'])
@@ -54,7 +53,7 @@ def morph_verb():
     if verb is None:
         abort(400, "Language not exists")
 
-    return jsonify({'form': verb.morph(person, number, tense, 'M'), 'pronoun':PN4'+str(person)+str(number)})
+    return jsonify({'form': verb.morph(person, number, tense, 'M'), 'pronoun': 'PN4' + str(person) + str(number)})
 
 
 if __name__ == '__main__':

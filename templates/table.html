@@ -52,6 +52,7 @@
                 <TD>{{ tense }} </TD>
             {% endfor %}
         </TR>
+        {% for person in persons %}
         <TR>
             {% for tense in tenses %}
                 <TD>
@@ -60,5 +61,6 @@
                 </TD>
             {% endfor %}
         </TR>
+        {% endfor %}
     </TABLE>
 {% endblock %}
