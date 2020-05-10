@@ -39,7 +39,7 @@ class RussianVerb(AbstractVerb):
 
     def morph(self, person, number, tense, genus):
 
-        if tense == 2:
+        if tense == Tense.PRESENT.value:
             if person == 1:
                 if person == Number.SINGULAR.value:
                     if self.infinitive == "делать":
@@ -61,7 +61,7 @@ class RussianVerb(AbstractVerb):
                 elif person == Number.PLURAL.value:
                     if self.infinitive == "делать":
                         return "делают"
-        if tense == 1:
+        if tense == Tense.PAST.value:
             if person == 1:
                 if person == Number.SINGULAR.value:
                     if self.infinitive == "делать":
@@ -89,8 +89,9 @@ class RussianVerb(AbstractVerb):
                 elif person == Number.PLURAL.value:
                     if self.infinitive == "делать":
                         return "делали"
-            # if tense == 3:
-            #  if person == 1:
+            if tense == Tense.FUTURE.value:
+                if person == 1:
+                    return "буду" + self.get_infinitive()
 
     def get_perfect_form(self, person, number):
         perfect_form = self.get_ed_form()
