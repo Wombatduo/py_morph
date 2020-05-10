@@ -75,15 +75,15 @@ class GermanVerb(AbstractVerb):
             if self.infinitive == "sein":
                 if number == Number.SINGULAR.value:
                     if person == Person.FIRST.value:
-                        return ""
+                        return "werde " + self.get_infinitive()
                     elif person == Person.SECOND.value:
-                        return ""
+                        return "wirst " + self.get_infinitive()
                     elif person == Person.THIRD.value:
-                        return ""
+                        return "wird " + self.get_infinitive()
                 if number == Number.PLURAL.value:
                     if person == Person.FIRST.value:
-                        return ""
+                        return "werden " + self.get_infinitive()
                     elif person == Person.SECOND.value:
-                        return ""
+                        return "werdet " + self.get_infinitive()
                     elif person == Person.THIRD.value:
-                        return ""
+                        return "werden " + self.get_infinitive()
