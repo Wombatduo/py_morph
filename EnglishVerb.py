@@ -13,14 +13,25 @@ class Number(enum.Enum):
     PLURAL = 2
 
 
-class EnglishVerb(AbstractVerb):
+class Tense(enum.Enum):
+    PAST = 1
+    PRESENT = 2
+    FUTURE = 3
 
+
+class Genus(enum.Enum):
+    MALE = 1
+    FEMALE = 2
+    MIDDLE = 3
+
+
+class EnglishVerb(AbstractVerb):
     default_verb = 'be'
 
     def morph(self, person, number, tense, genus):
 
         if self.is_irregular:
-            if tense == 1:
+            if tense == Tense.PAST.value:
                 past_simple = self.get_irregular()["past simple"]
                 if "/" in past_simple:
                     if number == Number.SINGULAR.value:
@@ -28,7 +39,7 @@ class EnglishVerb(AbstractVerb):
                     elif number == Number.PLURAL.value:
                         past_simple = past_simple.split("/", 1)[1]
                 return past_simple
-            elif tense == 2:
+            elif tense == Tense.PRESENT.value:
                 if self.infinitive == "be":
                     if person == Person.FIRST.value and number == Number.SINGULAR.value:
                         return "am"
@@ -51,18 +62,19 @@ class EnglishVerb(AbstractVerb):
                 if person == Person.THIRD.value and number == Number.SINGULAR.value:
                     return self.infinitive + "s"
                 return self.infinitive
-            elif tense == 3:
+
+            elif tense == Tense.FUTURE.value:
                 return "will " + self.infinitive
             elif tense == 4:
                 return self.get_perfect_form(person, number)
         elif not self.is_irregular:
-            if tense == 1:
+            if tense == Tense.PAST.value:
                 return self.get_ed_form()
-            elif tense == 2:
+            elif tense == Tense.PRESENT.value:
                 if person == Person.THIRD.value and number == Number.SINGULAR.value:
                     return self.infinitive + "s"
                 return self.infinitive
-            elif tense == 3:
+            elif tense == Tense.FUTURE.value:
                 return "will " + self.infinitive
             elif tense == 4:
                 return self.get_perfect_form(person, number)
