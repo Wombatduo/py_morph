@@ -22,7 +22,11 @@ table.forms {
     background: white
 }
 
-table.forms td {
+table.forms th {
+    color: black;
+}
+
+table.forms td, th  {
     border: 1px solid black;
     padding: 0.5em;
     font-weight: bold;

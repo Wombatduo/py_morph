@@ -47,20 +47,24 @@
 {% block content %}
     <p>Формы:</p>
     <TABLE class="forms">
+        <THEAD>
         <TR>
             {% for tense in tenses %}
-                <TD>{{ tense }} </TD>
+                <TH>{{ tense }} </TH>
             {% endfor %}
         </TR>
+        </THEAD>
+        <TBODY>
         {% for person in persons %}
-        <TR>
-            {% for tense in tenses %}
-                <TD>
-                    <span class="pronoun" id="p{{ tense.value }}111"></span>
-                    <span class="verb" id="v{{ tense.value }}111"></span>
-                </TD>
-            {% endfor %}
-        </TR>
+            <TR>
+                {% for tense in tenses %}
+                    <TD>
+                        <span class="pronoun" id="p{{ tense.value }}111"></span>
+                        <span class="verb" id="v{{ tense.value }}111"></span>
+                    </TD>
+                {% endfor %}
+            </TR>
         {% endfor %}
+        </TBODY>
     </TABLE>
 {% endblock %}
