@@ -11,8 +11,9 @@
                 type: request_method,
                 data: form_data
             }).done(function (data) {
-                console.log("verb form is " + data.form);
-                $("#" + id).html(data.form);
+                console.log("verb form is " + data.form + " for " + data.pronoun);
+                $("#p" + id + "111").html(data.pronoun);
+                $("#v" + id + "111").html(data.form);
             });
         }
 
@@ -20,7 +21,7 @@
             $("form").submit(function () {
                 var post_url = $(this).attr("action"); //get form action url
                 var request_method = $(this).attr("method"); //get form HTTP method
-                for (i = 1; i < 4; i++) {
+                for (i = 1; i <= {{ tenses|length }}; i++) {
                     $(this).find("[name=tense]").val(i);
                     var form_data = $(this).serialize(); //Encode form elements for submission
                     get_verb_form_by_ajax(form_data, post_url, request_method, i);
@@ -54,7 +55,8 @@
         <TR>
             {% for tense in tenses %}
                 <TD>
-                    <span class="verb" id="{{ tense.value }}"></span>
+                    <span class="pronoun" id="p{{ tense.value }}111"></span>
+                    <span class="verb" id="v{{ tense.value }}111"></span>
                 </TD>
             {% endfor %}
         </TR>

@@ -43,6 +43,8 @@ class EnglishVerb(AbstractVerb):
                 return "will " + self.infinitive
             elif tense == 4:
                 return self.get_perfect_form(person, number)
+            elif tense == 5:
+                return "am " + self.get_infinitive() + "ing"
         elif not self.is_irregular:
             if tense == Tense.PAST.value:
                 return self.get_ed_form()
@@ -54,6 +56,8 @@ class EnglishVerb(AbstractVerb):
                 return "will " + self.infinitive
             elif tense == 4:
                 return self.get_perfect_form(person, number)
+            elif tense == 5:
+                return "am " + self.get_infinitive() + "ing"
 
     def get_perfect_form(self, person, number):
         perfect_form = self.get_ed_form()

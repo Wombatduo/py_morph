@@ -46,3 +46,5 @@ class Tense(enum.Enum):
     PAST = 1
     PRESENT = 2
     FUTURE = 3
+    # PERFECT = 4
+    # CONTINUOUS = 5
