@@ -10,8 +10,8 @@ class RussianVerbTest(unittest.TestCase):
 
     def test_быть_should_be_different_for_3_persons_singular(self):
         self.assertEqual("делаю", RussianVerb("делать").morph(1, 1, 2, 'M'))
-        self.assertEqual("делаешь", EnglishVerb("делать").morph(2, 1, 2, 'M'))
-        self.assertEqual("делает", EnglishVerb("делать").morph(3, 1, 2, 'M'))
+        self.assertEqual("делаешь", RussianVerb("делать").morph(2, 1, 2, 'M'))
+        self.assertEqual("делает", RussianVerb("делать").morph(3, 1, 2, 'M'))
 
 if __name__ == '__main__':
     unittest.main()

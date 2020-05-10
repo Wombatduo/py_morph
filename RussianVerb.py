@@ -41,52 +41,52 @@ class RussianVerb(AbstractVerb):
 
         if tense == Tense.PRESENT.value:
             if person == 1:
-                if person == Number.SINGULAR.value:
+                if number == Number.SINGULAR.value:
                     if self.infinitive == "делать":
                         return "делаю"
-                elif person == Number.PLURAL.value:
+                elif number == Number.PLURAL.value:
                     if self.infinitive == "делать":
                         return "делаем"
             if person == 2:
-                if person == Number.SINGULAR.value:
+                if number == Number.SINGULAR.value:
                     if self.infinitive == "делать":
                         return "делаешь"
-                elif person == Number.PLURAL.value:
+                elif number == Number.PLURAL.value:
                     if self.infinitive == "делать":
                         return "делаете"
             if person == 3:
-                if person == Number.SINGULAR.value:
+                if number == Number.SINGULAR.value:
                     if self.infinitive == "делать":
                         return "делает"
-                elif person == Number.PLURAL.value:
+                elif number == Number.PLURAL.value:
                     if self.infinitive == "делать":
                         return "делают"
         if tense == Tense.PAST.value:
             if person == 1:
-                if person == Number.SINGULAR.value:
+                if number == Number.SINGULAR.value:
                     if self.infinitive == "делать":
                         return "делал"
-                elif person == Number.PLURAL.value:
+                elif number == Number.PLURAL.value:
                     if self.infinitive == "делать":
                         return "делали"
             if person == 2:
-                if person == Number.SINGULAR.value:
+                if number == Number.SINGULAR.value:
                     if self.infinitive == "делать":
                         return "делал"
-                elif person == Number.PLURAL.value:
+                elif number == Number.PLURAL.value:
                     if self.infinitive == "делать":
                         return "делали"
             if person == 3:
-                if person == Number.SINGULAR.value and Genus.MALE.value:
+                if number == Number.SINGULAR.value and Genus.MALE.value:
                     if self.infinitive == "делать":
                         return "делал"
-                elif person == Number.SINGULAR.value and Genus.FEMALE.value:
+                elif number == Number.SINGULAR.value and Genus.FEMALE.value:
                     if self.infinitive == "делала":
                         return "делал"
-                elif person == Number.SINGULAR.value and Genus.MIDDLE.value:
+                elif number == Number.SINGULAR.value and Genus.MIDDLE.value:
                     if self.infinitive == "делало":
                         return "делал"
-                elif person == Number.PLURAL.value:
+                elif number == Number.PLURAL.value:
                     if self.infinitive == "делать":
                         return "делали"
             if tense == Tense.FUTURE.value:
