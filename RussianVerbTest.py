@@ -22,6 +22,21 @@ class RussianVerbTest(unittest.TestCase):
         self.assertEqual("будешь делать", RussianVerb("делать").morph(2, 1, 3, 'M'))
         self.assertEqual("будет делать", RussianVerb("делать").morph(3, 1, 3, 'M'))
 
+    def test_should_be_different_for_3_persons_plural(self):
+        self.assertEqual("делаем", RussianVerb("делать").morph(1, 2, 2, 'M'))
+        self.assertEqual("делаете", RussianVerb("делать").morph(2, 2, 2, 'M'))
+        self.assertEqual("делают", RussianVerb("делать").morph(3, 2, 2, 'M'))
+
+    def test_should_be_different_for_3_persons_past_plural(self):
+        self.assertEqual("делали", RussianVerb("делать").morph(1, 2, 1, 'M'))
+        self.assertEqual("делали", RussianVerb("делать").morph(2, 2, 1, 'M'))
+        self.assertEqual("делали", RussianVerb("делать").morph(3, 2, 1, 'M'))
+
+    def test_should_be_different_for_3_persons_future_plural(self):
+        self.assertEqual("будем делать", RussianVerb("делать").morph(1, 2, 3, 'M'))
+        self.assertEqual("будете делать", RussianVerb("делать").morph(2, 2, 3, 'M'))
+        self.assertEqual("будут делать", RussianVerb("делать").morph(3, 2, 3, 'M'))
+
 
 if __name__ == '__main__':
     unittest.main()

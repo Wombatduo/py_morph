@@ -94,15 +94,23 @@ class RussianVerb(AbstractVerb):
                 if number == Number.SINGULAR.value:
                     if self.infinitive == "делать":
                         return "буду " + self.get_infinitive()
+                elif number == Number.PLURAL.value:
+                    if self.infinitive == "делать":
+                        return "будем " + self.get_infinitive()
             elif person == 2:
                 if number == Number.SINGULAR.value:
                     if self.infinitive == "делать":
                         return "будешь " + self.get_infinitive()
+                elif number == Number.PLURAL.value:
+                    if self.infinitive == "делать":
+                        return "будете " + self.get_infinitive()
             elif person == 3:
                 if number == Number.SINGULAR.value:
                     if self.infinitive == "делать":
                         return "будет " + self.get_infinitive()
-
+                elif number == Number.PLURAL.value:
+                    if self.infinitive == "делать":
+                        return "будут " + self.get_infinitive()
 
 
     def get_perfect_form(self, person, number):
