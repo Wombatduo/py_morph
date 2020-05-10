@@ -12,5 +12,6 @@ class RussianVerbTest(unittest.TestCase):
         self.assertEqual("делаешь", RussianVerb("делать").morph(2, 1, 2, 'M'))
         self.assertEqual("делает", RussianVerb("делать").morph(3, 1, 2, 'M'))
 
+
 if __name__ == '__main__':
     unittest.main()
