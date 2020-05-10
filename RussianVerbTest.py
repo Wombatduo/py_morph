@@ -9,9 +9,9 @@ class RussianVerbTest(unittest.TestCase):
         self.assertEqual( "быть", RussianVerb("быть").get_infinitive())
 
     def test_быть_should_be_different_for_3_persons_singular(self):
-        self.assertEqual(RussianVerb("есть").morph(1, 1, 2, 'M'))
-        self.assertEqual("are", EnglishVerb("be").morph(2, 1, 2, 'M'))
-        self.assertEqual("is", EnglishVerb("be").morph(3, 1, 2, 'M'))
+        self.assertEqual("делаю", RussianVerb("делать").morph(1, 1, 2, 'M'))
+        self.assertEqual("делаешь", EnglishVerb("делать").morph(2, 1, 2, 'M'))
+        self.assertEqual("делает", EnglishVerb("делать").morph(3, 1, 2, 'M'))
 
 if __name__ == '__main__':
     unittest.main()
