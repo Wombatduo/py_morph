@@ -36,12 +36,17 @@ class Tense(enum.Enum):
 
 
 class AbstractVerb(ABC):
-    pronouns = {Person.FIRST: {Number.SINGULAR: {Genus.MALE: "I", Genus.FEMALE: "I", Genus.MIDDLE: "I"},
-                               Number.PLURAL: {Genus.MALE: "We", Genus.FEMALE: "We", Genus.MIDDLE: "We"}},
-                Person.SECOND: {Number.SINGULAR: {Genus.MALE: "You", Genus.FEMALE: "You", Genus.MIDDLE: "You"},
-                                Number.PLURAL: {Genus.MALE: "You", Genus.FEMALE: "You", Genus.MIDDLE: "You"}},
-                Person.THIRD: {Number.SINGULAR: {Genus.MALE: "He", Genus.FEMALE: "She", Genus.MIDDLE: "It"},
-                               Number.PLURAL: {Genus.MALE: "They", Genus.FEMALE: "They", Genus.MIDDLE: "They"}}}
+    pronouns = {
+        Person.FIRST: {
+            Number.SINGULAR: {Genus.MALE: "I", Genus.FEMALE: "I", Genus.MIDDLE: "I"},
+            Number.PLURAL: {Genus.MALE: "We", Genus.FEMALE: "We", Genus.MIDDLE: "We"}},
+        Person.SECOND: {
+            Number.SINGULAR: {Genus.MALE: "You", Genus.FEMALE: "You", Genus.MIDDLE: "You"},
+            Number.PLURAL: {Genus.MALE: "You", Genus.FEMALE: "You", Genus.MIDDLE: "You"}},
+        Person.THIRD: {
+            Number.SINGULAR: {Genus.MALE: "He", Genus.FEMALE: "She", Genus.MIDDLE: "It"},
+            Number.PLURAL: {Genus.MALE: "They", Genus.FEMALE: "They", Genus.MIDDLE: "They"}}
+    }
 
     def __init__(self, infinitive):
         self._infinitive = infinitive.lower()
@@ -49,6 +54,9 @@ class AbstractVerb(ABC):
     @abstractmethod
     def morph(self, person, number, tense, genus):
         pass
+
+    def get_pronoun(self, person, number, genus):
+        return self.pronouns[Person(person)][Person(number)][Genus(genus)]
 
     def get_infinitive(self):
         return self._infinitive
