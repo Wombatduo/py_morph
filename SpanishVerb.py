@@ -30,10 +30,10 @@ class SpanishVerb(AbstractVerb):
                 elif person == Person.SECOND.value:
                     form += "isteis"
                 elif person == Person.THIRD.value:
-                    form += "i" if form[-1] != "u" else ""
+                    form += "i" if form[-1] not in ("u", "j") else ""
                     form += "eron"
         elif tense == Tense.PRESENT.value:
-            stem_present =  self.get_stem()['stem_present']
+            stem_present = self.get_stem()['stem_present']
             form = stem_present
             if number == Number.SINGULAR.value:
                 if person == Person.FIRST.value:
@@ -56,12 +56,12 @@ class SpanishVerb(AbstractVerb):
             if number == Number.PLURAL.value:
                 if person == Person.FIRST.value:
                     form = stem_present if (abs(len(self.stem) - len(stem_present)) > 1) else self.stem
-                    form += "a" if self.ending == "ar" else "o" if self.stem == "s" else "e"
+                    form += "a" if self.ending == "ar" else "i" if self.ending == "ir" else "o" if self.stem == "s" else "e"
                     form += "mos"
                 elif person == Person.SECOND.value:
                     form = self.stem
-                    form += "á" if self.ending == "ar" else "o" if self.stem == "s" else "é"
-                    form += "is"
+                    form += "ái" if self.ending == "ar" else "í" if self.ending == "ir" else "oi" if self.stem == "s" else "éi"
+                    form += "s"
                 elif person == Person.THIRD.value:
                     form += "á" if self.ending == "ar" else "o" if self.stem == "s" else "a" if form == "h" else "e"
                     form += "n"

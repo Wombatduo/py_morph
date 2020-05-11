@@ -166,6 +166,33 @@ class SpanishVerbTest(unittest.TestCase):
         self.assertEqual("podréis", SpanishVerb("poder").morph(2, 2, 3, 'M'))
         self.assertEqual("podrán",  SpanishVerb("poder").morph(3, 2, 3, 'M'))
 
+    def test_get_infinitive_for_decir(self):
+        self.assertEqual("decir", SpanishVerb("decir").get_infinitive())
+
+    def test_decir_should_be_different_for_3_persons_past(self):
+        self.assertEqual("dije",    SpanishVerb("decir").morph(1, 1, 1, 'M'))
+        self.assertEqual("dijiste", SpanishVerb("decir").morph(2, 1, 1, 'M'))
+        self.assertEqual("dijo",    SpanishVerb("decir").morph(3, 1, 1, 'M'))
+        self.assertEqual("dijimos",   SpanishVerb("decir").morph(1, 2, 1, 'M'))
+        self.assertEqual("dijisteis", SpanishVerb("decir").morph(2, 2, 1, 'M'))
+        self.assertEqual("dijeron",  SpanishVerb("decir").morph(3, 2, 1, 'M'))
+
+    def test_decir_should_be_different_for_3_persons_present(self):
+        self.assertEqual("digo", SpanishVerb("decir").morph(1, 1, 2, 'M'))
+        self.assertEqual("dices", SpanishVerb("decir").morph(2, 1, 2, 'M'))
+        self.assertEqual("dice",  SpanishVerb("decir").morph(3, 1, 2, 'M'))
+        self.assertEqual("decimos", SpanishVerb("decir").morph(1, 2, 2, 'M'))
+        self.assertEqual("decís", SpanishVerb("decir").morph(2, 2, 2, 'M'))
+        self.assertEqual("dicen",  SpanishVerb("decir").morph(3, 2, 2, 'M'))
+
+    def test_decir_should_be_different_for_3_persons_future(self):
+        self.assertEqual("diré",  SpanishVerb("decir").morph(1, 1, 3, 'M'))
+        self.assertEqual("dirás", SpanishVerb("decir").morph(2, 1, 3, 'M'))
+        self.assertEqual("dirá",  SpanishVerb("decir").morph(3, 1, 3, 'M'))
+        self.assertEqual("diremos",  SpanishVerb("decir").morph(1, 2, 3, 'M'))
+        self.assertEqual("diréis", SpanishVerb("decir").morph(2, 2, 3, 'M'))
+        self.assertEqual("dirán",  SpanishVerb("decir").morph(3, 2, 3, 'M'))
+
 
 if __name__ == '__main__':
     unittest.main()
