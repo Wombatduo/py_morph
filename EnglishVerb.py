@@ -1,10 +1,22 @@
 from os import path
 
-from AbstarctVerb import AbstractVerb, Person, Number, Tense
+from AbstarctVerb import AbstractVerb, Person, Number, Tense, Genus
 
 
 class EnglishVerb(AbstractVerb):
     default_verb = 'be'
+
+    pronouns = {
+        Person.FIRST: {
+            Number.SINGULAR: {Genus.MALE: "I", Genus.FEMALE: "I", Genus.MIDDLE: "I"},
+            Number.PLURAL: {Genus.MALE: "We", Genus.FEMALE: "We", Genus.MIDDLE: "We"}},
+        Person.SECOND: {
+            Number.SINGULAR: {Genus.MALE: "You", Genus.FEMALE: "You", Genus.MIDDLE: "You"},
+            Number.PLURAL: {Genus.MALE: "You", Genus.FEMALE: "You", Genus.MIDDLE: "You"}},
+        Person.THIRD: {
+            Number.SINGULAR: {Genus.MALE: "He", Genus.FEMALE: "She", Genus.MIDDLE: "It"},
+            Number.PLURAL: {Genus.MALE: "They", Genus.FEMALE: "They", Genus.MIDDLE: "They"}}
+    }
 
     def morph(self, person, number, tense, genus):
 
