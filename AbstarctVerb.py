@@ -2,19 +2,6 @@ import enum
 from abc import ABC, abstractmethod
 
 
-class AbstractVerb(ABC):
-
-    def __init__(self, infinitive):
-        self._infinitive = infinitive.lower()
-
-    @abstractmethod
-    def morph(self, person, number, tense, genus):
-        pass
-
-    def get_infinitive(self):
-        return self._infinitive
-
-
 class Genus(enum.Enum):
     MALE = 1
     FEMALE = 2
@@ -46,3 +33,31 @@ class Tense(enum.Enum):
     PAST = 1
     PRESENT = 2
     FUTURE = 3
+
+
+class AbstractVerb(ABC):
+    pronouns = {
+        Person.FIRST: {
+            Number.SINGULAR: {Genus.MALE: "PN", Genus.FEMALE: "I", Genus.MIDDLE: "I"},
+            Number.PLURAL: {Genus.MALE: "We", Genus.FEMALE: "We", Genus.MIDDLE: "We"}},
+        Person.SECOND: {
+            Number.SINGULAR: {Genus.MALE: "You", Genus.FEMALE: "You", Genus.MIDDLE: "You"},
+            Number.PLURAL: {Genus.MALE: "You", Genus.FEMALE: "You", Genus.MIDDLE: "You"}},
+        Person.THIRD: {
+            Number.SINGULAR: {Genus.MALE: "He", Genus.FEMALE: "She", Genus.MIDDLE: "It"},
+            Number.PLURAL: {Genus.MALE: "They", Genus.FEMALE: "They", Genus.MIDDLE: "They"}}
+    }
+
+    def __init__(self, infinitive):
+        self._infinitive = infinitive.lower()
+
+    @abstractmethod
+    def morph(self, person, number, tense, genus):
+        pass
+
+    @classmethod
+    def get_pronoun(cls, person, number, genus):
+        return cls.pronouns[Person(person)][Number(number)][Genus(genus)]
+
+    def get_infinitive(self):
+        return self._infinitive

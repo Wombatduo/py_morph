@@ -53,14 +53,14 @@ def morph_verb():
     if verb is None:
         abort(400, "Language not exists")
 
-    return jsonify({'form': verb.morph(person, number, tense, 'M'), 'pronoun': 'PN4' + str(person) + str(number)})
+    return jsonify({'form': verb.morph(person, number, tense, 'M'), 'pronoun': verb.get_pronoun(person,number,1)})
 
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True)  # 192.168.1.69 - paps # 192.168.1.77 - wombat
 
 # GET /morph/be HTTP/1.1
-# Host: localhost:5000
+# Host: localhost:
 # Connection: Keep-Alive
 # Keep-Alive: timeout=5, max=100
 
