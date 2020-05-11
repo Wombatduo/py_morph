@@ -38,7 +38,7 @@ class Tense(enum.Enum):
 class AbstractVerb(ABC):
     pronouns = {
         Person.FIRST: {
-            Number.SINGULAR: {Genus.MALE: "PN", Genus.FEMALE: "I", Genus.MIDDLE: "I"},
+            Number.SINGULAR: {Genus.MALE: "I", Genus.FEMALE: "I", Genus.MIDDLE: "I"},
             Number.PLURAL: {Genus.MALE: "We", Genus.FEMALE: "We", Genus.MIDDLE: "We"}},
         Person.SECOND: {
             Number.SINGULAR: {Genus.MALE: "You", Genus.FEMALE: "You", Genus.MIDDLE: "You"},
