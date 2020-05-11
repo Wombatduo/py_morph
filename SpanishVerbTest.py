@@ -31,6 +31,7 @@ class SpanishVerbTest(unittest.TestCase):
         self.assertEqual("seréis",  SpanishVerb("ser").morph(2, 2, 3, 'M'))
         self.assertEqual("serán",   SpanishVerb("ser").morph(3, 2, 3, 'M'))
 
+
     def test_get_infinitive_for_estar(self):
         self.assertEqual("estar", SpanishVerb("estar").get_infinitive())
 
@@ -57,6 +58,7 @@ class SpanishVerbTest(unittest.TestCase):
         self.assertEqual("estaremos",  SpanishVerb("estar").morph(1, 2, 3, 'M'))
         self.assertEqual("estaréis", SpanishVerb("estar").morph(2, 2, 3, 'M'))
         self.assertEqual("estarán",  SpanishVerb("estar").morph(3, 2, 3, 'M'))
+
 
     def test_get_infinitive_for_hacer(self):
         self.assertEqual("hacer", SpanishVerb("hacer").get_infinitive())
@@ -85,6 +87,7 @@ class SpanishVerbTest(unittest.TestCase):
         self.assertEqual("haréis", SpanishVerb("hacer").morph(2, 2, 3, 'M'))
         self.assertEqual("harán",  SpanishVerb("hacer").morph(3, 2, 3, 'M'))
 
+
     def test_get_infinitive_for_tener(self):
         self.assertEqual("tener", SpanishVerb("tener").get_infinitive())
 
@@ -111,6 +114,7 @@ class SpanishVerbTest(unittest.TestCase):
         self.assertEqual("tendremos",  SpanishVerb("tener").morph(1, 2, 3, 'M'))
         self.assertEqual("tendréis", SpanishVerb("tener").morph(2, 2, 3, 'M'))
         self.assertEqual("tendrán",  SpanishVerb("tener").morph(3, 2, 3, 'M'))
+
 
     def test_get_infinitive_for_haber(self):
         self.assertEqual("haber", SpanishVerb("haber").get_infinitive())
@@ -139,6 +143,7 @@ class SpanishVerbTest(unittest.TestCase):
         self.assertEqual("habréis", SpanishVerb("haber").morph(2, 2, 3, 'M'))
         self.assertEqual("habrán",  SpanishVerb("haber").morph(3, 2, 3, 'M'))
 
+
     def test_get_infinitive_for_poder(self):
         self.assertEqual("poder", SpanishVerb("poder").get_infinitive())
 
@@ -166,6 +171,7 @@ class SpanishVerbTest(unittest.TestCase):
         self.assertEqual("podréis", SpanishVerb("poder").morph(2, 2, 3, 'M'))
         self.assertEqual("podrán",  SpanishVerb("poder").morph(3, 2, 3, 'M'))
 
+
     def test_get_infinitive_for_decir(self):
         self.assertEqual("decir", SpanishVerb("decir").get_infinitive())
 
@@ -192,6 +198,34 @@ class SpanishVerbTest(unittest.TestCase):
         self.assertEqual("diremos",  SpanishVerb("decir").morph(1, 2, 3, 'M'))
         self.assertEqual("diréis", SpanishVerb("decir").morph(2, 2, 3, 'M'))
         self.assertEqual("dirán",  SpanishVerb("decir").morph(3, 2, 3, 'M'))
+
+
+    def test_get_infinitive_for_ir(self):
+        self.assertEqual("ir", SpanishVerb("ir").get_infinitive())
+
+    def test_ir_should_be_different_for_3_persons_past(self):
+        self.assertEqual("fui",    SpanishVerb("ir").morph(1, 1, 1, 'M'))
+        self.assertEqual("fuiste", SpanishVerb("ir").morph(2, 1, 1, 'M'))
+        self.assertEqual("fue",    SpanishVerb("ir").morph(3, 1, 1, 'M'))
+        self.assertEqual("fuimos",   SpanishVerb("ir").morph(1, 2, 1, 'M'))
+        self.assertEqual("fuisteis", SpanishVerb("ir").morph(2, 2, 1, 'M'))
+        self.assertEqual("fueron",  SpanishVerb("ir").morph(3, 2, 1, 'M'))
+
+    def test_ir_should_be_different_for_3_persons_present(self):
+        self.assertEqual("voy", SpanishVerb("ir").morph(1, 1, 2, 'M'))
+        self.assertEqual("vas", SpanishVerb("ir").morph(2, 1, 2, 'M'))
+        self.assertEqual("va",  SpanishVerb("ir").morph(3, 1, 2, 'M'))
+        self.assertEqual("vamos", SpanishVerb("ir").morph(1, 2, 2, 'M'))
+        self.assertEqual("vais", SpanishVerb("ir").morph(2, 2, 2, 'M'))
+        self.assertEqual("van",  SpanishVerb("ir").morph(3, 2, 2, 'M'))
+
+    def test_ir_should_be_different_for_3_persons_future(self):
+        self.assertEqual("iré",  SpanishVerb("ir").morph(1, 1, 3, 'M'))
+        self.assertEqual("irás", SpanishVerb("ir").morph(2, 1, 3, 'M'))
+        self.assertEqual("irá",  SpanishVerb("ir").morph(3, 1, 3, 'M'))
+        self.assertEqual("iremos",  SpanishVerb("ir").morph(1, 2, 3, 'M'))
+        self.assertEqual("iréis", SpanishVerb("ir").morph(2, 2, 3, 'M'))
+        self.assertEqual("irán",  SpanishVerb("ir").morph(3, 2, 3, 'M'))
 
 
 if __name__ == '__main__':
