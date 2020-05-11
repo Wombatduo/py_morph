@@ -5,14 +5,14 @@ from abc import ABC, abstractmethod
 class AbstractVerb(ABC):
 
     def __init__(self, infinitive):
-        self.infinitive = infinitive.lower()
+        self._infinitive = infinitive.lower()
 
     @abstractmethod
     def morph(self, person, number, tense, genus):
         pass
 
     def get_infinitive(self):
-        return self.infinitive
+        return self._infinitive
 
 
 class Genus(enum.Enum):
@@ -46,5 +46,3 @@ class Tense(enum.Enum):
     PAST = 1
     PRESENT = 2
     FUTURE = 3
-    # PERFECT = 4
-    # CONTINUOUS = 5

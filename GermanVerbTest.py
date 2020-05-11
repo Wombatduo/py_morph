@@ -2,7 +2,7 @@ import unittest
 from GermanVerb import GermanVerb
 
 
-class EnglishVerbTest(unittest.TestCase):
+class GermanVerbTest(unittest.TestCase):
 
     def test_get_infinitive_for_be(self):
         self.assertEqual("sein", GermanVerb("sein").get_infinitive())

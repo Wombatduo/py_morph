@@ -1,3 +1,4 @@
+import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, RegexHandler, Filters
 from telegram import ReplyKeyboardMarkup
 from Verb import getVerb
@@ -5,8 +6,10 @@ from bot_settings import TELEGRAM_API_KEY, PROXY
 
 chats = {}
 
+logging.basicConfig(level=logging.INFO, filename='bot.log')
 
 def do_morph(bot, update):
+    logging.info(update)
     chat_id = update.message.chat.id
     print(update.message)
     in_text = update.message.text
@@ -28,6 +31,7 @@ def do_morph(bot, update):
 
 
 def greet_user(bot, update):
+    logging.info(update)
     chat_id = update.message.chat.id
     if chats.get(chat_id):
         chats[chat_id] = "eng"
@@ -37,12 +41,14 @@ def greet_user(bot, update):
 
 
 def show_lang_keyboard(bot, update):
+    logging.info(update)
     print("/lang")
     lang_keyboard = ReplyKeyboardMarkup([["English", "Espanol"], ["Deutsche", "Русский"]])
     update.message.reply_text("выберите язык", reply_markup=lang_keyboard)
 
 
 def switch_lang(bot, update):
+    logging.info(update)
     print(update.message)
     text = update.message.text
     lang = get_lang_by_text(text)
@@ -77,7 +83,7 @@ def main():
     dp.add_handler(RegexHandler("^(Deutsche|ger|Ger|GER)$", switch_lang))
     dp.add_handler(RegexHandler("^(Русский|rus|Rus|RUS)$", switch_lang))
     dp.add_handler(MessageHandler(Filters.text, do_morph))
-
+    logging.info("Up and running!")
     mybot.start_polling()
     mybot.idle()
 
