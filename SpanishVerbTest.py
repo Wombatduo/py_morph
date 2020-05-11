@@ -112,6 +112,60 @@ class SpanishVerbTest(unittest.TestCase):
         self.assertEqual("tendréis", SpanishVerb("tener").morph(2, 2, 3, 'M'))
         self.assertEqual("tendrán",  SpanishVerb("tener").morph(3, 2, 3, 'M'))
 
+    def test_get_infinitive_for_haber(self):
+        self.assertEqual("haber", SpanishVerb("haber").get_infinitive())
+
+    def test_haber_should_be_different_for_3_persons_past(self):
+        self.assertEqual("hube",    SpanishVerb("haber").morph(1, 1, 1, 'M'))
+        self.assertEqual("hubiste", SpanishVerb("haber").morph(2, 1, 1, 'M'))
+        self.assertEqual("hubo",    SpanishVerb("haber").morph(3, 1, 1, 'M'))
+        self.assertEqual("hubimos",   SpanishVerb("haber").morph(1, 2, 1, 'M'))
+        self.assertEqual("hubisteis", SpanishVerb("haber").morph(2, 2, 1, 'M'))
+        self.assertEqual("hubieron",  SpanishVerb("haber").morph(3, 2, 1, 'M'))
+
+    def test_haber_should_be_different_for_3_persons_present(self):
+        self.assertEqual("he", SpanishVerb("haber").morph(1, 1, 2, 'M'))
+        self.assertEqual("has", SpanishVerb("haber").morph(2, 1, 2, 'M'))
+        self.assertEqual("ha",  SpanishVerb("haber").morph(3, 1, 2, 'M'))
+        self.assertEqual("hemos", SpanishVerb("haber").morph(1, 2, 2, 'M'))
+        self.assertEqual("habéis", SpanishVerb("haber").morph(2, 2, 2, 'M'))
+        self.assertEqual("han",  SpanishVerb("haber").morph(3, 2, 2, 'M'))
+
+    def test_haber_should_be_different_for_3_persons_future(self):
+        self.assertEqual("habré",  SpanishVerb("haber").morph(1, 1, 3, 'M'))
+        self.assertEqual("habrás", SpanishVerb("haber").morph(2, 1, 3, 'M'))
+        self.assertEqual("habrá",  SpanishVerb("haber").morph(3, 1, 3, 'M'))
+        self.assertEqual("habremos",  SpanishVerb("haber").morph(1, 2, 3, 'M'))
+        self.assertEqual("habréis", SpanishVerb("haber").morph(2, 2, 3, 'M'))
+        self.assertEqual("habrán",  SpanishVerb("haber").morph(3, 2, 3, 'M'))
+
+    def test_get_infinitive_for_poder(self):
+        self.assertEqual("poder", SpanishVerb("poder").get_infinitive())
+
+    def test_poder_should_be_different_for_3_persons_past(self):
+        self.assertEqual("pude",    SpanishVerb("poder").morph(1, 1, 1, 'M'))
+        self.assertEqual("pudiste", SpanishVerb("poder").morph(2, 1, 1, 'M'))
+        self.assertEqual("pudo",    SpanishVerb("poder").morph(3, 1, 1, 'M'))
+        self.assertEqual("pudimos",   SpanishVerb("poder").morph(1, 2, 1, 'M'))
+        self.assertEqual("pudisteis", SpanishVerb("poder").morph(2, 2, 1, 'M'))
+        self.assertEqual("pudieron",  SpanishVerb("poder").morph(3, 2, 1, 'M'))
+
+    def test_poder_should_be_different_for_3_persons_present(self):
+        self.assertEqual("puedo", SpanishVerb("poder").morph(1, 1, 2, 'M'))
+        self.assertEqual("puedes", SpanishVerb("poder").morph(2, 1, 2, 'M'))
+        self.assertEqual("puede",  SpanishVerb("poder").morph(3, 1, 2, 'M'))
+        self.assertEqual("podemos", SpanishVerb("poder").morph(1, 2, 2, 'M'))
+        self.assertEqual("podéis", SpanishVerb("poder").morph(2, 2, 2, 'M'))
+        self.assertEqual("pueden",  SpanishVerb("poder").morph(3, 2, 2, 'M'))
+
+    def test_poder_should_be_different_for_3_persons_future(self):
+        self.assertEqual("podré",  SpanishVerb("poder").morph(1, 1, 3, 'M'))
+        self.assertEqual("podrás", SpanishVerb("poder").morph(2, 1, 3, 'M'))
+        self.assertEqual("podrá",  SpanishVerb("poder").morph(3, 1, 3, 'M'))
+        self.assertEqual("podremos",  SpanishVerb("poder").morph(1, 2, 3, 'M'))
+        self.assertEqual("podréis", SpanishVerb("poder").morph(2, 2, 3, 'M'))
+        self.assertEqual("podrán",  SpanishVerb("poder").morph(3, 2, 3, 'M'))
+
 
 if __name__ == '__main__':
     unittest.main()

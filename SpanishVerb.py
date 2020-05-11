@@ -33,32 +33,38 @@ class SpanishVerb(AbstractVerb):
                     form += "i" if form[-1] != "u" else ""
                     form += "eron"
         elif tense == Tense.PRESENT.value:
-            form = self.stem
+            stem_present = self.get_stem()['stem_present'] if self.get_stem() is not None else self.stem
+            form = self.stem if self.get_stem() is None else stem_present
             if number == Number.SINGULAR.value:
                 if person == Person.FIRST.value:
-                    form = form.rstrip("c")
-                    if self.get_stem() is not None:
-                        form += "go" if self.get_infinitive() != self.get_stem()['stem_future'] else "oy"
+                    if abs(len(self.stem) - len(stem_present)) > 1:
+                        form = stem_present + "e"
+                    else:
+                        form = stem_present if self.stem != "ten" else self.stem
+                        form = form.rstrip("c")
+                        form += "g" if not form.endswith("d") and form != stem_present else ""
+                        form += "o"
+                        form += "y" if self.stem == form.rstrip("o") else ""
                 elif person == Person.SECOND.value:
-                    form = self.get_stem()['stem_present'] if self.get_stem() is not None else self.stem
-                    form = "ere" + form if self.stem == "s" else form
-                    form += "ás" if self.ending == "ar" else ("es" if self.stem != "s" else "")
+                    form = "ere" + form if self.stem == "s" else form + "as" if form == "h" else form
+                    form += "ás" if self.ending == "ar" else ("es" if self.stem not in ("hab", "s") else "")
                 elif person == Person.THIRD.value:
-                    form = self.get_stem()['stem_present'] if self.get_stem() is not None else self.stem
+                    form = self.stem if self.get_stem() is None else stem_present
                     if self.stem != "s":
-                        form += "á" if self.ending == "ar" else "e"
+                        form += "á" if self.ending == "ar" else "a" if self.stem == 'hab' else "e"
                     else:
                         form = "e" + form
             if number == Number.PLURAL.value:
                 if person == Person.FIRST.value:
+                    form =  stem_present if (abs(len(self.stem) - len(stem_present)) > 1) else self.stem
                     form += "a" if self.ending == "ar" else "o" if self.stem == "s" else "e"
                     form += "mos"
                 elif person == Person.SECOND.value:
+                    form = self.stem
                     form += "á" if self.ending == "ar" else "o" if self.stem == "s" else "é"
                     form += "is"
                 elif person == Person.THIRD.value:
-                    form = self.get_stem()['stem_present'] if self.get_stem() is not None else self.stem
-                    form += "á" if self.ending == "ar" else "o" if self.stem == "s" else "e"
+                    form += "á" if self.ending == "ar" else "o" if self.stem == "s" else "a" if form == "h" else "e"
                     form += "n"
         elif tense == Tense.FUTURE.value:
             form = self.get_infinitive() if self.get_stem() is None else self.get_stem()['stem_future']
