@@ -8,9 +8,9 @@ class EnglishVerbTest(unittest.TestCase):
         self.assertEqual("be", EnglishVerb("be").get_infinitive())
 
     def test_be_should_be_different_for_3_persons_singular_present(self):
-        self.assertEqual("am",  EnglishVerb("be").morph(1, 1, 2, 'M'))
+        self.assertEqual("am", EnglishVerb("be").morph(1, 1, 2, 'M'))
         self.assertEqual("are", EnglishVerb("be").morph(2, 1, 2, 'M'))
-        self.assertEqual("is",  EnglishVerb("be").morph(3, 1, 2, 'M'))
+        self.assertEqual("is", EnglishVerb("be").morph(3, 1, 2, 'M'))
 
     def test_be_should_be_are_for_3_persons_plural_present(self):
         self.assertEqual("are", EnglishVerb("be").morph(1, 2, 2, 'M'))
@@ -43,6 +43,9 @@ class EnglishVerbTest(unittest.TestCase):
         self.assertEqual("did", EnglishVerb("do").morph(1, 2, 1, 'M'))
         self.assertEqual("do", EnglishVerb("do").morph(1, 2, 2, 'M'))
         self.assertEqual("will do", EnglishVerb("do").morph(1, 2, 3, 'M'))
+
+    def test_pronouns(self):
+        self.assertEquals("I", EnglishVerb.get_pronoun(1, 1, 1))
 
 
 if __name__ == '__main__':

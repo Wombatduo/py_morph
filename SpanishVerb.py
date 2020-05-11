@@ -1,10 +1,21 @@
 import logging
 from os import path
 
-from AbstarctVerb import AbstractVerb, Person, Number, Tense
+from AbstarctVerb import AbstractVerb, Person, Number, Tense, Genus
 
 
 class SpanishVerb(AbstractVerb):
+    pronouns = {
+        Person.FIRST: {
+            Number.SINGULAR: {Genus.MALE: "Yo", Genus.FEMALE: "Yo", Genus.MIDDLE: "Yo"},
+            Number.PLURAL: {Genus.MALE: "Nosotros", Genus.FEMALE: "Nosotras", Genus.MIDDLE: "Nosotros"}},
+        Person.SECOND: {
+            Number.SINGULAR: {Genus.MALE: "Tu", Genus.FEMALE: "Tu", Genus.MIDDLE: "Tu"},
+            Number.PLURAL: {Genus.MALE: "Vosotros", Genus.FEMALE: "Vosotras", Genus.MIDDLE: "Vosotros"}},
+        Person.THIRD: {
+            Number.SINGULAR: {Genus.MALE: "El", Genus.FEMALE: "Ella", Genus.MIDDLE: "El"},
+            Number.PLURAL: {Genus.MALE: "Ellos", Genus.FEMALE: "Ellas", Genus.MIDDLE: "Ellas"}}
+    }
 
     def __init__(self, infinitive):
         super().__init__(infinitive)

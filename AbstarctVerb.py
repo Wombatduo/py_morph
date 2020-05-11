@@ -38,7 +38,7 @@ class Tense(enum.Enum):
 class AbstractVerb(ABC):
     pronouns = {
         Person.FIRST: {
-            Number.SINGULAR: {Genus.MALE: "I", Genus.FEMALE: "I", Genus.MIDDLE: "I"},
+            Number.SINGULAR: {Genus.MALE: "PN", Genus.FEMALE: "I", Genus.MIDDLE: "I"},
             Number.PLURAL: {Genus.MALE: "We", Genus.FEMALE: "We", Genus.MIDDLE: "We"}},
         Person.SECOND: {
             Number.SINGULAR: {Genus.MALE: "You", Genus.FEMALE: "You", Genus.MIDDLE: "You"},
@@ -55,8 +55,9 @@ class AbstractVerb(ABC):
     def morph(self, person, number, tense, genus):
         pass
 
-    def get_pronoun(self, person, number, genus):
-        return self.pronouns[Person(person)][Person(number)][Genus(genus)]
+    @classmethod
+    def get_pronoun(cls, person, number, genus):
+        return cls.pronouns[Person(person)][Number(number)][Genus(genus)]
 
     def get_infinitive(self):
         return self._infinitive
