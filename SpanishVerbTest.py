@@ -227,6 +227,34 @@ class SpanishVerbTest(unittest.TestCase):
         self.assertEqual("iréis",  SpanishVerb("ir").morph(2, 2, 3, 'M'))
         self.assertEqual("irán",   SpanishVerb("ir").morph(3, 2, 3, 'M'))
 
+
+    def test_get_infinitive_for_ver(self):
+        self.assertEqual("ver", SpanishVerb("ver").get_infinitive())
+
+    def test_ver_should_be_different_for_3_persons_past(self):
+        self.assertEqual("vi",    SpanishVerb("ver").morph(1, 1, 1, 'M'))
+        self.assertEqual("viste", SpanishVerb("ver").morph(2, 1, 1, 'M'))
+        self.assertEqual("vio",    SpanishVerb("ver").morph(3, 1, 1, 'M'))
+        self.assertEqual("vimos",   SpanishVerb("ver").morph(1, 2, 1, 'M'))
+        self.assertEqual("visteis", SpanishVerb("ver").morph(2, 2, 1, 'M'))
+        self.assertEqual("vieron",  SpanishVerb("ver").morph(3, 2, 1, 'M'))
+
+    def test_ver_should_be_different_for_3_persons_present(self):
+        self.assertEqual("veo", SpanishVerb("ver").morph(1, 1, 2, 'M'))
+        self.assertEqual("ves", SpanishVerb("ver").morph(2, 1, 2, 'M'))
+        self.assertEqual("ve",  SpanishVerb("ver").morph(3, 1, 2, 'M'))
+        self.assertEqual("vemos", SpanishVerb("ver").morph(1, 2, 2, 'M'))
+        self.assertEqual("veis", SpanishVerb("ver").morph(2, 2, 2, 'M'))
+        self.assertEqual("ven",  SpanishVerb("ver").morph(3, 2, 2, 'M'))
+
+    def test_ver_should_be_different_for_3_persons_future(self):
+        self.assertEqual("veré",  SpanishVerb("ver").morph(1, 1, 3, 'M'))
+        self.assertEqual("verás", SpanishVerb("ver").morph(2, 1, 3, 'M'))
+        self.assertEqual("verá",  SpanishVerb("ver").morph(3, 1, 3, 'M'))
+        self.assertEqual("veremos", SpanishVerb("ver").morph(1, 2, 3, 'M'))
+        self.assertEqual("veréis",  SpanishVerb("ver").morph(2, 2, 3, 'M'))
+        self.assertEqual("verán",   SpanishVerb("ver").morph(3, 2, 3, 'M'))
+
     def test_pronouns(self):
         self.assertEqual("Yo", SpanishVerb.get_pronoun(1, 1, 1))
 
