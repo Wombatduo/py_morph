@@ -1,9 +1,36 @@
-from AbstarctVerb import AbstractVerb, Person, Number, Tense
+from AbstarctVerb import AbstractVerb, Person, Number, Tense, Genus
 
 
 class GermanVerb(AbstractVerb):
 
+    pronouns = {
+        Person.FIRST: {
+            Number.SINGULAR: {Genus.MALE: "ich", Genus.FEMALE: "ich", Genus.MIDDLE: "ich"},
+            Number.PLURAL: {Genus.MALE: "wir", Genus.FEMALE: "wir", Genus.MIDDLE: "wir"}},
+        Person.SECOND: {
+            Number.SINGULAR: {Genus.MALE: "du", Genus.FEMALE: "du", Genus.MIDDLE: "du"},
+            Number.PLURAL: {Genus.MALE: "ihr", Genus.FEMALE: "ihr", Genus.MIDDLE: "ihr"}},
+        Person.THIRD: {
+            Number.SINGULAR: {Genus.MALE: "er", Genus.FEMALE: "sie", Genus.MIDDLE: "es"},
+            Number.PLURAL: {Genus.MALE: "sie", Genus.FEMALE: "sie", Genus.MIDDLE: "sie"}}}
+
     def morph(self, person, number, tense, genus):
+
+
+# Единственное число
+# Множественное число
+# 1-е
+# ich - я
+# wir – мы
+# Лицо говорящее
+# 2-е
+# du – ты
+# ihr - вы
+# Лицо, к которому обращена речь
+# 3-е
+# er, sie, es – он, она, оно
+# sie – они или Sie - Вы
+# Лицо или предмет, о котором идет речь
 
         if tense == Tense.PAST.value:
             if self._infinitive == "sein":

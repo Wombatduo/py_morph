@@ -2,7 +2,17 @@ from AbstarctVerb import AbstractVerb, Person, Number, Tense, Genus
 
 
 class RussianVerb(AbstractVerb):
-
+    pronouns = {
+        Person.FIRST: {
+            Number.SINGULAR: {Genus.MALE: "я",   Genus.FEMALE: "я", Genus.MIDDLE: "я"},
+            Number.PLURAL: {Genus.MALE: "мы", Genus.FEMALE: "мы", Genus.MIDDLE: "мы"}},
+        Person.SECOND: {
+            Number.SINGULAR: {Genus.MALE: "ты", Genus.FEMALE: "ты", Genus.MIDDLE: "ты"},
+            Number.PLURAL: {Genus.MALE: "вы", Genus.FEMALE: "вы", Genus.MIDDLE: "вы"}},
+        Person.THIRD: {
+            Number.SINGULAR: {Genus.MALE: "он", Genus.FEMALE: "она", Genus.MIDDLE: "оно"},
+            Number.PLURAL: {Genus.MALE: "они", Genus.FEMALE: "они", Genus.MIDDLE: "они"}}
+    }
     def morph(self, person, number, tense, genus):
 
         if tense == Tense.PRESENT.value:
