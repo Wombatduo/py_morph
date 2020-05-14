@@ -255,8 +255,18 @@ class SpanishVerbTest(unittest.TestCase):
         self.assertEqual("veréis",  SpanishVerb("ver").morph(2, 2, 3, 'M'))
         self.assertEqual("verán",   SpanishVerb("ver").morph(3, 2, 3, 'M'))
 
-    def test_pronouns(self):
-        self.assertEqual("Yo", SpanishVerb.get_pronoun(1, 1, 1))
+    def test_get_pronouns(self):
+        self.assertEqual("yo", SpanishVerb.get_pronoun(1,1,1))
+        self.assertEqual("tu", SpanishVerb.get_pronoun(2,1,1))
+        self.assertEqual("el", SpanishVerb.get_pronoun(3,1,1))
+        self.assertEqual("ella", SpanishVerb.get_pronoun(3,1,2))
+        self.assertEqual("el", SpanishVerb.get_pronoun(3,1,3))
+        self.assertEqual("nosotros", SpanishVerb.get_pronoun(1,2,1))
+        self.assertEqual("nosotras", SpanishVerb.get_pronoun(1,2,2))
+        self.assertEqual("vosotros", SpanishVerb.get_pronoun(2,2,1))
+        self.assertEqual("vosotros", SpanishVerb.get_pronoun(2,2,2))
+        self.assertEqual("ellos", SpanishVerb.get_pronoun(3,2,1))
+
 
 if __name__ == '__main__':
     unittest.main()
