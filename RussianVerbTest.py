@@ -4,6 +4,16 @@ from RussianVerb import RussianVerb
 
 class RussianVerbTest(unittest.TestCase):
 
+    def test_get_pronouns(self):
+        self.assertEqual("я", RussianVerb.get_pronoun(1, 1, 1))
+        self.assertEqual("ты", RussianVerb.get_pronoun(2, 1, 1))
+        self.assertEqual("он", RussianVerb.get_pronoun(3, 1, 1))
+        self.assertEqual("она", RussianVerb.get_pronoun(3, 1, 2))
+        self.assertEqual("оно", RussianVerb.get_pronoun(3, 1, 3))
+        self.assertEqual("мы", RussianVerb.get_pronoun(1, 2, 1))
+        self.assertEqual("вы", RussianVerb.get_pronoun(2, 2, 1))
+        self.assertEqual("они", RussianVerb.get_pronoun(3, 2, 1))
+
     def test_get_infinitive(self):
         self.assertEqual("быть", RussianVerb("быть").get_infinitive())
 

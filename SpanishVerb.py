@@ -7,14 +7,14 @@ from AbstarctVerb import AbstractVerb, Person, Number, Tense, Genus
 class SpanishVerb(AbstractVerb):
     pronouns = {
         Person.FIRST: {
-            Number.SINGULAR: {Genus.MALE: "Yo", Genus.FEMALE: "Yo", Genus.MIDDLE: "Yo"},
-            Number.PLURAL: {Genus.MALE: "Nosotros", Genus.FEMALE: "Nosotras", Genus.MIDDLE: "Nosotros"}},
+            Number.SINGULAR: {Genus.MALE: "yo", Genus.FEMALE: "yo", Genus.MIDDLE: "yo"},
+            Number.PLURAL: {Genus.MALE: "nosotros", Genus.FEMALE: "nosotras", Genus.MIDDLE: "nosotros"}},
         Person.SECOND: {
-            Number.SINGULAR: {Genus.MALE: "Tu", Genus.FEMALE: "Tu", Genus.MIDDLE: "Tu"},
-            Number.PLURAL: {Genus.MALE: "Vosotros", Genus.FEMALE: "Vosotras", Genus.MIDDLE: "Vosotros"}},
+            Number.SINGULAR: {Genus.MALE: "tu", Genus.FEMALE: "tu", Genus.MIDDLE: "tu"},
+            Number.PLURAL: {Genus.MALE: "vosotros", Genus.FEMALE: "vosotras", Genus.MIDDLE: "vosotros"}},
         Person.THIRD: {
-            Number.SINGULAR: {Genus.MALE: "El", Genus.FEMALE: "Ella", Genus.MIDDLE: "El"},
-            Number.PLURAL: {Genus.MALE: "Ellos", Genus.FEMALE: "Ellas", Genus.MIDDLE: "Ellas"}}
+            Number.SINGULAR: {Genus.MALE: "el", Genus.FEMALE: "ella", Genus.MIDDLE: "el"},
+            Number.PLURAL: {Genus.MALE: "ellos", Genus.FEMALE: "ellas", Genus.MIDDLE: "ellos"}}
     }
 
     def __init__(self, infinitive):
