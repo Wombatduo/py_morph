@@ -16,44 +16,41 @@ class RussianVerb(AbstractVerb):
     def morph(self, person, number, tense, genus):
 
         if tense == Tense.PRESENT.value:
-            if self._infinitive == "делать":
                 if number == Number.SINGULAR.value:
                     if person == Person.FIRST.value:
-                        return "делаю"
+                        return self.change_ending_with("ю")
                     if person == Person.SECOND.value:
-                        return "делаешь"
+                        return self.change_ending_with("ешь")
                     if person == Person.THIRD.value:
-                        return "делает"
+                        return self.change_ending_with("ет")
                 elif number == Number.PLURAL.value:
                     if person == Person.FIRST.value:
-                        return "делаем"
+                        return self.change_ending_with("ем")
                     if person == Person.SECOND.value:
-                        return "делаете"
+                        return self.change_ending_with("ете")
                     if person == Person.THIRD.value:
-                        return "делают"
+                        return self.change_ending_with("ют")
         if tense == Tense.PAST.value:
-            if self._infinitive == "делать":
                 if person == 1:
                     if number == Number.SINGULAR.value:
-                        return "делал"
+                        return self.change_ending_with("л")
                     elif number == Number.PLURAL.value:
-                        return "делали"
+                        return self.change_ending_with("ли")
                 if person == 2:
                     if number == Number.SINGULAR.value:
-                        return "делал"
+                        return self.change_ending_with("л")
                     elif number == Number.PLURAL.value:
-                        return "делали"
+                        return self.change_ending_with("ли")
                 if person == 3:
                     if number == Number.SINGULAR.value and Genus.MALE.value:
-                        return "делал"
+                        return self.change_ending_with("л")
                     elif number == Number.SINGULAR.value and Genus.FEMALE.value:
-                        return "делала"
+                        return self.change_ending_with("ла")
                     elif number == Number.SINGULAR.value and Genus.MIDDLE.value:
-                        return "делало"
+                        return self.change_ending_with("ло")
                     elif number == Number.PLURAL.value:
-                        return "делали"
+                        return self.change_ending_with("ли")
         if tense == Tense.FUTURE.value:
-            if self._infinitive == "делать":
                 if person == 1:
                     if number == Number.SINGULAR.value:
                         return "буду " + self.get_infinitive()
@@ -69,3 +66,9 @@ class RussianVerb(AbstractVerb):
                         return "будет " + self.get_infinitive()
                     elif number == Number.PLURAL.value:
                         return "будут " + self.get_infinitive()
+
+    def change_ending_with(self, ending):
+        return self.get_stem() + ending
+
+    def get_stem(self):
+        return self.get_infinitive()[:-2]
