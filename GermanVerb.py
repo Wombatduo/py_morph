@@ -33,7 +33,7 @@ class GermanVerb(AbstractVerb):
 # Лицо или предмет, о котором идет речь
 
         if tense == Tense.PAST.value:
-            if self._infinitive == "sein":
+            if self.get_infinitive() == "sein":
                 if number == Number.SINGULAR.value:
                     if person == Person.FIRST.value:
                         return "war"
@@ -49,7 +49,7 @@ class GermanVerb(AbstractVerb):
                     elif person == Person.THIRD.value:
                         return "waren"
         elif tense == Tense.PRESENT.value:
-            if self._infinitive == "sein":
+            if self.get_infinitive() == "sein":
                 if number == Number.SINGULAR.value:
                     if person == Person.FIRST.value:
                         return "bin"
@@ -65,7 +65,7 @@ class GermanVerb(AbstractVerb):
                     elif person == Person.THIRD.value:
                         return "sind"
         elif tense == Tense.FUTURE.value:
-            if self._infinitive == "sein":
+            if self.get_infinitive() == "sein":
                 if number == Number.SINGULAR.value:
                     if person == Person.FIRST.value:
                         return "werde " + self.get_infinitive()
