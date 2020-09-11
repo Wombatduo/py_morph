@@ -28,7 +28,23 @@ class RussianVerb(AbstractVerb):
 
         if tense == Tense.PRESENT.value:
             form = self.get_stem()['stem_present']
-            if form == "ес":
+            if self.ending == "чь":
+                if number == Number.SINGULAR.value:
+                    if person == Person.FIRST.value:
+                        form += "гу"
+                    if person == Person.SECOND.value:
+                        form += "жешь"
+                    if person == Person.THIRD.value:
+                        form += "жет"
+                elif number == Number.PLURAL.value:
+                    if person == Person.FIRST.value:
+                        form += "жем"
+                    if person == Person.SECOND.value:
+                        form += "жете"
+                    if person == Person.THIRD.value:
+                        form += "гут"
+
+            elif form == "ес":
                 form += "ть"
             elif number == Number.SINGULAR.value:
                 if person == Person.FIRST.value:
@@ -48,17 +64,19 @@ class RussianVerb(AbstractVerb):
 
         if tense == Tense.PAST.value:
             form = self.get_stem()['stem_past']
-            if person == 1:
+            if self.ending == "чь":
+                form += "г"
+            elif person == 1:
                 if number == Number.SINGULAR.value:
                     form += "л"
                 elif number == Number.PLURAL.value:
                     form += "ли"
-            if person == 2:
+            elif person == 2:
                 if number == Number.SINGULAR.value:
                     form += "л"
                 elif number == Number.PLURAL.value:
                     form += "ли"
-            if person == 3:
+            elif person == 3:
                 if number == Number.SINGULAR.value and Genus.MALE.value:
                     form += "л"
                 elif number == Number.SINGULAR.value and Genus.FEMALE.value:
@@ -71,25 +89,43 @@ class RussianVerb(AbstractVerb):
 
         if tense == Tense.FUTURE.value:
             form = self.get_stem()['stem_past']
-            if self.get_infinitive() == "быть":
-                main_verb = ""
+            if self.ending == "чь":
+                form = "с" + form
+                if number == Number.SINGULAR.value:
+                    if person == Person.FIRST.value:
+                        form += "гу"
+                    if person == Person.SECOND.value:
+                        form += "жешь"
+                    if person == Person.THIRD.value:
+                        form += "жет"
+                elif number == Number.PLURAL.value:
+                    if person == Person.FIRST.value:
+                        form += "жем"
+                    if person == Person.SECOND.value:
+                        form += "жете"
+                    if person == Person.THIRD.value:
+                        form += "гут"
             else:
-                main_verb = " " + self.get_infinitive()
-            if person == 1:
-                if number == Number.SINGULAR.value:
-                    return "буду" + main_verb
-                elif number == Number.PLURAL.value:
-                    return "будем" + main_verb
-            elif person == 2:
-                if number == Number.SINGULAR.value:
-                    return "будешь" + main_verb
-                elif number == Number.PLURAL.value:
-                    return "будете" + main_verb
-            elif person == 3:
-                if number == Number.SINGULAR.value:
-                    return "будет" + main_verb
-                elif number == Number.PLURAL.value:
-                    return "будут" + main_verb
+                if self.get_infinitive() == "быть":
+                    main_verb = ""
+                else:
+                    main_verb = " " + self.get_infinitive()
+                if person == 1:
+                    if number == Number.SINGULAR.value:
+                        return "буду" + main_verb
+                    elif number == Number.PLURAL.value:
+                        return "будем" + main_verb
+                elif person == 2:
+                    if number == Number.SINGULAR.value:
+                        return "будешь" + main_verb
+                    elif number == Number.PLURAL.value:
+                        return "будете" + main_verb
+                elif person == 3:
+                    if number == Number.SINGULAR.value:
+                        return "будет" + main_verb
+                    elif number == Number.PLURAL.value:
+                        return "будут" + main_verb
+            return form
 
     def get_stem(self):
         stem = self.stem
