@@ -29,20 +29,7 @@ class RussianVerb(AbstractVerb):
         if tense == Tense.PRESENT.value:
             form = self.get_stem()['stem_present']
             if self.ending == "чь":
-                if number == Number.SINGULAR.value:
-                    if person == Person.FIRST.value:
-                        form += "гу"
-                    if person == Person.SECOND.value:
-                        form += "жешь"
-                    if person == Person.THIRD.value:
-                        form += "жет"
-                elif number == Number.PLURAL.value:
-                    if person == Person.FIRST.value:
-                        form += "жем"
-                    if person == Person.SECOND.value:
-                        form += "жете"
-                    if person == Person.THIRD.value:
-                        form += "гут"
+                form = self.add_prsonal_ending(form, number, person)
 
             elif form == "ес":
                 form += "ть"
@@ -60,12 +47,15 @@ class RussianVerb(AbstractVerb):
                     form += "ете"
                 if person == Person.THIRD.value:
                     form += "ют"
+
             return form
 
         if tense == Tense.PAST.value:
             form = self.get_stem()['stem_past']
             if self.ending == "чь":
                 form += "г"
+                if number == Number.PLURAL.value:
+                    form += "ли"
             elif person == 1:
                 if number == Number.SINGULAR.value:
                     form += "л"
@@ -90,21 +80,7 @@ class RussianVerb(AbstractVerb):
         if tense == Tense.FUTURE.value:
             form = self.get_stem()['stem_past']
             if self.ending == "чь":
-                form = "с" + form
-                if number == Number.SINGULAR.value:
-                    if person == Person.FIRST.value:
-                        form += "гу"
-                    if person == Person.SECOND.value:
-                        form += "жешь"
-                    if person == Person.THIRD.value:
-                        form += "жет"
-                elif number == Number.PLURAL.value:
-                    if person == Person.FIRST.value:
-                        form += "жем"
-                    if person == Person.SECOND.value:
-                        form += "жете"
-                    if person == Person.THIRD.value:
-                        form += "гут"
+                form = "с" + self.add_prsonal_ending(form, number, person)
             else:
                 if self.get_infinitive() == "быть":
                     main_verb = ""
@@ -126,6 +102,23 @@ class RussianVerb(AbstractVerb):
                     elif number == Number.PLURAL.value:
                         return "будут" + main_verb
             return form
+
+    def add_prsonal_ending(self, form, number, person):
+        if number == Number.SINGULAR.value:
+            if person == Person.FIRST.value:
+                form += "гу"
+            if person == Person.SECOND.value:
+                form += "жешь"
+            if person == Person.THIRD.value:
+                form += "жет"
+        elif number == Number.PLURAL.value:
+            if person == Person.FIRST.value:
+                form += "жем"
+            if person == Person.SECOND.value:
+                form += "жете"
+            if person == Person.THIRD.value:
+                form += "гут"
+        return form
 
     def get_stem(self):
         stem = self.stem
