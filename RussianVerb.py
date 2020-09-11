@@ -22,7 +22,7 @@ class RussianVerb(AbstractVerb):
         self.stem = self.get_infinitive()[:-2]
         self.ending = self.get_infinitive()[-2:]
         # logging.info(f'Stem {}',self.get_stem())
-        logging.info(self.ending)
+        # logging.info(self.ending)
 
     def morph(self, person, number, tense, genus):
 
@@ -96,22 +96,30 @@ class RussianVerb(AbstractVerb):
         if number == Number.SINGULAR.value:
             if person == Person.FIRST.value:
                 form = RussianVerb.add_1st_sing_3rd_plur_ending(form)
-            if person == Person.SECOND.value:
-                form += "ешь"
-            if person == Person.THIRD.value:
-                form += "ет"
+            else:
+                if not form[-1:] in ["и"]:
+                    form += "е"
+                if person == Person.SECOND.value:
+                    form += "шь"
+                if person == Person.THIRD.value:
+                    form += "т"
         elif number == Number.PLURAL.value:
-            if person == Person.FIRST.value:
-                form += "ем"
-            if person == Person.SECOND.value:
-                form += "ете"
             if person == Person.THIRD.value:
                 form = RussianVerb.add_1st_sing_3rd_plur_ending(form)
                 form += "т"
+            else:
+                if not form[-1:] in ["и"]:
+                    form += "е"
+                if person == Person.FIRST.value:
+                    form += "м"
+                if person == Person.SECOND.value:
+                    form += "те"
         return form
 
     @staticmethod
     def add_1st_sing_3rd_plur_ending(form):
+        if form[-1:] in ["и"]:
+            form = form[:-1]
         if form[-1:] in ["ж", "ч", "ш", "щ", "г", "д", "н"]:
             form += "у"
         else:
