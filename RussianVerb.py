@@ -28,14 +28,21 @@ class RussianVerb(AbstractVerb):
 
         if tense == Tense.PRESENT.value:
             form = self.get_stem()['stem_present']
+            if form[-3:] == "аза":
+                form = form[:-3] + "аж"
             if self.ending == "чь":
-                form = self.add_prsonal_ending(form, number, person)
-
+                if (number == Number.SINGULAR.value and person == Person.FIRST.value) or (
+                        number == Number.PLURAL.value and person == Person.THIRD.value):
+                    form = self.get_stem()['stem_past']
+                form = self.add_personal_ending(form, number, person)
             elif form == "ес":
                 form += "ть"
             elif number == Number.SINGULAR.value:
                 if person == Person.FIRST.value:
-                    form += "ю"
+                    if form[-1:] in ["ж", "ч", "ш", "щ"]:
+                        form += "у"
+                    else:
+                        form += "ю"
                 if person == Person.SECOND.value:
                     form += "ешь"
                 if person == Person.THIRD.value:
@@ -46,14 +53,17 @@ class RussianVerb(AbstractVerb):
                 if person == Person.SECOND.value:
                     form += "ете"
                 if person == Person.THIRD.value:
-                    form += "ют"
+                    if form[-1:] in ["ж", "ч", "ш", "щ"]:
+                        form += "у"
+                    else:
+                        form += "ю"
+                    form += "т"
 
             return form
 
         if tense == Tense.PAST.value:
             form = self.get_stem()['stem_past']
             if self.ending == "чь":
-                form += "г"
                 if number == Number.PLURAL.value:
                     form += "ли"
             elif person == 1:
@@ -78,9 +88,18 @@ class RussianVerb(AbstractVerb):
             return form
 
         if tense == Tense.FUTURE.value:
-            form = self.get_stem()['stem_past']
+            form = self.get_stem()['stem_future']
+            stem_ending = form[-3:]
+            if stem_ending == "аза":
+                form = form[:-3] + "аж"
+            prefix = self.get_prefix(form)
+            if prefix in ["с", "о", "у"]:
+                return self.add_personal_ending(form, number, person)
             if self.ending == "чь":
-                form = "с" + self.add_prsonal_ending(form, number, person)
+                if (number == Number.SINGULAR.value and person == Person.FIRST.value) or (
+                        number == Number.PLURAL.value and person == Person.THIRD.value):
+                    form = self.get_stem()['stem_past']
+                form = "с" + self.add_personal_ending(form, number, person)
             else:
                 if self.get_infinitive() == "быть":
                     main_verb = ""
@@ -103,21 +122,26 @@ class RussianVerb(AbstractVerb):
                         return "будут" + main_verb
             return form
 
-    def add_prsonal_ending(self, form, number, person):
+    @staticmethod
+    def get_prefix(form):
+        return form[:1]
+
+    @staticmethod
+    def add_personal_ending(form, number, person):
         if number == Number.SINGULAR.value:
             if person == Person.FIRST.value:
-                form += "гу"
+                form += "у"
             if person == Person.SECOND.value:
-                form += "жешь"
+                form += "ешь"
             if person == Person.THIRD.value:
-                form += "жет"
+                form += "ет"
         elif number == Number.PLURAL.value:
             if person == Person.FIRST.value:
-                form += "жем"
+                form += "ем"
             if person == Person.SECOND.value:
-                form += "жете"
+                form += "ете"
             if person == Person.THIRD.value:
-                form += "гут"
+                form += "ут"
         return form
 
     def get_stem(self):
@@ -134,4 +158,4 @@ class RussianVerb(AbstractVerb):
         return {'base_form': self.get_infinitive(),
                 'stem_past': stem,
                 'stem_present': stem,
-                'stem_future': self.get_infinitive()}
+                'stem_future': stem}
