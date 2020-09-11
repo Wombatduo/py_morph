@@ -104,9 +104,9 @@ class RussianVerb(AbstractVerb):
                 if self.get_infinitive() == "быть":
                     main_verb = ""
                 else:
-                    main_verb = self.get_infinitive()
+                    main_verb = " " + self.get_infinitive()
                 auxiliary_verb = self.add_personal_ending("буд", number, person)
-                return auxiliary_verb + " " + main_verb
+                return auxiliary_verb + main_verb
             return form
 
     @staticmethod
