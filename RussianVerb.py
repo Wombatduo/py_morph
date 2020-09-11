@@ -104,22 +104,9 @@ class RussianVerb(AbstractVerb):
                 if self.get_infinitive() == "быть":
                     main_verb = ""
                 else:
-                    main_verb = " " + self.get_infinitive()
-                if person == 1:
-                    if number == Number.SINGULAR.value:
-                        return "буду" + main_verb
-                    elif number == Number.PLURAL.value:
-                        return "будем" + main_verb
-                elif person == 2:
-                    if number == Number.SINGULAR.value:
-                        return "будешь" + main_verb
-                    elif number == Number.PLURAL.value:
-                        return "будете" + main_verb
-                elif person == 3:
-                    if number == Number.SINGULAR.value:
-                        return "будет" + main_verb
-                    elif number == Number.PLURAL.value:
-                        return "будут" + main_verb
+                    main_verb = self.get_infinitive()
+                auxiliary_verb = self.add_personal_ending("буд", number, person)
+                return auxiliary_verb + " " + main_verb
             return form
 
     @staticmethod
