@@ -36,6 +36,8 @@ class RussianVerb(AbstractVerb):
                 if (number == Number.SINGULAR.value and person == Person.FIRST.value) or (
                         number == Number.PLURAL.value and person == Person.THIRD.value):
                     form = self.get_stem()['stem_past']
+            # if (number == Number.SINGULAR.value and person == Person.FIRST.value and form[-2:] == "ди"):
+            #     form = form[:-2] + "ж"
             form = self.add_personal_ending(form, number, person)
             return form
 
@@ -95,6 +97,8 @@ class RussianVerb(AbstractVerb):
     def add_personal_ending(form, number, person):
         if number == Number.SINGULAR.value:
             if person == Person.FIRST.value:
+                if form[-2:] == "ди":
+                    form = form[:-2] + "ж"
                 form = RussianVerb.add_1st_sing_3rd_plur_ending(form)
             else:
                 if not form[-1:] in ["и"]:
@@ -105,9 +109,15 @@ class RussianVerb(AbstractVerb):
                     form += "т"
         elif number == Number.PLURAL.value:
             if person == Person.THIRD.value:
+                if form[-1:] in ["ч"]:
+                    form = form[:-1] + "тя"
+                if form[-2:] in ["ди"]:
+                    form = form[:-1] + "я"
                 form = RussianVerb.add_1st_sing_3rd_plur_ending(form)
                 form += "т"
             else:
+                if form[-1:] in ["ч"]:
+                    form = form[:-1] + "ти"
                 if not form[-1:] in ["и"]:
                     form += "е"
                 if person == Person.FIRST.value:
@@ -122,7 +132,7 @@ class RussianVerb(AbstractVerb):
             form = form[:-1]
         if form[-1:] in ["ж", "ч", "ш", "щ", "г", "д", "н"]:
             form += "у"
-        else:
+        elif form[-1:] != "я":
             form += "ю"
         return form
 

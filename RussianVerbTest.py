@@ -123,35 +123,53 @@ class RussianVerbTest(unittest.TestCase):
         self.assertEqual("скажете", RussianVerb("сказать").morph(2, 2, 3, 'M'))
         self.assertEqual("скажут", RussianVerb("сказать").morph(3, 2, 3, 'M'))
 
-    def test_see_should_be_different_for_3_persons_singular(self):
+    def test_see_should_be_different_for_3_persons(self):
         self.assertEqual("вижу", RussianVerb("видеть").morph(1, 1, 2, 'M'))
         self.assertEqual("видишь", RussianVerb("видеть").morph(2, 1, 2, 'M'))
         self.assertEqual("видит", RussianVerb("видеть").morph(3, 1, 2, 'M'))
-
-    def test_see_should_be_different_for_3_persons_past_singular(self):
-        self.assertEqual("видел", RussianVerb("видеть").morph(1, 1, 1, 'M'))
-        self.assertEqual("видел", RussianVerb("видеть").morph(2, 1, 1, 'M'))
-        self.assertEqual("видел", RussianVerb("видеть").morph(3, 1, 1, 'M'))
-
-    def test_see_should_be_different_for_3_persons_future_singular(self):
-        self.assertEqual("буду видеть", RussianVerb("видеть").morph(1, 1, 3, 'M'))
-        self.assertEqual("будешь видеть", RussianVerb("видеть").morph(2, 1, 3, 'M'))
-        self.assertEqual("будет видеть", RussianVerb("видеть").morph(3, 1, 3, 'M'))
-
-    def test_see_should_be_different_for_3_persons_plural(self):
         self.assertEqual("видим", RussianVerb("видеть").morph(1, 2, 2, 'M'))
         self.assertEqual("видите", RussianVerb("видеть").morph(2, 2, 2, 'M'))
         self.assertEqual("видят", RussianVerb("видеть").morph(3, 2, 2, 'M'))
 
-    def test_see_should_be_different_for_3_persons_past_plural(self):
+    def test_see_should_be_different_for_3_persons_past(self):
+        self.assertEqual("видел", RussianVerb("видеть").morph(1, 1, 1, 'M'))
+        self.assertEqual("видел", RussianVerb("видеть").morph(2, 1, 1, 'M'))
+        self.assertEqual("видел", RussianVerb("видеть").morph(3, 1, 1, 'M'))
         self.assertEqual("видели", RussianVerb("видеть").morph(1, 2, 1, 'M'))
         self.assertEqual("видели", RussianVerb("видеть").morph(2, 2, 1, 'M'))
         self.assertEqual("видели", RussianVerb("видеть").morph(3, 2, 1, 'M'))
 
-    def test_see_should_be_different_for_3_persons_future_plural(self):
+    def test_see_should_be_different_for_3_persons_future(self):
+        self.assertEqual("буду видеть", RussianVerb("видеть").morph(1, 1, 3, 'M'))
+        self.assertEqual("будешь видеть", RussianVerb("видеть").morph(2, 1, 3, 'M'))
+        self.assertEqual("будет видеть", RussianVerb("видеть").morph(3, 1, 3, 'M'))
         self.assertEqual("будем видеть", RussianVerb("видеть").morph(1, 2, 3, 'M'))
         self.assertEqual("будете видеть", RussianVerb("видеть").morph(2, 2, 3, 'M'))
         self.assertEqual("будут видеть", RussianVerb("видеть").morph(3, 2, 3, 'M'))
+
+    def test_want_should_be_different_for_3_persons(self):
+        self.assertEqual("хочу", RussianVerb("хотеть").morph(1, 1, 2, 'M'))
+        self.assertEqual("хочешь", RussianVerb("хотеть").morph(2, 1, 2, 'M'))
+        self.assertEqual("хочет", RussianVerb("хотеть").morph(3, 1, 2, 'M'))
+        self.assertEqual("хотим", RussianVerb("хотеть").morph(1, 2, 2, 'M'))
+        self.assertEqual("хотите", RussianVerb("хотеть").morph(2, 2, 2, 'M'))
+        self.assertEqual("хотят", RussianVerb("хотеть").morph(3, 2, 2, 'M'))
+
+    def test_want_should_be_different_for_3_persons_past(self):
+        self.assertEqual("хотел", RussianVerb("хотеть").morph(1, 1, 1, 'M'))
+        self.assertEqual("хотел", RussianVerb("хотеть").morph(2, 1, 1, 'M'))
+        self.assertEqual("хотел", RussianVerb("хотеть").morph(3, 1, 1, 'M'))
+        self.assertEqual("хотели", RussianVerb("хотеть").morph(1, 2, 1, 'M'))
+        self.assertEqual("хотели", RussianVerb("хотеть").morph(2, 2, 1, 'M'))
+        self.assertEqual("хотели", RussianVerb("хотеть").morph(3, 2, 1, 'M'))
+
+    def test_want_should_be_different_for_3_persons_future(self):
+        self.assertEqual("буду хотеть", RussianVerb("хотеть").morph(1, 1, 3, 'M'))
+        self.assertEqual("будешь хотеть", RussianVerb("хотеть").morph(2, 1, 3, 'M'))
+        self.assertEqual("будет хотеть", RussianVerb("хотеть").morph(3, 1, 3, 'M'))
+        self.assertEqual("будем хотеть", RussianVerb("хотеть").morph(1, 2, 3, 'M'))
+        self.assertEqual("будете хотеть", RussianVerb("хотеть").morph(2, 2, 3, 'M'))
+        self.assertEqual("будут хотеть", RussianVerb("хотеть").morph(3, 2, 3, 'M'))
 
     if __name__ == '__main__':
         unittest.main()
