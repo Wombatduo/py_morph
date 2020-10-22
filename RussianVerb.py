@@ -24,7 +24,7 @@ class RussianVerb(AbstractVerb):
         # logging.info(f'Stem {}',self.get_stem())
         logging.info(self.ending)
 
-    def morph(self, person, number, tense, genus):
+    def morph(self, person, number, tense, genus, infinitive):
 
         if tense == Tense.PRESENT.value:
             form = self.get_stem()['stem_present']
@@ -43,9 +43,25 @@ class RussianVerb(AbstractVerb):
                         form += "жете"
                     if person == Person.THIRD.value:
                         form += "гут"
-
             elif form == "ес":
                 form += "ть"
+
+            elif form == "виде":
+                if number == Number.SINGULAR.value:
+                    if person == Person.FIRST.value:
+                        form[:-2] += "жу"
+                    if person == Person.SECOND.value:
+                        form[:-1] += "ишь"
+                    if person == Person.THIRD.value:
+                        form[:-1] += "ит"
+                elif number == Number.PLURAL.value:
+                    if person == Person.FIRST.value:
+                        form[:-1] += "дим"
+                    if person == Person.SECOND.value:
+                        form[:-1] += "ите"
+                    if person == Person.THIRD.value:
+                        form[:-1] += "ят"
+
             elif number == Number.SINGULAR.value:
                 if person == Person.FIRST.value:
                     form += "ю"
@@ -126,6 +142,10 @@ class RussianVerb(AbstractVerb):
                     elif number == Number.PLURAL.value:
                         return "будут" + main_verb
             return form
+
+    #def replace_ending_if(self, infinitive):
+    #   if self.stem == "виде":
+    #       self.ending =
 
     def get_stem(self):
         stem = self.stem
