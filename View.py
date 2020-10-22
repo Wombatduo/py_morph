@@ -53,7 +53,7 @@ def morph_verb():
     if verb is None:
         abort(400, "Language not exists")
 
-    return jsonify({'form': verb.morph(person, number, tense, 'M', infinitive), 'pronoun': verb.get_pronoun(person,number,1)})
+    return jsonify({'form': verb.morph(person, number, tense, 'M'), 'pronoun': verb.get_pronoun(person,number,1)})
 
 
 if __name__ == '__main__':

@@ -24,7 +24,7 @@ class RussianVerb(AbstractVerb):
         # logging.info(f'Stem {}',self.get_stem())
         logging.info(self.ending)
 
-    def morph(self, person, number, tense, genus, infinitive):
+    def morph(self, person, number, tense, genus):
 
         if tense == Tense.PRESENT.value:
             form = self.get_stem()['stem_present']
@@ -149,7 +149,7 @@ class RussianVerb(AbstractVerb):
 
     def get_stem(self):
         stem = self.stem
-        ir_verb_table_path = path.join('langs', 'russian', 'irverbs.csv')
+        ir_verb_table_path = path.join('langs', 'russian', 'irverbs.tsv')
         with open(ir_verb_table_path, newline='\n') as irregular_verbs:
             import csv
             verb_reader = csv.DictReader(irregular_verbs, delimiter='\t')

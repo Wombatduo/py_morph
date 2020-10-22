@@ -52,7 +52,7 @@ class AbstractVerb(ABC):
         self._infinitive = infinitive.lower()
 
     @abstractmethod
-    def morph(self, person, number, tense, genus, infinitive):
+    def morph(self, person, number, tense, genus):
         pass
 
     @classmethod
