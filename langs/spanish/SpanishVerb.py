@@ -97,7 +97,7 @@ class SpanishVerb(AbstractVerb):
     def get_stem(self):
         infinitive = self.get_infinitive()
         stem = self.stem
-        ir_verb_table_path = path.join('langs', 'spanish', 'irverbs.csv')
+        ir_verb_table_path = path.join('langs', 'spanish', 'irverbs.tsv')
         with open(ir_verb_table_path, newline='\n') as irregular_verbs:
             import csv
             verb_reader = csv.DictReader(irregular_verbs, delimiter='\t')

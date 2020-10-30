@@ -1,5 +1,5 @@
 import unittest
-from GermanVerb import GermanVerb
+from langs.german.GermanVerb import GermanVerb
 
 
 class GermanVerbTest(unittest.TestCase):

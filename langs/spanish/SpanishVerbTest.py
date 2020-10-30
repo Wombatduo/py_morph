@@ -1,5 +1,5 @@
 import unittest
-from SpanishVerb import SpanishVerb
+from langs.spanish.SpanishVerb import SpanishVerb
 
 
 class SpanishVerbTest(unittest.TestCase):
