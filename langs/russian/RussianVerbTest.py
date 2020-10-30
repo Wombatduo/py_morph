@@ -1,5 +1,5 @@
 import unittest
-from RussianVerb import RussianVerb
+from langs.russian.RussianVerb import RussianVerb
 
 
 class RussianVerbTest(unittest.TestCase):
