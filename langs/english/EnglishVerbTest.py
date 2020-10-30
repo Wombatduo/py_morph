@@ -1,5 +1,5 @@
 import unittest
-from EnglishVerb import EnglishVerb, Person, Number
+from langs.english.EnglishVerb import EnglishVerb
 
 
 class EnglishVerbTest(unittest.TestCase):

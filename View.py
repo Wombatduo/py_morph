@@ -9,7 +9,7 @@ WSGIRequestHandler.protocol_version = "HTTP/1.1"
 app = Flask(__name__, static_url_path="/static")
 
 languages = {'eng': 'English', 'esp': 'Español', 'ger': 'Deutsche', 'rus': 'Русский'}
-default_verbs = {'eng': 'be', 'esp': 'ser', 'ger': 'sein', 'rus': 'делать'}
+default_verbs = {'eng': 'be', 'esp': 'ser', 'ger': 'sein', 'rus': 'быть'}
 
 
 @app.route('/')
@@ -53,7 +53,7 @@ def morph_verb():
     if verb is None:
         abort(400, "Language not exists")
 
-    return jsonify({'form': verb.morph(person, number, tense, 'M'), 'pronoun': verb.get_pronoun(person,number,1)})
+    return jsonify({'form': verb.morph(person, number, tense, 'M'), 'pronoun': verb.get_pronoun(person, number, 1)})
 
 
 if __name__ == '__main__':

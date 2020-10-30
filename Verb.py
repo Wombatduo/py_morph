@@ -1,7 +1,7 @@
-from EnglishVerb import EnglishVerb
-from SpanishVerb import SpanishVerb
-from GermanVerb import GermanVerb
-from RussianVerb import RussianVerb
+from langs.english.EnglishVerb import EnglishVerb
+from langs.spanish.SpanishVerb import SpanishVerb
+from langs.german.GermanVerb import GermanVerb
+from langs.russian.RussianVerb import RussianVerb
 
 
 def getVerb(lang, infinitive):

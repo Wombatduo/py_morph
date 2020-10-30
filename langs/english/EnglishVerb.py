@@ -24,13 +24,13 @@ class EnglishVerb(AbstractVerb):
             if tense == Tense.PAST.value:
                 past_simple = self.get_irregular()["past simple"]
                 if "/" in past_simple:
-                    if number == Number.SINGULAR.value and (person != Person.SECOND.value or self._infinitive != 'be'):
+                    if number == Number.SINGULAR.value and (person != Person.SECOND.value or self.get_infinitive() != 'be'):
                         past_simple = past_simple.split("/", 1)[0]
-                    elif number == Number.PLURAL.value or (person == Person.SECOND.value and self._infinitive == 'be'):
+                    elif number == Number.PLURAL.value or (person == Person.SECOND.value and self.get_infinitive() == 'be'):
                         past_simple = past_simple.split("/", 1)[1]
                 return past_simple
             elif tense == Tense.PRESENT.value:
-                if self._infinitive == "be":
+                if self.get_infinitive() == "be":
                     if person == Person.FIRST.value and number == Number.SINGULAR.value:
                         return "am"
                     elif person == Person.SECOND.value and number == Number.SINGULAR.value:
@@ -43,17 +43,17 @@ class EnglishVerb(AbstractVerb):
                         return "are"
                     elif person == Person.THIRD.value and number == Number.PLURAL.value:
                         return "are"
-                if self._infinitive == "do":
+                if self.get_infinitive() == "do":
                     if person == Person.THIRD.value and number == Number.SINGULAR.value:
                         return "does"
-                if self._infinitive == "have":
+                if self.get_infinitive() == "have":
                     if person == Person.THIRD.value and number == Number.SINGULAR.value:
                         return "has"
                 if person == Person.THIRD.value and number == Number.SINGULAR.value:
-                    return self._infinitive + "s"
-                return self._infinitive
+                    return self.get_infinitive() + "s"
+                return self.get_infinitive()
             elif tense == Tense.FUTURE.value:
-                return "will " + self._infinitive
+                return "will " + self.get_infinitive()
             elif tense == 4:
                 return self.get_perfect_form(person, number)
             elif tense == 5:
@@ -63,10 +63,10 @@ class EnglishVerb(AbstractVerb):
                 return self.get_ed_form()
             elif tense == Tense.PRESENT.value:
                 if person == Person.THIRD.value and number == Number.SINGULAR.value:
-                    return self._infinitive + "s"
-                return self._infinitive
+                    return self.get_infinitive() + "s"
+                return self.get_infinitive()
             elif tense == Tense.FUTURE.value:
-                return "will " + self._infinitive
+                return "will " + self.get_infinitive()
             elif tense == 4:
                 return self.get_perfect_form(person, number)
             elif tense == 5:
@@ -99,7 +99,7 @@ class EnglishVerb(AbstractVerb):
             import csv
             verb_reader = csv.DictReader(irregular_verbs, delimiter='\t')
             verbs_list = list(verb_reader)
-        search = self._infinitive
+        search = self.get_infinitive()
         for iverb in verbs_list:
             base = iverb["base form"]
             if "[" in base:
