@@ -3,7 +3,7 @@ from flask import Flask, jsonify, abort, request, make_response, render_template
 from werkzeug.serving import WSGIRequestHandler
 
 import Verb
-from AbstarctVerb import Person, Tense
+from AbstarctVerb import Person, Tense, Number
 
 WSGIRequestHandler.protocol_version = "HTTP/1.1"
 app = Flask(__name__, static_url_path="/static")
@@ -29,7 +29,7 @@ def morph():
 
 @app.route('/table')
 def table():
-    return render_template('table.html', langs=languages, verbs=default_verbs, tenses=Tense, persons=Person)
+    return render_template('table.html', langs=languages, verbs=default_verbs, tenses=Tense, persons=Person, numbers=Number)
 
 
 @app.route('/morph/<lang>/<infinitive>', methods=['GET'])

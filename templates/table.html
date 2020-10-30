@@ -12,8 +12,8 @@
                 data: form_data
             }).done(function (data) {
                 console.log("verb form is " + data.form + " for " + data.pronoun);
-                $("#p" + id + "11").html(data.pronoun);
-                $("#v" + id + "11").html(data.form);
+                $("#p" + id + "1").html(data.pronoun);
+                $("#v" + id + "1").html(data.form);
             });
         }
 
@@ -23,11 +23,14 @@
                 let request_method = $(this).attr("method"); //get form HTTP method
                 for (let p = 1; p <= {{ persons|length }}; p++) {
                     $(this).find("[name=person]").val(p);
-                    for (let t = 1; t <= {{ tenses|length }}; t++) {
-                        $(this).find("[name=tense]").val(t);
-                        let form_data = $(this).serialize(); //Encode form elements for submission
-                        let id = t.toString() + p.toString();
-                        get_verb_form_by_ajax(form_data, post_url, request_method, id);
+                    for (let n = 1; n <= {{ numbers|length }}; n++) {
+                        $(this).find("[name=number]").val(n);
+                        for (let t = 1; t <= {{ tenses|length }}; t++) {
+                            $(this).find("[name=tense]").val(t);
+                            let form_data = $(this).serialize(); //Encode form elements for submission
+                            let id = t.toString() + p.toString() + n.toString();
+                            get_verb_form_by_ajax(form_data, post_url, request_method, id);
+                        }
                     }
                 }
             });
@@ -59,15 +62,17 @@
         </TR>
         </THEAD>
         <TBODY>
-        {% for person in persons %}
-            <TR>
-                {% for tense in tenses %}
-                    <TD>
-                        <span class="pronoun" id="p{{ tense.value }}{{ person.value }}11"></span>
-                        <span class="verb" id="v{{ tense.value }}{{ person.value }}11"></span>
-                    </TD>
-                {% endfor %}
-            </TR>
+        {% for number in numbers %}
+            {% for person in persons %}
+                <TR>
+                    {% for tense in tenses %}
+                        <TD>
+                            <span class="pronoun" id="p{{ tense.value }}{{ person.value }}{{ number.value }}1"></span>
+                            <span class="verb" id="v{{ tense.value }}{{ person.value }}{{ number.value }}1"></span>
+                        </TD>
+                    {% endfor %}
+                </TR>
+            {% endfor %}
         {% endfor %}
         </TBODY>
     </TABLE>
