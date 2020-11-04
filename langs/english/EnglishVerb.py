@@ -94,7 +94,7 @@ class EnglishVerb(AbstractVerb):
         return self.get_infinitive() + "ed"
 
     def get_irregular(self):
-        ir_verb_table_path = path.join('langs','english','irverbs.txt')
+        ir_verb_table_path = path.join(path.dirname(__file__),'irverbs.txt')
         with open(ir_verb_table_path, newline='\n') as irregular_verbs:
             import csv
             verb_reader = csv.DictReader(irregular_verbs, delimiter='\t')

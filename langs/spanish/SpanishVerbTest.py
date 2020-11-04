@@ -240,7 +240,7 @@ class SpanishVerbTest(unittest.TestCase):
         self.assertEqual("irán",   SpanishVerb("ir").morph(3, 2, 3, 'M'))
 
     def test_pronouns(self):
-        self.assertEqual("Yo", SpanishVerb.get_pronoun(1, 1, 1))
+        self.assertEqual("yo", SpanishVerb.get_pronoun(1, 1, 1))
 
 if __name__ == '__main__':
     unittest.main()
