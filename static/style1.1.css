@@ -117,3 +117,14 @@ ul.navy li {
     color: chocolate;
     font-size: x-large;
 }
+
+OL#verb_list {
+    color: black;
+    position: absolute;
+    left: 68.3em;
+    top: -1.8em
+}
+
+a.list_navy{
+    color: black !important;
+}

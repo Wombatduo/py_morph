@@ -76,4 +76,12 @@
         {% endfor %}
         </TBODY>
     </TABLE>
+    <OL id="verb_list">
+        {% for verb in list %}
+            <LI><a class="list_navy"
+                   onClick="$('input#infinitive').val('{{ verb }}').change(); return false;"
+                   href="#">
+                {{ verb }}</a></LI>
+        {% endfor %}
+    </OL>
 {% endblock %}
