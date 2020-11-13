@@ -1,4 +1,6 @@
 #!venv/bin/python
+import requests
+from bs4 import BeautifulSoup
 from flask import Flask, jsonify, abort, request, make_response, render_template
 from werkzeug.serving import WSGIRequestHandler
 
@@ -29,7 +31,24 @@ def morph():
 
 @app.route('/table')
 def table():
-    return render_template('table.html', langs=languages, verbs=default_verbs, tenses=Tense, persons=Person, numbers=Number)
+    url = 'http://dict.ruslang.ru/freq.php?act=show&dic=freq_v'
+    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'}
+    hundred_rus_verbs = requests.get(url, headers=headers)
+    soup = BeautifulSoup(hundred_rus_verbs.content, features="html.parser")
+    verb_table = soup.find('table').find('table')
+    rows = verb_table.find_all("tr")
+    verb_list = []
+    for i, row in enumerate(rows):
+        if i > 1 and i < 102:
+            cells = row.find_all("td")
+            text = cells[1].text
+            verb_list.append(text)
+            print(text)
+        elif i > 101:
+            break
+
+    return render_template('table.html', langs=languages, verbs=default_verbs, tenses=Tense, persons=Person,
+                           numbers=Number, list=verb_list)
 
 
 @app.route('/morph/<lang>/<infinitive>', methods=['GET'])
