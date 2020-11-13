@@ -1,9 +1,6 @@
-import unittest
 import csv
-
+import unittest
 from os import path, listdir
-
-from langs.russian.RussianVerb import RussianVerb
 
 
 class RussianVerbTest(unittest.TestCase):
@@ -25,6 +22,14 @@ class RussianVerbTest(unittest.TestCase):
                                 number = 1
                             else:
                                 number = 2
+                        for e in range(1, 18):
+                            tense = tense + 1
+                            if tense <= 6:
+                                tense = 1
+                            elif 6 <= tense <= 12:
+                                tense = 2
+                            else:
+                                tense = 3
                         p = p + 1
                         print(tense, p, number, form)
 
