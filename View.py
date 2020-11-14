@@ -43,7 +43,7 @@ def table():
             cells = row.find_all("td")
             text = cells[1].text
             verb_list.append(text)
-            print(text)
+            # print(text)
         elif i > 101:
             break
 

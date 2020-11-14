@@ -49,7 +49,7 @@ class RussianVerbTest(unittest.TestCase):
                     #  1100 & 0001 == 0000
                     for person, form in enumerate(forms):
                         person += 1
-                        # print(tense, person, number, form)
+                        print(f"{infinitive} {tense}t{person}p{number}n: {form}")
                         self.assertEqual(form, RussianVerb(infinitive).morph(person, number, tense, 'M'))
 
         if __name__ == '__main__':
