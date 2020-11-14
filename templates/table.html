@@ -17,32 +17,6 @@
             });
         }
 
-        function getTop100verbsFor(lang) {
-            console.log(lang);
-            $.ajax({
-                url: "/lang/" + lang + "/top100",
-                type: "GET"
-            }).done(function (data) {
-                verb_list = $('#verb_list');
-                verb_list.html('');
-                left_column = $("<div></div>");
-                right_column = $("<div></div>");
-                data.forEach(function (item, i, arr) {
-                    link = $("<A>" + item + "</A>").attr('href', '#').addClass("list_navy");
-                    list_item = $("<LI></LI>");
-                    list_item.append(link)
-                    link.click(function () {
-                        $('input#infinitive').val(item).change();
-                        return false;
-                    });
-                    if (i < 50) left_column.append(list_item);
-                    else right_column.append(list_item);
-                })
-                verb_list.append(left_column);
-                verb_list.append(right_column);
-            });
-        }
-
         $(document).ready(function () {
             $("form").submit(function () {
                 let post_url = $(this).attr("action"); //get form action url
@@ -68,7 +42,7 @@
 {% block header %}Таблица глаголов{% endblock %}
 
 {% block subheader %}
-    <P color="red">Позволяет получить таблицу форм глагола.</P>
+    <h2>Позволяет получить таблицу форм глагола.</h2>
 {% endblock %}
 
 {% block form %}
@@ -102,13 +76,4 @@
         {% endfor %}
         </TBODY>
     </TABLE>
-    <OL id="verb_list">
-        {% for verb in list %}
-            <LI><a class="list_navy"
-                   onClick="$('input#infinitive').val('{{ verb }}').change(); return false;"
-                   href="#"
-            >{{ verb }}</a>
-            </LI>
-        {% endfor %}
-    </OL>
 {% endblock %}

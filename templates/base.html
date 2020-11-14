@@ -4,6 +4,7 @@
     <meta http-equiv="Cache-Control" content="no-cache">
     <link rel="stylesheet" updateviacache="all" href="{{ url_for('static', filename='style1.1.css') }}"/>
     <script type="text/javascript" src="{{ url_for('static', filename='jquery-3.4.1.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='common.js') }}"></script>
     {% block script %}{% endblock %}
 </HEAD>
 <BODY>
@@ -17,13 +18,6 @@
 <H1 class="h1">{% block header %}{% endblock %}</H1>
 
 {% block subheader %}{% endblock %}
-
-<H2 id="subhead"
-    onmouseover="javascript: $('h2').css('text-decoration','underline')"
-    onmouseout="javascript: $('h2').css('text-decoration','none')"
-    onmousedown="javascript: $('h2').css('color','red')"
-    onmouseup="javascript: f = function(){$('h2').css('color','inherit')}; setTimeout(f, 1000)"
->Для использования сервиса укажите:</H2>
 
 <FORM onsubmit="return false;" action="/morph/do" method="post" target="result">
     <label for="lang">Язык</label>
@@ -45,7 +39,8 @@
     {% block form %}{% endblock %}
 </FORM>
 <DIV id="content">
-{% block content %}{% endblock %}
+    {% block content %}{% endblock %}
 </DIV>
+<OL id="verb_list"></OL>
 </BODY>
 </HTML>

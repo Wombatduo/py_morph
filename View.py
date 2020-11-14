@@ -11,7 +11,7 @@ from langs.english.EnglishVerb import EnglishVerb
 WSGIRequestHandler.protocol_version = "HTTP/1.1"
 app = Flask(__name__, static_url_path="/static")
 
-languages = {'eng': 'English', 'esp': 'Español', 'ger': 'Deutsche', 'rus': 'Русский'}
+langs = {'eng': 'English', 'esp': 'Español', 'ger': 'Deutsche', 'rus': 'Русский'}
 default_verbs = {'eng': 'be', 'esp': 'ser', 'ger': 'sein', 'rus': 'быть'}
 
 
@@ -27,14 +27,12 @@ def favicon():
 
 @app.route('/morph')
 def morph():
-    return render_template('morph.html', langs=languages, verbs=default_verbs)
+    return render_template('morph.html', langs=langs, verbs=default_verbs)
 
 
 @app.route('/table')
 def table():
-    verb_list = []
-    return render_template('table.html', langs=languages, verbs=default_verbs, tenses=Tense, persons=Person,
-                           numbers=Number, list=verb_list)
+    return render_template('table.html', langs=langs, verbs=default_verbs, tenses=Tense, persons=Person, numbers=Number)
 
 
 @app.route('/morph/<lang>/<infinitive>', methods=['GET'])
