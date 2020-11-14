@@ -27,7 +27,7 @@
 
 <FORM onsubmit="return false;" action="/morph/do" method="post" target="result">
     <label for="lang">Язык</label>
-    <select onchange="$('#infinitive').val($('#lang option:selected').attr('is'));getTop100($(this).val());$('form').submit()"
+    <select onchange="$('#infinitive').val($('#lang option:selected').attr('is'));getTop100verbsFor($(this).val());$('form').submit()"
             tabindex="2"
             id="lang"
             name="lang">
