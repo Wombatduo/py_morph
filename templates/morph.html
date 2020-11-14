@@ -31,12 +31,10 @@
 
 {% block header %}Служба морфинга{% endblock %}
 
-{% block subheader %}
-    <h2>Позволяет получить разные формы глагола.</h2>
-{% endblock %}
+{% block subheader %}Позволяет получить разные формы глагола.{% endblock %}
 
 {% block form %}
-    <br/><br/>
+    <br/><br/><br/>
     <label for="person">Лицо</label>
     <select onchange="$('form').submit()" tabindex="2" id="person" name="person">
         <option value="1">первое</option>
@@ -61,5 +59,5 @@
     <p style="background-color: aliceblue;
     margin-right: 72%;
     color: dimgrey;
-padding-left: 1em">Новая форма: <span id="verb" style="font-size: 400% !important;"  class="verb"></span></p>
+padding-left: 1em">Новая форма: <span id="verb" style="font-size: 400% !important;" class="verb"></span></p>
 {% endblock %}

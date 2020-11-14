@@ -15,9 +15,8 @@
         <li><a href="/table">таблица морфем</a></li>
     </ul>
 </div>
-<H1 class="h1">{% block header %}{% endblock %}</H1>
-
-{% block subheader %}{% endblock %}
+<h1>{% block header %}{% endblock %}</h1>
+<h2 id="subhead">{% block subheader %}{% endblock %}</h2>
 
 <FORM onsubmit="return false;" action="/morph/do" method="post" target="result">
     <label for="lang">Язык</label>

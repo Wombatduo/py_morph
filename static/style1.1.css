@@ -1,3 +1,33 @@
+body {
+    color: white;
+    /*background-image: url("background-pirat.jpg");*/
+    background-image: url("background-what.png");
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-size: 80em;
+    transform: scale(1.15);
+    transform-origin: 0 0;
+}
+
+h1 {
+    margin: 0em 0.2em;
+    padding-top: 1.2em;
+    padding-bottom: 0em;
+    color: burlywood;
+    text-transform: uppercase;
+}
+
+h2 {
+    margin: 0em 0.3em;
+    padding-top: 0.3em;
+    padding-bottom: 0.5em;
+}
+
+h2#subhead {
+    margin-bottom: 0.8em;
+    color: #ececec;
+}
+
 caption, label {
     font-family: sans-serif;
     position: relative;
@@ -11,19 +41,8 @@ caption {
 }
 
 label {
+    top: -1.4em;
     left: 1.5em;
-    top: -1.5em;
-}
-
-body {
-    color: white;
-    /*background-image: url("background-pirat.jpg");*/
-    background-image: url("background-what.png");
-    background-attachment: scroll;
-    background-repeat: no-repeat;
-    background-size: 80em;
-    transform: scale(1.15);
-    transform-origin: 0 0;
 }
 
 table.forms {
@@ -42,21 +61,11 @@ table.forms td, th {
     color: black;
 }
 
-h1 {
-    padding-top: 1.5em;
-    color: burlywood;
-    text-transform: uppercase;
-}
-
 div#content {
     margin-top: 0.5em;
     margin-left: 1em;
 }
 
-h2#subhead {
-    margin-bottom: 1.5em;
-    color: #ececec;
-}
 
 a:link, a:visited {
     color: aliceblue;
@@ -124,11 +133,12 @@ ol#verb_list {
     left: 68.5em;
     top: -1.5em
 }
+
 ol#verb_list div {
     float: left;
     width: 8em;
 }
 
-a.list_navy{
+a.list_navy {
     color: black !important;
 }

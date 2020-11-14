@@ -5,7 +5,6 @@ from langs.russian.RussianVerb import RussianVerb
 
 
 def get_verb(lang, infinitive):
-    lang = lang.lower()
     clazz = get_verb_class(lang)
     if clazz is None:
         return None
