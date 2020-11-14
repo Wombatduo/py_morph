@@ -5,6 +5,10 @@ from AbstarctVerb import AbstractVerb, Person, Number, Tense, Genus
 
 
 class SpanishVerb(AbstractVerb):
+    @classmethod
+    def get_top_100(cls):
+        return []
+
     pronouns = {
         Person.FIRST: {
             Number.SINGULAR: {Genus.MALE: "yo", Genus.FEMALE: "yo", Genus.MIDDLE: "yo"},

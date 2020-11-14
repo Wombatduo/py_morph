@@ -17,6 +17,26 @@
             });
         }
 
+        function getTop100(lang) {
+            console.log(lang);
+            $.ajax({
+                url: "/lang/" + lang + "/top100",
+                type: "GET"
+            }).done(function (data) {
+                $('#verb_list').html('');
+                data.forEach(function (item, i, arr) {
+                    link = $("<A>" + item + "</A>").attr('href', '#').addClass("list_navy");
+                    list_item = $("<LI></LI>");
+                    list_item.append(link)
+                    link.click(function () {
+                        $('input#infinitive').val(item).change();
+                        return false;
+                    });
+                    $('#verb_list').append(list_item);
+                })
+            });
+        }
+
         $(document).ready(function () {
             $("form").submit(function () {
                 let post_url = $(this).attr("action"); //get form action url
@@ -52,7 +72,7 @@
 {% endblock %}
 
 {% block content %}
-    <TABLE class="forms">
+    <TABLE id="tenses_table" class="forms">
         <caption>Формы</caption>
         <THEAD>
         <TR>
@@ -80,8 +100,9 @@
         {% for verb in list %}
             <LI><a class="list_navy"
                    onClick="$('input#infinitive').val('{{ verb }}').change(); return false;"
-                   href="#">
-                {{ verb }}</a></LI>
+                   href="#"
+            >{{ verb }}</a>
+            </LI>
         {% endfor %}
     </OL>
 {% endblock %}

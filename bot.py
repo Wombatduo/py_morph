@@ -1,7 +1,7 @@
 import logging
 from telegram.ext import Updater, CommandHandler, MessageHandler, RegexHandler, Filters
 from telegram import ReplyKeyboardMarkup
-from Verb import getVerb
+from VerbFabric import get_verb
 from bot_settings import TELEGRAM_API_KEY, PROXY
 
 chats = {}
@@ -17,7 +17,7 @@ def do_morph(bot, update):
     if len(args) != 1:
         update.message.reply_text("Точно?")
     lang = chats.get(chat_id)
-    verb = getVerb(lang, args[0])
+    verb = get_verb(lang, args[0])
     # # print(verb)
     # if verb is None:
     #     update.message.reply_text("Это вапще на каком языке?")

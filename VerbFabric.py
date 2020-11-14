@@ -4,15 +4,23 @@ from langs.german.GermanVerb import GermanVerb
 from langs.russian.RussianVerb import RussianVerb
 
 
-def getVerb(lang, infinitive):
+def get_verb(lang, infinitive):
+    lang = lang.lower()
+    clazz = get_verb_class(lang)
+    if clazz is None:
+        return None
+    return clazz(infinitive)
+
+
+def get_verb_class(lang):
     lang = lang.lower()
     if lang == 'eng':
-        return EnglishVerb(infinitive)
+        return EnglishVerb
     elif lang == 'esp':
-        return SpanishVerb(infinitive)
+        return SpanishVerb
     elif lang == 'ger':
-        return GermanVerb(infinitive)
+        return GermanVerb
     elif lang == 'rus':
-        return RussianVerb(infinitive)
+        return RussianVerb
     else:
         return None

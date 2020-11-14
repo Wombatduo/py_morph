@@ -3,6 +3,10 @@ from AbstarctVerb import AbstractVerb, Person, Number, Tense, Genus
 
 class GermanVerb(AbstractVerb):
 
+    @classmethod
+    def get_top_100(cls):
+        return []
+
     pronouns = {
         Person.FIRST: {
             Number.SINGULAR: {Genus.MALE: "ich", Genus.FEMALE: "ich", Genus.MIDDLE: "ich"},

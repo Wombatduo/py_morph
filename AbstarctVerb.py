@@ -56,6 +56,11 @@ class AbstractVerb(ABC):
         pass
 
     @classmethod
+    @abstractmethod
+    def get_top_100(cls):
+        return []
+
+    @classmethod
     def get_pronoun(cls, person, number, genus):
         return cls.pronouns[Person(person)][Number(number)][Genus(genus)]
 

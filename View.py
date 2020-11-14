@@ -4,8 +4,9 @@ from bs4 import BeautifulSoup
 from flask import Flask, jsonify, abort, request, make_response, render_template
 from werkzeug.serving import WSGIRequestHandler
 
-import Verb
-from AbstarctVerb import Person, Tense, Number
+import VerbFabric
+from AbstarctVerb import Person, Tense, Number, AbstractVerb
+from langs.english.EnglishVerb import EnglishVerb
 
 WSGIRequestHandler.protocol_version = "HTTP/1.1"
 app = Flask(__name__, static_url_path="/static")
@@ -31,30 +32,22 @@ def morph():
 
 @app.route('/table')
 def table():
-    url = 'http://dict.ruslang.ru/freq.php?act=show&dic=freq_v'
-    headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'}
-    hundred_rus_verbs = requests.get(url, headers=headers)
-    soup = BeautifulSoup(hundred_rus_verbs.content, features="html.parser")
-    verb_table = soup.find('table').find('table')
-    rows = verb_table.find_all("tr")
     verb_list = []
-    for i, row in enumerate(rows):
-        if i > 1 and i < 102:
-            cells = row.find_all("td")
-            text = cells[1].text
-            verb_list.append(text)
-            # print(text)
-        elif i > 101:
-            break
-
     return render_template('table.html', langs=languages, verbs=default_verbs, tenses=Tense, persons=Person,
                            numbers=Number, list=verb_list)
 
 
 @app.route('/morph/<lang>/<infinitive>', methods=['GET'])
 def index(lang, infinitive):
-    verb = Verb.getVerb(lang, infinitive)
+    verb = VerbFabric.get_verb(lang, infinitive)
     resp = make_response(jsonify({'infinitive': verb.get_infinitive()}))
+    return resp
+
+
+@app.route('/lang/<lang>/top100', methods=['GET'])
+def top100(lang):
+    clazz = VerbFabric.get_verb_class(lang)
+    resp = make_response(jsonify(clazz.get_top_100()))
     return resp
 
 
@@ -68,7 +61,7 @@ def morph_verb():
     person = int(request.form['person'])
     number = int(request.form['number'])
     tense = int(request.form['tense'])
-    verb = Verb.getVerb(lang, infinitive)
+    verb = VerbFabric.get_verb(lang, infinitive)
     if verb is None:
         abort(400, "Language not exists")
 
