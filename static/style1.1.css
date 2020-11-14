@@ -118,11 +118,15 @@ ul.navy li {
     font-size: x-large;
 }
 
-OL#verb_list {
+ol#verb_list {
     color: black;
     position: absolute;
     left: 68.5em;
     top: -2em
+}
+ol#verb_list div {
+    float: left;
+    width: 8em;
 }
 
 a.list_navy{
