@@ -18,9 +18,9 @@
 <h1>{% block header %}{% endblock %}</h1>
 <h2 id="subhead">{% block subheader %}{% endblock %}</h2>
 
-<FORM onsubmit="return false;" action="/morph/do" method="post" target="result">
+<FORM id="selector" onsubmit="return false;" action="/morph/do" method="post" target="result">
     <label for="lang">Язык</label>
-    <select onchange="$('#infinitive').val($('#lang option:selected').attr('is'));getTop100verbsFor($(this).val());$('form').submit()"
+    <select onchange="$('#infinitive').val($('#lang option:selected').attr('is'));getTop100verbsFor($(this).val());$('form#selector').submit()"
             tabindex="2"
             id="lang"
             name="lang">
@@ -29,7 +29,7 @@
         {% endfor %}
     </select>
     <label id="inf_lable" for="infinitive">Инфинитив</label>
-    <input onchange="$('form').submit()"
+    <input onchange="$('form#selector').submit()"
            type="text"
            id="infinitive"
            name="infinitive"

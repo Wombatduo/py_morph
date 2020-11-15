@@ -36,18 +36,18 @@
 {% block form %}
     <br/><br/><br/>
     <label for="person">Лицо</label>
-    <select onchange="$('form').submit()" tabindex="2" id="person" name="person">
+    <select onchange="$('form#selector').submit()" tabindex="2" id="person" name="person">
         <option value="1">первое</option>
         <option value="2">второе</option>
         <option value="3">третье</option>
     </select>
     <label for="number">Число</label>
-    <select onchange="$('form').submit()" tabindex="3" id="number" name="number">
+    <select onchange="$('form#selector').submit()" tabindex="3" id="number" name="number">
         <option value="1">Ед</option>
         <option value="2">Мн</option>
     </select>
     <label for="tense">Время</label>
-    <select onchange="$('form').submit()" tabindex="4" id="tense" name="tense">
+    <select onchange="$('form#selector').submit()" tabindex="4" id="tense" name="tense">
         <option value="1">прошедшее</option>
         <option value="2">настоящее</option>
         <option value="3">будущее</option>

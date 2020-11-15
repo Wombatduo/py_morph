@@ -1,4 +1,6 @@
 #!venv/bin/python
+import os
+
 import requests
 from bs4 import BeautifulSoup
 from flask import Flask, jsonify, abort, request, make_response, render_template
@@ -11,8 +13,8 @@ from langs.english.EnglishVerb import EnglishVerb
 WSGIRequestHandler.protocol_version = "HTTP/1.1"
 app = Flask(__name__, static_url_path="/static")
 
-langs = {'eng': 'English', 'esp': 'Español', 'ger': 'Deutsche', 'rus': 'Русский'}
-default_verbs = {'eng': 'be', 'esp': 'ser', 'ger': 'sein', 'rus': 'быть'}
+langs = {'english': 'English', 'spanish': 'Español', 'german': 'Deutsche', 'russian': 'Русский'}
+default_verbs = {'english': 'be', 'spanish': 'ser', 'german': 'sein', 'russian': 'быть'}
 
 
 @app.route('/')
@@ -45,8 +47,31 @@ def index(lang, infinitive):
 @app.route('/lang/<lang>/top100', methods=['GET'])
 def top100(lang):
     clazz = VerbFabric.get_verb_class(lang)
-    resp = make_response(jsonify(clazz.get_top_100()))
+    resp = jsonify(clazz.get_top_100())
     return resp
+
+
+@app.route('/morph/correct', methods=['POST'])
+def correct_verb():
+    lang = request.form['lang']
+    infinitive = request.form['infinitive']
+    infinitive__tsv = 'langs/' + lang + '/test_verbs/' + infinitive + '.tsv'
+    if not os.path.exists(infinitive__tsv):
+        with open(infinitive__tsv, 'w+') as tsv:
+            for t in Tense:
+                for n in Number:
+                    for p in Person:
+                        value_ = request.form["v" + str(t.value) + str(p.value) + str(n.value) + "1"]
+                        # print(value_)
+                        tsv.write(value_)
+                        if p.value < 3:
+                            tsv.write('\t')
+                    tsv.write('\n')
+                if n.value < 2:
+                    tsv.write('\n')
+    else:
+        return jsonify(False)
+    return jsonify([True])
 
 
 # curl -i -H "Content-Type: application/json" -X POST -d '{"person":"3","number":"1"}' http://127.0.0.1:5000/morph/be

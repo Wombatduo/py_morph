@@ -13,13 +13,13 @@ def get_verb(lang, infinitive):
 
 def get_verb_class(lang):
     lang = lang.lower()
-    if lang == 'eng':
+    if lang == 'english':
         return EnglishVerb
-    elif lang == 'esp':
+    elif lang == 'spanish':
         return SpanishVerb
-    elif lang == 'ger':
+    elif lang == 'german':
         return GermanVerb
-    elif lang == 'rus':
+    elif lang == 'russian':
         return RussianVerb
     else:
         return None

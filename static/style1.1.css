@@ -127,6 +127,18 @@ ul.navy li {
     font-size: x-large;
 }
 
+input.verb {
+    width: 6em;
+    border-width: 0px;
+    font-family: serif;
+    margin: 0px;
+    padding: 0px;
+}
+
+span.pronoun {
+    width: 3em;
+}
+
 ol#verb_list {
     color: black;
     position: absolute;

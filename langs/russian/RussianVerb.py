@@ -51,6 +51,7 @@ class RussianVerb(AbstractVerb):
 
         if tense == Tense.PRESENT.value:
             form = self.get_stem()['stem_present']
+            # print(f"--- {self.stem}-{self.ending} ->> {form}")
             if self.get_stem()['base_form'] in ["быть"]:
                 return form + self.ending
             if form[-3:] == "аза":
@@ -138,6 +139,8 @@ class RussianVerb(AbstractVerb):
                     form = form[:-1] + "я"
                 form = RussianVerb.add_1st_sing_3rd_plur_ending(form)
                 form += "т"
+                if form[-3:] in "рют":
+                    form = form[:-2] + "ят"
             else:
                 if form[-1:] in ["ч"]:
                     form = form[:-1] + "ти"

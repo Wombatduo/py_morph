@@ -13,12 +13,38 @@
             }).done(function (data) {
                 console.log("verb form is " + data.form + " for " + data.pronoun);
                 $("#p" + id + "1").html(data.pronoun);
-                $("#v" + id + "1").html(data.form);
+                $("#v" + id + "1").val(data.form);
+            });
+        }
+
+        function set_correct_forms(form_data, post_url, request_method) {
+            console.log(form_data);
+            $.ajax({
+                url: post_url,
+                type: request_method,
+                data: form_data
+            }).done(function (data) {
+                console.log("response: " + data);
+                let res = "test";
+                if (data) res = "тест добавлен"
+                else res = "тест уже есть";
+                msg = $('<p>' + res + '</p>');
+                $('#correct').after(msg);
             });
         }
 
         $(document).ready(function () {
-            $("form").submit(function () {
+
+            $("form#corrector").submit(function () {
+                $('form#corrector input#lang').val($('form#selector select#lang').val());
+                $('form#corrector input#infinitive').val($('form#selector input#infinitive').val());
+                let post_url = $(this).attr("action");
+                let request_method = $(this).attr("method");
+                let form_data = $(this).serialize();
+                set_correct_forms(form_data, post_url, request_method);
+            });
+
+            $("form#selector").submit(function () {
                 let post_url = $(this).attr("action"); //get form action url
                 let request_method = $(this).attr("method"); //get form HTTP method
                 for (let p = 1; p <= {{ persons|length }}; p++) {
@@ -34,7 +60,7 @@
                     }
                 }
             });
-            $("form").submit();
+            $("form#selector").submit();
         });
     </script>
 {% endblock %}
@@ -50,28 +76,35 @@
 {% endblock %}
 
 {% block content %}
-    <TABLE id="tenses_table" class="forms">
-        <caption>Формы</caption>
-        <THEAD>
-        <TR>
-            {% for tense in tenses %}
-                <TH>{{ tense }} </TH>
+    <form id="corrector" onsubmit="return false;" action="/morph/correct" method="post" target="result">
+        <TABLE id="tenses_table" class="forms">
+            <caption>Формы</caption>
+            <THEAD>
+            <TR>
+                {% for tense in tenses %}
+                    <TH>{{ tense }} </TH>
+                {% endfor %}
+            </TR>
+            </THEAD>
+            <TBODY>
+            {% for number in numbers %}
+                {% for person in persons %}
+                    <TR>
+                        {% for tense in tenses %}
+                            <TD>
+                                <span class="pronoun"
+                                      id="p{{ tense.value }}{{ person.value }}{{ number.value }}1"></span>
+                                <input class="verb" id="v{{ tense.value }}{{ person.value }}{{ number.value }}1"
+                                       name="v{{ tense.value }}{{ person.value }}{{ number.value }}1"></input>
+                            </TD>
+                        {% endfor %}
+                    </TR>
+                {% endfor %}
             {% endfor %}
-        </TR>
-        </THEAD>
-        <TBODY>
-        {% for number in numbers %}
-            {% for person in persons %}
-                <TR>
-                    {% for tense in tenses %}
-                        <TD>
-                            <span class="pronoun" id="p{{ tense.value }}{{ person.value }}{{ number.value }}1"></span>
-                            <span class="verb" id="v{{ tense.value }}{{ person.value }}{{ number.value }}1"></span>
-                        </TD>
-                    {% endfor %}
-                </TR>
-            {% endfor %}
-        {% endfor %}
-        </TBODY>
-    </TABLE>
+            </TBODY>
+        </TABLE>
+        <input type="hidden" id="lang" name="lang">
+        <input type="hidden" id="infinitive" name="infinitive">
+        <input type="button" id="correct" value="исправить" onclick="$('form#corrector').submit()"/>
+    </form>
 {% endblock %}
