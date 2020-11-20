@@ -1,12 +1,31 @@
 from os import path
 
+import requests
+from bs4 import BeautifulSoup
+
 from AbstarctVerb import AbstractVerb, Person, Number, Tense, Genus
+
+verbs_source_url: str = "https://www.wordexample.com/list/most-common-verbs-english"
 
 
 class EnglishVerb(AbstractVerb):
+
     @classmethod
     def get_top_100(cls):
-        return []
+        headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'}
+        hundred_rus_verbs = requests.get(verbs_source_url, headers=headers)
+        soup = BeautifulSoup(hundred_rus_verbs.content, features="html.parser")
+        verb_table = soup.find("div", {"id": "wordexample-word-list"}).find("table").find("tbody")
+        rows = verb_table.find_all("tr")
+        verb_list = []
+        for i, row in enumerate(rows):
+            cells = row.find_all("td")
+            text = cells[0].find("span").get_text(strip=True)
+            if not set("[~!@#$%^&*()_+{}\":;\']+$").intersection(text):
+                verb_list.append(text)
+            if len(verb_list) > 99:
+                break
+        return verb_list
 
     default_verb = 'be'
 
@@ -16,9 +35,11 @@ class EnglishVerb(AbstractVerb):
             if tense == Tense.PAST.value:
                 past_simple = self.get_irregular()["past simple"]
                 if "/" in past_simple:
-                    if number == Number.SINGULAR.value and (person != Person.SECOND.value or self.get_infinitive() != 'be'):
+                    if number == Number.SINGULAR.value and (
+                            person != Person.SECOND.value or self.get_infinitive() != 'be'):
                         past_simple = past_simple.split("/", 1)[0]
-                    elif number == Number.PLURAL.value or (person == Person.SECOND.value and self.get_infinitive() == 'be'):
+                    elif number == Number.PLURAL.value or (
+                            person == Person.SECOND.value and self.get_infinitive() == 'be'):
                         past_simple = past_simple.split("/", 1)[1]
                 return past_simple
             elif tense == Tense.PRESENT.value:
@@ -86,7 +107,7 @@ class EnglishVerb(AbstractVerb):
         return self.get_infinitive() + "ed"
 
     def get_irregular(self):
-        ir_verb_table_path = path.join(path.dirname(__file__),'irverbs.txt')
+        ir_verb_table_path = path.join(path.dirname(__file__), 'irverbs.txt')
         with open(ir_verb_table_path, newline='\n') as irregular_verbs:
             import csv
             verb_reader = csv.DictReader(irregular_verbs, delimiter='\t')
@@ -100,6 +121,13 @@ class EnglishVerb(AbstractVerb):
             if base.strip() == search.strip():
                 return iverb
         return None
+
+    @staticmethod
+    def is_vovel(letter):
+        if str(letter).lower() in ('a', 'e', 'i', 'o', 'u'):
+            return True
+        else:
+            return False
 
     @property
     def is_irregular(self):

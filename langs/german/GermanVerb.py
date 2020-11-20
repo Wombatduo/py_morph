@@ -1,11 +1,30 @@
+import requests
+from bs4 import BeautifulSoup
+
 from AbstarctVerb import AbstractVerb, Person, Number, Tense, Genus
+
+verbs_source_url: str = "https://en.wikibooks.org/wiki/German/Grammar/Verbs"
 
 
 class GermanVerb(AbstractVerb):
 
     @classmethod
     def get_top_100(cls):
-        return []
+        headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'}
+        hundred_rus_verbs = requests.get(verbs_source_url, headers=headers)
+        soup = BeautifulSoup(hundred_rus_verbs.content, features="html.parser")
+        vbs_table = soup.find('div', {"id": "mw-content-text"}).find("div", {"class": "mw-parser-output"}).find("table")
+        rows = vbs_table.find_all("tr")
+        verb_list = []
+        for i, row in enumerate(rows):
+            cells = row.find_all("td")
+            if (i > 2) and (len(cells) > 2):
+                text = cells[1].find("b").get_text(strip=True)
+                if not set("[~!@#$%^&*()_+{}\":;\']+$").intersection(text):
+                    verb_list.append(text)
+                if len(verb_list) > 99:
+                    break
+        return verb_list
 
     pronouns = {
         Person.FIRST: {
@@ -20,21 +39,20 @@ class GermanVerb(AbstractVerb):
 
     def morph(self, person, number, tense, genus):
 
-
-# Единственное число
-# Множественное число
-# 1-е
-# ich - я
-# wir – мы
-# Лицо говорящее
-# 2-е
-# du – ты
-# ihr - вы
-# Лицо, к которому обращена речь
-# 3-е
-# er, sie, es – он, она, оно
-# sie – они или Sie - Вы
-# Лицо или предмет, о котором идет речь
+        # Единственное число
+        # Множественное число
+        # 1-е
+        # ich - я
+        # wir – мы
+        # Лицо говорящее
+        # 2-е
+        # du – ты
+        # ihr - вы
+        # Лицо, к которому обращена речь
+        # 3-е
+        # er, sie, es – он, она, оно
+        # sie – они или Sie - Вы
+        # Лицо или предмет, о котором идет речь
 
         if tense == Tense.PAST.value:
             if self.get_infinitive() == "sein":

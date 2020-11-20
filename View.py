@@ -47,8 +47,9 @@ def index(lang, infinitive):
 @app.route('/lang/<lang>/top100', methods=['GET'])
 def top100(lang):
     clazz = VerbFabric.get_verb_class(lang)
-    resp = jsonify(clazz.get_top_100())
-    return resp
+    if clazz is not None:
+        return jsonify(clazz.get_top_100())
+    return jsonify([])
 
 
 @app.route('/morph/correct', methods=['POST'])

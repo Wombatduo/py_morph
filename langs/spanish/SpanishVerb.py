@@ -1,13 +1,27 @@
-import logging
+import csv, requests, logging
 from os import path
+from io import StringIO
 
 from AbstarctVerb import AbstractVerb, Person, Number, Tense, Genus
 
+verbs_source_url: str = "https://www.wordfrequency.info/files/spanish/spanish_lemmas20k.txt"
+
 
 class SpanishVerb(AbstractVerb):
+
     @classmethod
     def get_top_100(cls):
-        return []
+        headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'}
+        esp_verbs = requests.get(verbs_source_url, headers=headers).text
+        lemmas = esp_verbs.splitlines()[15:]
+        forms_list = list(csv.reader(lemmas, delimiter='\t'))
+        verb_list = []
+        for forms in forms_list:
+            if forms[3] == 'v':
+                verb_list.append(forms[2])
+            if len(verb_list) > 99:
+                break
+        return verb_list
 
     pronouns = {
         Person.FIRST: {
@@ -78,7 +92,8 @@ class SpanishVerb(AbstractVerb):
                     form += "ái" if self.ending == "ar" else "ai" if self.stem == "" else "í" if self.ending == "ir" else "oi" if self.stem == "s" else "éi"
                     form += "s"
                 elif person == Person.THIRD.value:
-                    form += "á" if self.ending == "ar" else "o" if self.stem == "s" else "a" if form in ("h","v") else "e"
+                    form += "á" if self.ending == "ar" else "o" if self.stem == "s" else "a" if form in (
+                        "h", "v") else "e"
                     form += "n"
         elif tense == Tense.FUTURE.value:
             form = self.get_stem()['stem_future']
