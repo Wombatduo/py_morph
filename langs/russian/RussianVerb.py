@@ -1,4 +1,3 @@
-import logging
 from os import path
 
 import requests
@@ -10,6 +9,7 @@ verbs_source_url: str = "http://dict.ruslang.ru/freq.php?act=show&dic=freq_v"
 
 
 class RussianVerb(AbstractVerb):
+
     @classmethod
     def get_top_100(cls):
         headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:45.0) Gecko/20100101 Firefox/45.0'}
@@ -19,13 +19,13 @@ class RussianVerb(AbstractVerb):
         rows = verb_table.find_all("tr")
         verb_list = []
         for i, row in enumerate(rows):
-            if i > 1 and i < 102:
-                cells = row.find_all("td")
-                text = cells[1].text
-                verb_list.append(text)
-                # print(text)
-            elif i > 101:
-                break
+            cells = row.find_all("td")
+            if i > 0 and len(cells) > 1:
+                text = cells[1].get_text(strip=True)
+                if not set("[~!@#$%^&*()_+{}\":;\']+$").intersection(text):
+                    verb_list.append(text)
+                if len(verb_list) > 99:
+                    break
         return verb_list
 
     pronouns = {
@@ -70,23 +70,15 @@ class RussianVerb(AbstractVerb):
             if self.ending == "чь":
                 if number == Number.PLURAL.value:
                     form += "ли"
-            elif person == 1:
+            else:
                 if number == Number.SINGULAR.value:
-                    form += "л"
-                elif number == Number.PLURAL.value:
-                    form += "ли"
-            elif person == 2:
-                if number == Number.SINGULAR.value:
-                    form += "л"
-                elif number == Number.PLURAL.value:
-                    form += "ли"
-            elif person == 3:
-                if number == Number.SINGULAR.value and Genus.MALE.value:
-                    form += "л"
-                elif number == Number.SINGULAR.value and Genus.FEMALE.value:
-                    form += "ла"
-                elif number == Number.SINGULAR.value and Genus.MIDDLE.value:
-                    form += "ло"
+                    if form[-1] == 'ш':
+                        form += 'е'
+                    form += 'л'
+                    if genus == Genus.FEMALE.value:
+                        form += "а"
+                    elif genus == Genus.MIDDLE.value:
+                        form += "о"
                 elif number == Number.PLURAL.value:
                     form += "ли"
             return form
@@ -97,7 +89,7 @@ class RussianVerb(AbstractVerb):
             if stem_ending == "аза":
                 form = form[:-3] + "аж"
             prefix = self.get_prefix(form)
-            if prefix in ["с", "о", "у"]:
+            if prefix in ["с", "о", "у", "п"] and form != self.get_infinitive():
                 return self.add_personal_ending(form, number, person)
             if self.ending == "чь":
                 if (number == Number.SINGULAR.value and person == Person.FIRST.value) or (
@@ -156,11 +148,20 @@ class RussianVerb(AbstractVerb):
     def add_1st_sing_3rd_plur_ending(form):
         if form[-1:] in ["и"]:
             form = form[:-1]
-        if form[-1:] in ["ж", "ч", "ш", "щ", "г", "д", "н"]:
+        form_ending = form[-1:]
+        # in ["ж", "ч", "ш", "щ", "г", "д", "н", "в", "м"]:
+        if not RussianVerb.is_vowel(form_ending) and form_ending != 'р':
             form += "у"
-        elif form[-1:] != "я":
+        elif form_ending != "я":
             form += "ю"
         return form
+
+    @staticmethod
+    def is_vowel(letter):
+        if str(letter).lower() in ('а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я'):
+            return True
+        else:
+            return False
 
     def get_stem(self):
         stem = self.stem
