@@ -42,12 +42,36 @@ class RussianVerb(AbstractVerb):
 
     def __init__(self, infinitive):
         super().__init__(infinitive)
-        self.stem = self.get_infinitive()[:-2]
         self.ending = self.get_infinitive()[-2:]
-        # logging.info(f'Stem {}',self.get_stem())
+        self.stem = self.get_infinitive()[:-2]
+        self.is_reflexive = self.ending == "ся"
+        if self.stem[-3:] in ['ова', 'ева']:  # гаголы 3 класса
+            self.v_class = 3
+        elif self.stem[-1] in ['а']:  # глаголы 1 и 2 классов
+            self.v_class = 1
+        elif self.stem[-1] in ['е']:  # глаголы 1 и 2 классов
+            self.v_class = 2
+        elif self.stem[-2:] in ['ну']:  # гаголы 4 класса
+            self.v_class = 4
+        elif self.stem[-1] in ['и']:  # гаголы 5 класса
+            self.v_class = 5
+        else:
+            self.v_class = None
+        if self.v_class in range(1, 4):
+            self.conjugation = 1
+        else:
+            self.conjugation = 2
+
+            # logging.info(f'Stem {}',self.get_stem())
         # logging.info(self.ending)
 
     def morph(self, person, number, tense, genus):
+        if self.is_reflexive:
+            sverb = RussianVerb(self.get_infinitive()[:-2])
+            sform = sverb.morph(person, number, tense, genus)
+            if RussianVerb.is_vowel(sform[-1]):
+                return sform + 'сь'
+            return sform + 'ся'
 
         if tense == Tense.PRESENT.value:
             form = self.get_stem()['stem_present']
@@ -85,12 +109,21 @@ class RussianVerb(AbstractVerb):
 
         if tense == Tense.FUTURE.value:
             form = self.get_stem()['stem_future']
-            stem_ending = form[-3:]
-            if stem_ending == "аза":
-                form = form[:-3] + "аж"
-            prefix = self.get_prefix(form)
-            if prefix in ["с", "о", "у", "п"] and form != self.get_infinitive():
+
+            if (form[:1] in ["с", "о", "у", "п", "в"] and (form != self.get_infinitive())) or form[-2:] == 'да':
+                if form[-2:] == 'да':
+                    if person == Person.FIRST.value and number == Number.SINGULAR.value:
+                        return form + 'м'
+                    else:
+                        if number == Number.SINGULAR.value:
+                            form += 'с'
+                        elif number == Number.PLURAL.value:
+                            form += 'д'
                 return self.add_personal_ending(form, number, person)
+
+            if form[-3:] == "аза":
+                form = form[:-3] + "аж"
+
             if self.ending == "чь":
                 if (number == Number.SINGULAR.value and person == Person.FIRST.value) or (
                         number == Number.PLURAL.value and person == Person.THIRD.value):
@@ -106,20 +139,20 @@ class RussianVerb(AbstractVerb):
             return form
 
     @staticmethod
-    def get_prefix(form):
-        return form[:1]
-
-    @staticmethod
     def add_personal_ending(form, number, person):
         if number == Number.SINGULAR.value:
             if person == Person.FIRST.value:
                 if form[-2:] == "ди":
                     form = form[:-2] + "ж"
+                if form[-2:] == "си":
+                    form = form[:-2] + "ш"
                 form = RussianVerb.add_1st_sing_3rd_plur_ending(form)
             else:
-                if not form[-1:] in ["и"]:
+                if form[-1:] not in ["и", "с"]:
                     form += "е"
                 if person == Person.SECOND.value:
+                    if form[-1:] == 'с':
+                        form = form[:-1]
                     form += "шь"
                 if person == Person.THIRD.value:
                     form += "т"
@@ -127,16 +160,20 @@ class RussianVerb(AbstractVerb):
             if person == Person.THIRD.value:
                 if form[-1:] in ["ч"]:
                     form = form[:-1] + "тя"
-                if form[-2:] in ["ди"]:
+                if form[-2:] in ["ди", "си"]:
                     form = form[:-1] + "я"
                 form = RussianVerb.add_1st_sing_3rd_plur_ending(form)
                 form += "т"
                 if form[-3:] in "рют":
                     form = form[:-2] + "ят"
+                if form[-3:] in "чут":
+                    form = form[:-2] + "ат"
             else:
                 if form[-1:] in ["ч"]:
                     form = form[:-1] + "ти"
-                if not form[-1:] in ["и"]:
+                if form.endswith("ад"):
+                    form += "и"
+                if form[-1:] not in ["и"]:
                     form += "е"
                 if person == Person.FIRST.value:
                     form += "м"
@@ -150,10 +187,11 @@ class RussianVerb(AbstractVerb):
             form = form[:-1]
         form_ending = form[-1:]
         # in ["ж", "ч", "ш", "щ", "г", "д", "н", "в", "м"]:
-        if not RussianVerb.is_vowel(form_ending) and form_ending != 'р':
-            form += "у"
-        elif form_ending != "я":
-            form += "ю"
+        if not RussianVerb.is_vowel(form_ending) and (
+                (form_ending not in ['р'])):  # or RussianVerb.is_vowel(form[-2:-1])):
+            form += 'у'
+        elif form[-2:] in ['ля'] or form_ending not in ['я']:
+            form += 'ю'
         return form
 
     @staticmethod
@@ -164,7 +202,6 @@ class RussianVerb(AbstractVerb):
             return False
 
     def get_stem(self):
-        stem = self.stem
         ir_verb_table_path = path.join(path.dirname(__file__), 'irverbs.tsv')
         with open(ir_verb_table_path, newline='\n') as irregular_verbs:
             import csv
@@ -174,7 +211,18 @@ class RussianVerb(AbstractVerb):
             base = irverb["base_form"]
             if base.strip() == self.get_infinitive().strip():
                 return irverb
+        if self.v_class == 3:
+            stem_present = self.stem[:-3] + 'у'
+        elif self.v_class in [1, 3]:
+            stem_present = self.stem
+        elif self.v_class == 4:
+            stem_present = self.stem[:-2] + 'н'
+        elif self.v_class == 5:
+            stem_present = self.stem[:-1]
+        else:
+            stem_present = self.stem
+
         return {'base_form': self.get_infinitive(),
-                'stem_past': stem,
-                'stem_present': stem,
-                'stem_future': stem}
+                'stem_past': self.stem,
+                'stem_present': stem_present,
+                'stem_future': self.get_infinitive()}

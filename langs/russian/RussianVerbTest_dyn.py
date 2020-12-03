@@ -29,7 +29,7 @@ class RussianVerbTest(unittest.TestCase):
     def test_get_verb_forms(self):
         test_verbs_path = path.join('test_verbs')
         files = listdir(test_verbs_path)
-        print(files)
+        print(str(len(files)) +" тестов: " + str(files))
         for file in files:
             infinitive = file[:file.index('.')]
             with open(path.join('test_verbs', file), newline='\n') as verb_forms:
