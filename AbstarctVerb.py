@@ -48,6 +48,12 @@ class AbstractVerb(ABC):
             Number.PLURAL: {Genus.MALE: "They", Genus.FEMALE: "They", Genus.MIDDLE: "They"}}
     }
 
+    tenses = {
+        Tense.PAST: "Past",
+        Tense.PRESENT: "Present",
+        Tense.FUTURE: "Future"
+    }
+
     def __init__(self, infinitive):
         self._infinitive = infinitive.lower()
 

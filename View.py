@@ -7,13 +7,12 @@ from flask import Flask, jsonify, abort, request, make_response, render_template
 from werkzeug.serving import WSGIRequestHandler
 
 import VerbFabric
-from AbstarctVerb import Person, Tense, Number, AbstractVerb
-from langs.english.EnglishVerb import EnglishVerb
+from AbstarctVerb import Person, Tense, Number
 
 WSGIRequestHandler.protocol_version = "HTTP/1.1"
 app = Flask(__name__, static_url_path="/static")
 
-langs = {'english': 'English', 'spanish': 'Español', 'german': 'Deutsche', 'russian': 'Русский'}
+langs = {'russian': 'Русский', 'english': 'English', 'spanish': 'Español', 'german': 'Deutsche'}
 default_verbs = {'english': 'be', 'spanish': 'ser', 'german': 'sein', 'russian': 'быть'}
 
 

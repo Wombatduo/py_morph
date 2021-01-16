@@ -1,6 +1,6 @@
 from os import path
 
-import requests
+import requests, csv
 from bs4 import BeautifulSoup
 
 from AbstarctVerb import AbstractVerb, Person, Number, Tense, Genus
@@ -40,16 +40,32 @@ class RussianVerb(AbstractVerb):
             Number.PLURAL: {Genus.MALE: "они", Genus.FEMALE: "они", Genus.MIDDLE: "они"}}
     }
 
+    tenses = {
+        Tense.PAST: "Прошлое",
+        Tense.PRESENT: "Настоящее",
+        Tense.FUTURE: "Будущее"
+    }
+
     def __init__(self, infinitive):
         super().__init__(infinitive)
         self.ending = self.get_infinitive()[-2:]
         self.stem = self.get_infinitive()[:-2]
         self.is_reflexive = self.ending == "ся"
+
+        self.is_perfect = False
+        verbs_list = self.read_tsv_as_list('perfect.tsv')
+        for verb in verbs_list:
+            perfect = verb["perfect_form"]
+            if perfect == self.get_infinitive().strip():
+                self.perfect = perfect
+                self.is_perfect = True
+                self.simple = verb["simple_form"]
+
         if self.stem[-3:] in ['ова', 'ева']:  # гаголы 3 класса
             self.v_class = 3
-        elif self.stem[-1] in ['а']:  # глаголы 1 и 2 классов
+        elif self.stem[-1] in ['а', 'ы']:  # глаголы 1 и 2 классов
             self.v_class = 1
-        elif self.stem[-1] in ['е']:  # глаголы 1 и 2 классов
+        elif self.stem[-1] in ['е', 'о']:  # глаголы 1 и 2 классов
             self.v_class = 2
         elif self.stem[-2:] in ['ну']:  # гаголы 4 класса
             self.v_class = 4
@@ -61,8 +77,7 @@ class RussianVerb(AbstractVerb):
             self.conjugation = 1
         else:
             self.conjugation = 2
-
-            # logging.info(f'Stem {}',self.get_stem())
+        # logging.info(f'Stem {}',self.get_stem())
         # logging.info(self.ending)
 
     def morph(self, person, number, tense, genus):
@@ -74,6 +89,10 @@ class RussianVerb(AbstractVerb):
             return sform + 'ся'
 
         if tense == Tense.PRESENT.value:
+            if self.is_perfect:
+                simple_form = RussianVerb(self.simple)
+                return simple_form.morph(person, number, tense, genus)
+
             form = self.get_stem()['stem_present']
             # print(f"--- {self.stem}-{self.ending} ->> {form}")
             if self.get_stem()['base_form'] in ["быть"]:
@@ -86,7 +105,7 @@ class RussianVerb(AbstractVerb):
                     form = self.get_stem()['stem_past']
             # if (number == Number.SINGULAR.value and person == Person.FIRST.value and form[-2:] == "ди"):
             #     form = form[:-2] + "ж"
-            form = self.add_personal_ending(form, number, person)
+            form = self.add_personal_ending(form, number, person, tense)
             return form
 
         if tense == Tense.PAST.value:
@@ -119,7 +138,7 @@ class RussianVerb(AbstractVerb):
                             form += 'с'
                         elif number == Number.PLURAL.value:
                             form += 'д'
-                return self.add_personal_ending(form, number, person)
+                return self.add_personal_ending(form, number, person, tense)
 
             if form[-3:] == "аза":
                 form = form[:-3] + "аж"
@@ -128,31 +147,35 @@ class RussianVerb(AbstractVerb):
                 if (number == Number.SINGULAR.value and person == Person.FIRST.value) or (
                         number == Number.PLURAL.value and person == Person.THIRD.value):
                     form = self.get_stem()['stem_past']
-                form = "с" + self.add_personal_ending(form, number, person)
+                form = "с" + self.add_personal_ending(form, number, person, tense)
             else:
                 if self.get_infinitive() == "быть":
                     main_verb = ""
                 else:
                     main_verb = " " + self.get_infinitive()
-                auxiliary_verb = self.add_personal_ending("буд", number, person)
+                auxiliary_verb = self.add_personal_ending("буд", number, person, tense)
                 return auxiliary_verb + main_verb
             return form
 
-    @staticmethod
-    def add_personal_ending(form, number, person):
+    def add_personal_ending(self, form, number, person, tense):
         if number == Number.SINGULAR.value:
             if person == Person.FIRST.value:
                 if form[-2:] == "ди":
                     form = form[:-2] + "ж"
                 if form[-2:] == "си":
                     form = form[:-2] + "ш"
-                form = RussianVerb.add_1st_sing_3rd_plur_ending(form)
+                form = self.add_1st_sing_3rd_plur_ending(form, tense)
             else:
-                if form[-1:] not in ["и", "с"]:
-                    form += "е"
+                if self.conjugation == 1:
+                    form += 'е'
+                elif self.conjugation == 2:
+                    form += 'и'
+                # if form[-1:] not in ["и", "с"]:
+                #     form += "е"
                 if person == Person.SECOND.value:
-                    if form[-1:] == 'с':
-                        form = form[:-1]
+                    # if self.conjugation == 1:
+                    # if form[-1:] == 'с':
+                    #     form = form[:-1]
                     form += "шь"
                 if person == Person.THIRD.value:
                     form += "т"
@@ -162,7 +185,7 @@ class RussianVerb(AbstractVerb):
                     form = form[:-1] + "тя"
                 if form[-2:] in ["ди", "си"]:
                     form = form[:-1] + "я"
-                form = RussianVerb.add_1st_sing_3rd_plur_ending(form)
+                form = self.add_1st_sing_3rd_plur_ending(form, tense)
                 form += "т"
                 if form[-3:] in "рют":
                     form = form[:-2] + "ят"
@@ -173,19 +196,23 @@ class RussianVerb(AbstractVerb):
                     form = form[:-1] + "ти"
                 if form.endswith("ад"):
                     form += "и"
-                if form[-1:] not in ["и"]:
-                    form += "е"
+                # if form[-1:] not in ["и"]:
+                #     form += "е"
+                if self.conjugation == 1:
+                    form += 'е'
+                elif self.conjugation == 2:
+                    form += 'и'
                 if person == Person.FIRST.value:
                     form += "м"
                 if person == Person.SECOND.value:
                     form += "те"
         return form
 
-    @staticmethod
-    def add_1st_sing_3rd_plur_ending(form):
+    def add_1st_sing_3rd_plur_ending(self, form, tense):
+        # if self.conjugation == 1:
         if form[-1:] in ["и"]:
             form = form[:-1]
-        form_ending = form[-1:]
+        form_ending = self.get_stem()['stem_past'][-1:] if tense == Tense.PRESENT.value else form[-1:]
         # in ["ж", "ч", "ш", "щ", "г", "д", "н", "в", "м"]:
         if not RussianVerb.is_vowel(form_ending) and (
                 (form_ending not in ['р'])):  # or RussianVerb.is_vowel(form[-2:-1])):
@@ -195,6 +222,13 @@ class RussianVerb(AbstractVerb):
         return form
 
     @staticmethod
+    def read_tsv_as_list(tsv):
+        perfect_table_path = path.join(path.dirname(__file__), tsv)
+        with open(perfect_table_path, newline='\n') as perfects_file:
+            verbs_list = list(csv.DictReader(perfects_file, delimiter='\t'))
+        return verbs_list
+
+    @staticmethod
     def is_vowel(letter):
         if str(letter).lower() in ('а', 'е', 'ё', 'и', 'о', 'у', 'ы', 'э', 'ю', 'я'):
             return True
@@ -202,11 +236,7 @@ class RussianVerb(AbstractVerb):
             return False
 
     def get_stem(self):
-        ir_verb_table_path = path.join(path.dirname(__file__), 'irverbs.tsv')
-        with open(ir_verb_table_path, newline='\n') as irregular_verbs:
-            import csv
-            verb_reader = csv.DictReader(irregular_verbs, delimiter='\t')
-            verbs_list = list(verb_reader)
+        verbs_list = self.read_tsv_as_list('irverbs.tsv')
         for irverb in verbs_list:
             base = irverb["base_form"]
             if base.strip() == self.get_infinitive().strip():
